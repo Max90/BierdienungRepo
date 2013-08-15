@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/tisch_nr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/tisch_nr" />
+
+    <EditText
+        android:id="@+id/nr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tisch_nr"
+        android:layout_marginTop="20dp"
+        android:hint="@string/nr" />
+
+    <Button
+        android:id="@+id/getraenke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nr"
+        android:layout_marginTop="20dp"
+        android:text="@string/getraenke" />
+
+    <Button
+        android:id="@+id/essen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getraenke"
+        android:layout_marginTop="20dp"
+        android:text="@string/essen" />
+
+    <Button
+        android:id="@+id/uebersicht"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/essen"
+        android:layout_marginTop="20dp"
+        android:text="@string/uebersicht" />
+
+</RelativeLayout>

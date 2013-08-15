@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bierdienung</string>
+    <string name="action_settings">Settings</string>
+    <string name="bedienung">Bedienung</string>
+    <string name="ausschank">Ausschank</string>
+    <string name="kueche">Küche</string>
+    <string name="einstellungen">Einstellungen</string>
+    <string name="speisekarte">Speisekarte eingeben</string>
+    <string name="tische">Tische anlegen</string>
+    <string name="refresh">Refresh</string>
+    <string name="uebersicht">Übersicht</string>
+    <string name="essen">Essen</string>
+    <string name="getraenke">Getränke</string>
+    <string name="tisch_nr">Tisch-Nummer: </string>
+     <string name="nr">Nummer eingeben</string>
+
+</resources>
