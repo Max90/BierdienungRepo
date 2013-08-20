@@ -11,7 +11,7 @@ public class Ausschank extends Activity{
 	private String string;
 	private int test;
 	private int max;
-	private int jonema2;
+	private int saucool;
 	
 	private int jan;
 	@Override
