@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 	private Button einstellungenButton;
 	private Button bedienungButton;
 	private Button ausschankButton;
-	private Button kuecheButton;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
