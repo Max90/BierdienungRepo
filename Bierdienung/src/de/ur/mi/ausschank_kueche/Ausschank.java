@@ -10,6 +10,7 @@ public class Ausschank extends Activity{
 
 	private String string;
 	private int test;
+	private int max;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
