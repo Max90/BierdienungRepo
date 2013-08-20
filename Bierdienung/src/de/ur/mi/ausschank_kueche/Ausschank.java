@@ -8,7 +8,7 @@ import android.view.Menu;
 public class Ausschank extends Activity{
 	
 
-	
+	private String string;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
