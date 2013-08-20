@@ -12,6 +12,8 @@ public class Ausschank extends Activity{
 	private int test;
 	private int max;
 	private int jonema;
+	
+	private int jan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
