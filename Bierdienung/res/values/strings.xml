@@ -14,6 +14,8 @@
     <string name="essen">Essen</string>
     <string name="getraenke">Getränke</string>
     <string name="tisch_nr">Tisch-Nummer: </string>
-     <string name="nr">Nummer eingeben</string>
+    <string name="nr">Nummer eingeben</string>
+    <string name="title_activity_parse">Parse</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

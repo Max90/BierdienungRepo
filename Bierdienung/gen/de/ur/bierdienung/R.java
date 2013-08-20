@@ -44,9 +44,11 @@ public final class R {
         public static final int activity_einstellungen=0x7f030002;
         public static final int activity_kueche=0x7f030003;
         public static final int activity_main=0x7f030004;
+        public static final int activity_parse=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;
+        public static final int parse=0x7f070001;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -56,12 +58,14 @@ public final class R {
         public static final int einstellungen=0x7f050005;
         public static final int essen=0x7f05000a;
         public static final int getraenke=0x7f05000b;
+        public static final int hello_world=0x7f05000f;
         public static final int kueche=0x7f050004;
         public static final int nr=0x7f05000d;
         public static final int refresh=0x7f050008;
         public static final int speisekarte=0x7f050006;
         public static final int tisch_nr=0x7f05000c;
         public static final int tische=0x7f050007;
+        public static final int title_activity_parse=0x7f05000e;
         public static final int uebersicht=0x7f050009;
     }
     public static final class style {
