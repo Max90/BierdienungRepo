@@ -7,6 +7,7 @@ import android.view.Menu;
 
 public class Bedienung extends Activity{
 	
+	private String string = "es arschlecher";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
