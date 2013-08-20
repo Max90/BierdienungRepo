@@ -10,7 +10,7 @@ public class Ausschank extends Activity{
 
 	private String string;
 	private int test;
-	private int max;
+	private int maximilian;
 	private int jonema;
 	
 	private int jan;
