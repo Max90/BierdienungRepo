@@ -8,14 +8,6 @@ import android.view.Menu;
 public class Ausschank extends Activity{
 	
 
-	private String string;
-	private int test;
-	private int max;
-	private int nichtgleichzeitig;
-	private int ichbincooler;
-	
-	
-	private int jan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
