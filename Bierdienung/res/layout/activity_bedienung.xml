@@ -17,7 +17,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tisch_nr"
         android:layout_marginTop="20dp"
-        android:hint="@string/nr" />
+        android:hint="@string/nr"
+        android:maxLength="3"
+        android:numeric="integer" />
 
     <Button
         android:id="@+id/getraenke"

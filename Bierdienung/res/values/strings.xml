@@ -17,5 +17,12 @@
     <string name="nr">Nummer eingeben</string>
     <string name="title_activity_parse">Parse</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_create_bestellung">CreateBestellung</string>
+    <string name="empty">There are no todo items.</string>
+    <string name="menu_insert">Add Todo</string>
+    <string name="name">Enter your todo</string>
+    <string name="confirm">Done</string>
+    <string name="create_todo">Create Todo</string>
+    <string name="menu_delete">Delete Todo</string>
 
 </resources>
