@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -24,12 +25,15 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
+import de.ur.mi.bedienung.Bedienung;
+import de.ur.mi.bierdienung.GetraenkekarteActivity;
 
 public class ToDoListActivity extends ListActivity {
 	private static final int ACTIVITY_CREATE = 0;
 	private static final int ACTIVITY_EDIT = 1;
 
 	public static final int INSERT_ID = Menu.FIRST;
+	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
 	private static final int DELETE_ID = Menu.FIRST + 1;
 
 	private List<ParseObject> todos;
@@ -150,6 +154,9 @@ public class ToDoListActivity extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
 		menu.add(0, INSERT_ID, 0, R.string.menu_insert);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		
 		return result;
 	}
 
@@ -189,6 +196,12 @@ public class ToDoListActivity extends ListActivity {
 		case INSERT_ID:
 			createTodo();
 			return true;
+		case R.id.getraenkekarte:
+			Intent i = new Intent(ToDoListActivity.this,
+					GetraenkekarteActivity.class);
+			startActivity(i);
+			return true;
+		
 		}
 
 		return super.onOptionsItemSelected(item);

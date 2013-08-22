@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
@@ -27,15 +28,21 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		setupUI();
+		
+	
+		
+		//Parse -------------
 		Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu", "FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW"); 
-
 		ParseUser.enableAutomaticUser();
 		ParseACL defaultACL = new ParseACL();
 		// Optionally enable public read access.
-		// defaultACL.setPublicReadAccess(true);
+		defaultACL.setPublicReadAccess(true);
 		ParseACL.setDefaultACL(defaultACL, true);
+		
+		
 	}
 
 	private void setupUI() {

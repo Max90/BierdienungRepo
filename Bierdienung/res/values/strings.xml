@@ -24,5 +24,6 @@
     <string name="confirm">Done</string>
     <string name="create_todo">Create Todo</string>
     <string name="menu_delete">Delete Todo</string>
+    <string name="title_activity_getraenkekarte">GetraenkekarteActivity</string>
 
 </resources>

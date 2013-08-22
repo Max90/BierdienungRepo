@@ -5,5 +5,20 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/tisch"
+        android:icon="@drawable/tisch_icon"
+        android:showAsAction="always"
+        android:title="tisch"/>
+    <item
+        android:id="@+id/getraenkekarte"
+        android:icon="@drawable/bier_icon"
+        android:showAsAction="always"
+        android:title="getränkekarte"/>
+    <item
+        android:id="@+id/speisekarte"
+        android:icon="@drawable/essen_icon"
+        android:showAsAction="always"
+        android:title="speisekarte"/>
 
 </menu>
