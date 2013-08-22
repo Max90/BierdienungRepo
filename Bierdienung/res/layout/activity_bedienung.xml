@@ -19,30 +19,14 @@
         android:layout_marginTop="20dp"
         android:hint="@string/nr"
         android:maxLength="3"
-        android:numeric="integer" />
+        android:inputType="numberDecimal" />
 
     <Button
-        android:id="@+id/getraenke"
+        android:id="@+id/bEnterBedienung"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nr"
         android:layout_marginTop="20dp"
-        android:text="@string/getraenke" />
-
-    <Button
-        android:id="@+id/essen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/getraenke"
-        android:layout_marginTop="20dp"
-        android:text="@string/essen" />
-
-    <Button
-        android:id="@+id/uebersicht"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/essen"
-        android:layout_marginTop="20dp"
-        android:text="@string/uebersicht" />
+        android:text="@string/enter_bedienung" />
 
 </RelativeLayout>

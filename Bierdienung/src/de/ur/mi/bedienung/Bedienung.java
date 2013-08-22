@@ -15,15 +15,15 @@ import android.widget.EditText;
 public class Bedienung extends Activity{
 	
 	private EditText tischNummer;
-	private Button getraenkeButton;
+	private Button bEnterBedienung;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bedienung);
-		getraenkeButton = (Button) findViewById(R.id.getraenke);
+		bEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
 		tischNummer = (EditText) findViewById(R.id.nr);
-		getraenkeButton.setOnClickListener(new OnClickListener() {
+		bEnterBedienung.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
