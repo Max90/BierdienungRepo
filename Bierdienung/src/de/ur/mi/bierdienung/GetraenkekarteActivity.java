@@ -5,25 +5,26 @@ import java.util.List;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-
-import android.widget.TextView;
-
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
+import de.ur.mi.bedienung.Bedienung;
+import de.ur.mi.parse.ToDoListActivity;
 
 //import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class GetraenkekarteActivity extends ListActivity {
-
+	Bedienung bedienung = new Bedienung();
 	private List<ParseObject> getraenkeList;
 	private Dialog progressDialog;
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
@@ -69,5 +70,33 @@ public class GetraenkekarteActivity extends ListActivity {
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+		
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		
+		return result;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+	
+		
+		case R.id.tisch:
+			Intent todolistIntent = new Intent(GetraenkekarteActivity.this,
+					ToDoListActivity.class);
+			todolistIntent.putExtra("tisch", bedienung.getTNR());
+			startActivity(todolistIntent);
+			return true;
+		
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
 
 }

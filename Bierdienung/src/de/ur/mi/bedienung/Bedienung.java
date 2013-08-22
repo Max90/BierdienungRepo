@@ -17,6 +17,8 @@ public class Bedienung extends Activity{
 	
 	private EditText tischNummer;
 	private Button bEnterBedienung;
+	private int tNr;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,8 @@ public class Bedienung extends Activity{
 				
 				Intent i = new Intent(Bedienung.this,
 						ToDoListActivity.class);
-				i.putExtra("tisch", Integer.parseInt(tischNummer.getText().toString()));
+				tNr = Integer.parseInt(tischNummer.getText().toString());
+				i.putExtra("tisch", tNr);
 				startActivity(i);
 				
 				
@@ -51,6 +54,11 @@ public class Bedienung extends Activity{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public int getTNR(){
+		
+		return tNr;
 	}
 
 }

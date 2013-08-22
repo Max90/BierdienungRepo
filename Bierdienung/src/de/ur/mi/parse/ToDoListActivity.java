@@ -38,12 +38,16 @@ public class ToDoListActivity extends ListActivity {
 
 	private List<ParseObject> todos;
 	private Dialog progressDialog;
+	
+	
+	
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 		//hier soll für jeden Tisch eine neue Tabelle angelegt werden indem ich die eingegebene Nummer in eine Variable abspeichere
 		Bundle e = getIntent().getExtras();
 		int nr = e.getInt("tisch");
 		String tischNr = "tisch" + nr;
+		
 		
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
@@ -199,8 +203,10 @@ public class ToDoListActivity extends ListActivity {
 		case R.id.getraenkekarte:
 			Intent i = new Intent(ToDoListActivity.this,
 					GetraenkekarteActivity.class);
+	
 			startActivity(i);
 			return true;
+		
 		
 		}
 

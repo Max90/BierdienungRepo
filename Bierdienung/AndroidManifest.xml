@@ -35,7 +35,8 @@
         </activity>
         <activity
             android:name="de.ur.mi.bedienung.Bedienung"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.Einstellungen"
@@ -43,15 +44,18 @@
         </activity>
         <activity
             android:name="de.ur.mi.parse.ToDoListActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="de.ur.mi.parse.CreateBestellung" >
+        <activity
+            android:name="de.ur.mi.parse.CreateBestellung"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.GetraenkekarteActivity"
-            android:label="@string/title_activity_getraenkekarte" >
+            android:label="@string/title_activity_getraenkekarte"
+            android:screenOrientation="portrait" >
         </activity>
-       
     </application>
 
 </manifest>
