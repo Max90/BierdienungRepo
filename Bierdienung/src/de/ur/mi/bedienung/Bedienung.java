@@ -13,13 +13,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Bedienung extends Activity{
-	
+public class Bedienung extends Activity {
+
 	private EditText tischNummer;
 	private Button bEnterBedienung;
-	private int tNr;
-	
-	
+	private static int tNr;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,25 +27,20 @@ public class Bedienung extends Activity{
 		bEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
 		tischNummer = (EditText) findViewById(R.id.nr);
 		bEnterBedienung.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
+
+				Intent i = new Intent(Bedienung.this, ToDoListActivity.class);
 				
-				Intent i = new Intent(Bedienung.this,
-						ToDoListActivity.class);
+				
 				tNr = Integer.parseInt(tischNummer.getText().toString());
-				i.putExtra("tisch", tNr);
+				
 				startActivity(i);
-				
-				
-				
-				
-				
-				
-				
+
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -55,8 +49,8 @@ public class Bedienung extends Activity{
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	
-	public int getTNR(){
+
+	public static int getTNR() {
 		
 		return tNr;
 	}

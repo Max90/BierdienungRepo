@@ -18,13 +18,12 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.bedienung.Bedienung;
 import de.ur.mi.parse.ToDoListActivity;
 
 //import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class GetraenkekarteActivity extends ListActivity {
-	Bedienung bedienung = new Bedienung();
+	
 	private List<ParseObject> getraenkeList;
 	private Dialog progressDialog;
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
@@ -89,7 +88,7 @@ public class GetraenkekarteActivity extends ListActivity {
 		case R.id.tisch:
 			Intent todolistIntent = new Intent(GetraenkekarteActivity.this,
 					ToDoListActivity.class);
-			todolistIntent.putExtra("tisch", bedienung.getTNR());
+			
 			startActivity(todolistIntent);
 			return true;
 		
