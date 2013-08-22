@@ -24,72 +24,50 @@ import de.ur.bierdienung.R;
 
 public class GetraenkekarteActivity extends ListActivity {
 
-	private List<ParseObject> todos;
+	private List<ParseObject> getraenkeList;
 	private Dialog progressDialog;
-
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of todos in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					"Getraenke");
 			query.orderByDescending("_created_at");
-
 			try {
-				todos = query.find();
+				getraenkeList = query.find();
 			} catch (ParseException e) {
-
 			}
 			return null;
 		}
-
 		@Override
 		protected void onPreExecute() {
-			GetraenkekarteActivity.this.progressDialog = ProgressDialog.show(
-					GetraenkekarteActivity.this, "", "Loading...", true);
+			GetraenkekarteActivity.this.progressDialog = ProgressDialog.show(GetraenkekarteActivity.this,
+					"", "Loading...", true);
 			super.onPreExecute();
 		}
-
 		@Override
 		protected void onProgressUpdate(Void... values) {
-
 			super.onProgressUpdate(values);
 		}
-
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 					GetraenkekarteActivity.this, R.layout.todo_row);
-			for (ParseObject todo : todos) {
-				adapter.add((String) todo.get("name"));
+			for (ParseObject todo : getraenkeList) {
+				adapter.add((String) todo.get("Name"));
 			}
 			setListAdapter(adapter);
 			GetraenkekarteActivity.this.progressDialog.dismiss();
-			//TextView empty = (TextView) findViewById(android.R.id.empty);
-			//empty.setVisibility(View.VISIBLE);
 		}
 	}
-
+	/** Called when the activity is first created. */
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_getraenkekarte);
-
-		//TextView empty = (TextView) findViewById(android.R.id.empty);
-		//empty.setVisibility(View.INVISIBLE);
-
+		setContentView(R.layout.main);
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.getraenkekarte, menu);
-		return true;
 	}
 
 }
