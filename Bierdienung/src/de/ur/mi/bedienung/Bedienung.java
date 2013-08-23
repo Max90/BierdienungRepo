@@ -32,6 +32,7 @@ public class Bedienung extends Activity {
 			public void onClick(View v) {
 
 				Intent i = new Intent(Bedienung.this, ToDoListActivity.class);
+
 				tNr = Integer.parseInt(tischNummer.getText().toString());
 
 				startActivity(i);
