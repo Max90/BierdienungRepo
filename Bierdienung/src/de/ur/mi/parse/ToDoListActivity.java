@@ -39,9 +39,9 @@ public class ToDoListActivity extends ListActivity {
 	private Dialog progressDialog;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-		// hier soll für jeden Tisch eine neue Tabelle angelegt werden indem ich
-		// die eingegebene Nummer in eine Variable abspeichere
-		// Bundle e = getIntent().getExtras();
+        // hier soll fÃ¼r jeden Tisch eine neue Tabelle angelegt werden indem ich
+        // die eingegebene Nummer in eine Variable abspeichere
+        // Bundle e = getIntent().getExtras();
 		// int nr = e.getInt("tisch");
 
 		String tischNr = "tisch" + Bedienung.getTNR();
