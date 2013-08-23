@@ -2,7 +2,6 @@ package de.ur.mi.parse;
 
 import java.util.List;
 
-
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -38,18 +37,15 @@ public class ToDoListActivity extends ListActivity {
 
 	private List<ParseObject> todos;
 	private Dialog progressDialog;
-	
-	
-	
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-		//hier soll für jeden Tisch eine neue Tabelle angelegt werden indem ich die eingegebene Nummer in eine Variable abspeichere
-		//Bundle e = getIntent().getExtras();
-		//int nr = e.getInt("tisch");
-		
+		// hier soll für jeden Tisch eine neue Tabelle angelegt werden indem ich
+		// die eingegebene Nummer in eine Variable abspeichere
+		// Bundle e = getIntent().getExtras();
+		// int nr = e.getInt("tisch");
+
 		String tischNr = "tisch" + Bedienung.getTNR();
-		
-		
+
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of todos in sorted order
@@ -66,8 +62,8 @@ public class ToDoListActivity extends ListActivity {
 
 		@Override
 		protected void onPreExecute() {
-			ToDoListActivity.this.progressDialog = ProgressDialog.show(ToDoListActivity.this, "",
-					"Loading...", true);
+			ToDoListActivity.this.progressDialog = ProgressDialog.show(
+					ToDoListActivity.this, "", "Loading...", true);
 			super.onPreExecute();
 		}
 
@@ -80,8 +76,8 @@ public class ToDoListActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(ToDoListActivity.this,
-					R.layout.todo_row);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					ToDoListActivity.this, R.layout.todo_row);
 			for (ParseObject todo : todos) {
 				adapter.add((String) todo.get("name"));
 			}
@@ -111,7 +107,8 @@ public class ToDoListActivity extends ListActivity {
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	protected void onActivityResult(int requestCode, int resultCode,
+			Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
 		if (intent == null) {
 			return;
@@ -161,12 +158,13 @@ public class ToDoListActivity extends ListActivity {
 		menu.add(0, INSERT_ID, 0, R.string.menu_insert);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		
+
 		return result;
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
 	}
@@ -175,7 +173,8 @@ public class ToDoListActivity extends ListActivity {
 	public boolean onContextItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case DELETE_ID:
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+					.getMenuInfo();
 
 			// Delete the remote object
 			final ParseObject todo = todos.get(info.position);
@@ -204,13 +203,13 @@ public class ToDoListActivity extends ListActivity {
 		case R.id.getraenkekarte:
 			Intent i = new Intent(ToDoListActivity.this,
 					GetraenkekarteActivity.class);
-	
+
 			startActivity(i);
 			finish();
 			return true;
-		
-	
-		
+		case R.id.action_settings:
+			finish();
+			return true;
 		}
 
 		return super.onOptionsItemSelected(item);

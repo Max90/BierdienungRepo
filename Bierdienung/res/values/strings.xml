@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Bierdienung</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Tisch wechseln</string>
     <string name="bedienung">Bedienung</string>
     <string name="ausschank">Ausschank</string>
     <string name="kueche">Küche</string>

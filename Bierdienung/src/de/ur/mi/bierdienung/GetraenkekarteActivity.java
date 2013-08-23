@@ -23,9 +23,10 @@ import de.ur.mi.parse.ToDoListActivity;
 //import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class GetraenkekarteActivity extends ListActivity {
-	
+
 	private List<ParseObject> getraenkeList;
 	private Dialog progressDialog;
+
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
@@ -39,16 +40,19 @@ public class GetraenkekarteActivity extends ListActivity {
 			}
 			return null;
 		}
+
 		@Override
 		protected void onPreExecute() {
-			GetraenkekarteActivity.this.progressDialog = ProgressDialog.show(GetraenkekarteActivity.this,
-					"", "Loading...", true);
+			GetraenkekarteActivity.this.progressDialog = ProgressDialog.show(
+					GetraenkekarteActivity.this, "", "Loading...", true);
 			super.onPreExecute();
 		}
+
 		@Override
 		protected void onProgressUpdate(Void... values) {
 			super.onProgressUpdate(values);
 		}
+
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
@@ -61,6 +65,7 @@ public class GetraenkekarteActivity extends ListActivity {
 			GetraenkekarteActivity.this.progressDialog.dismiss();
 		}
 	}
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,34 +74,36 @@ public class GetraenkekarteActivity extends ListActivity {
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		
+
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	
-		
+
 		case R.id.tisch:
 			Intent todolistIntent = new Intent(GetraenkekarteActivity.this,
 					ToDoListActivity.class);
-			
+
 			startActivity(todolistIntent);
 			finish();
 			return true;
-		
+		case R.id.action_settings:
+			finish();
+			return true;
+	
+
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
-
 
 }
