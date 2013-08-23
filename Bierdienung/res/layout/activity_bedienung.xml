@@ -18,8 +18,11 @@
         android:layout_below="@+id/tisch_nr"
         android:layout_marginTop="20dp"
         android:hint="@string/nr"
-        android:maxLength="3"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:maxLength="3" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:id="@+id/bEnterBedienung"

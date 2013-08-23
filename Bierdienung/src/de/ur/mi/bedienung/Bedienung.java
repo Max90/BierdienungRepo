@@ -1,17 +1,16 @@
 package de.ur.mi.bedienung;
 
-import de.ur.bierdienung.R;
-
-import de.ur.mi.parse.ToDoListActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import de.ur.bierdienung.R;
+import de.ur.mi.parse.ToDoListActivity;
 
 public class Bedienung extends Activity {
 
@@ -26,21 +25,19 @@ public class Bedienung extends Activity {
 		setContentView(R.layout.activity_bedienung);
 		bEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
 		tischNummer = (EditText) findViewById(R.id.nr);
+
 		bEnterBedienung.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-
 				Intent i = new Intent(Bedienung.this, ToDoListActivity.class);
-
 				tNr = Integer.parseInt(tischNummer.getText().toString());
-
 				startActivity(i);
-
 			}
 		});
 
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,8 +47,14 @@ public class Bedienung extends Activity {
 	}
 
 	public static int getTNR() {
-
 		return tNr;
+	}
+
+	@Override
+	protected void onResume() {
+		tischNummer.setText("");
+		tischNummer.requestFocus();
+		super.onResume();
 	}
 
 }

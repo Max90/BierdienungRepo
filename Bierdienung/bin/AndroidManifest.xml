@@ -36,7 +36,8 @@
         <activity
             android:name="de.ur.mi.bedienung.Bedienung"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.Einstellungen"
