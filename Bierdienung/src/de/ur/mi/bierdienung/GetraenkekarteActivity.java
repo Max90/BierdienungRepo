@@ -90,6 +90,7 @@ public class GetraenkekarteActivity extends ListActivity {
 					ToDoListActivity.class);
 			
 			startActivity(todolistIntent);
+			finish();
 			return true;
 		
 		}

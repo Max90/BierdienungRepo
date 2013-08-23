@@ -206,6 +206,7 @@ public class ToDoListActivity extends ListActivity {
 					GetraenkekarteActivity.class);
 	
 			startActivity(i);
+			finish();
 			return true;
 		
 	
