@@ -19,7 +19,7 @@ import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.bierdienung.LoginSignupActivity;
-import de.ur.mi.parse.ListViewAdapter;
+import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
 
 public class Ausschank extends Activity {
@@ -28,7 +28,7 @@ public class Ausschank extends Activity {
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
-	ListViewAdapter adapter;
+	ListViewAdapter_Kueche_Ausschank adapter;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private Button refresh;
 
@@ -97,7 +97,7 @@ public class Ausschank extends Activity {
 			// Locate the listview in listview_main.xml
 			listview = (ListView) findViewById(R.id.listview);
 			// Pass the results into ListViewAdapter.java
-			adapter = new ListViewAdapter(Ausschank.this, parselistdownloadList);
+			adapter = new ListViewAdapter_Kueche_Ausschank(Ausschank.this, parselistdownloadList);
 			// Binds the Adapter to the ListView
 			listview.setAdapter(adapter);
 			// Close the progressdialog

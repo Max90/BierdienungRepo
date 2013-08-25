@@ -27,5 +27,7 @@
     <string name="Password">Password</string>
     <string name="LoginBtn">Login</string>
     <string name="SignupBtn">Sign Up</string>
+    <string name="appicon">AppIcon</string>
+    <string name="test">test</string>
 
 </resources>
