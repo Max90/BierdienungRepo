@@ -1,6 +1,6 @@
 package de.ur.mi.parse;
 
-public class parselistdownload {
+public class ParselistdownloadClass {
     private String name;
     private String preis;
  

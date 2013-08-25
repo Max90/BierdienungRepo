@@ -34,12 +34,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="de.ur.mi.bedienung.Bedienung"
+            android:name="de.ur.mi.bierdienung.Bedienung"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
-        <activity
-            android:name="de.ur.mi.bierdienung.Einstellungen" >
+        <activity android:name="de.ur.mi.bierdienung.config.Einstellungen" >
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.TischActivity"
@@ -59,6 +58,7 @@
         </activity>
         <activity android:name="de.ur.mi.parse.SingleItemView" >
         </activity>
+
     </application>
 
 </manifest>

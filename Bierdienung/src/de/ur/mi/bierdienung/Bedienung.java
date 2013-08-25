@@ -1,4 +1,4 @@
-package de.ur.mi.bedienung;
+package de.ur.mi.bierdienung;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import de.ur.bierdienung.R;
-import de.ur.mi.bierdienung.TischActivity;
 
 public class Bedienung extends Activity {
 
@@ -31,7 +30,8 @@ public class Bedienung extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Bedienung.this, TischActivity.class);
-				tNr = Integer.parseInt(tischNummer.getText().toString());
+				tNr = Integer.parseInt(tischNummer.getText().toString());											
+		
 				startActivity(i);
 			}
 		});

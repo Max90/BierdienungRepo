@@ -1,4 +1,4 @@
-package de.ur.mi.bierdienung;
+package de.ur.mi.bierdienung.config;
 
 import de.ur.bierdienung.R;
 import android.app.Activity;

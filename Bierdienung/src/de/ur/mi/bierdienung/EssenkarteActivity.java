@@ -19,7 +19,7 @@ import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.parse.ListViewAdapter;
-import de.ur.mi.parse.parselistdownload;
+import de.ur.mi.parse.ParselistdownloadClass;
 
 public class EssenkarteActivity extends Activity {
 	
@@ -28,7 +28,7 @@ public class EssenkarteActivity extends Activity {
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
 	ListViewAdapter adapter;
-	private List<parselistdownload> parselistdownloadList = null;
+	private List<ParselistdownloadClass> parselistdownloadList = null;
 	
 	public static final int INSERT_ID = Menu.FIRST;
 	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
@@ -39,6 +39,7 @@ public class EssenkarteActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
 		setContentView(R.layout.listview_main);
+
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
@@ -55,9 +56,9 @@ public class EssenkarteActivity extends Activity {
 			return true;
 			
 		case R.id.getraenkekarte:
-			Intent iEssen = new Intent(EssenkarteActivity.this,
+			Intent iGetraenke = new Intent(EssenkarteActivity.this,
 					GetraenkekarteActivity.class);
-			startActivity(iEssen);
+			startActivity(iGetraenke);
 			finish();
 			return true;
 			
@@ -98,7 +99,7 @@ public class EssenkarteActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// Create the array
-			parselistdownloadList = new ArrayList<parselistdownload>();
+			parselistdownloadList = new ArrayList<ParselistdownloadClass>();
 			try {
 				// Locate the class table named "Country" in Parse.com
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
@@ -106,7 +107,7 @@ public class EssenkarteActivity extends Activity {
 
 				ob = query.find();
 				for (ParseObject Name : ob) {
-					parselistdownload map = new parselistdownload();
+					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
 					map.setPreis((String) Name.get("Preis"));
 					parselistdownloadList.add(map);

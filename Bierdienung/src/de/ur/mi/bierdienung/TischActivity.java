@@ -22,7 +22,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.bedienung.Bedienung;
 
 public class TischActivity extends ListActivity {
 
@@ -94,7 +93,8 @@ public class TischActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listview);
+		setContentView(R.layout.listview);	
+		
 
 		TextView empty = (TextView) findViewById(android.R.id.empty);
 		empty.setVisibility(View.INVISIBLE);
@@ -150,16 +150,16 @@ public class TischActivity extends ListActivity {
 		switch (item.getItemId()) {
 	
 		case R.id.speisekarte:
-			Intent iTisch = new Intent(TischActivity.this,
+			Intent iEssen = new Intent(TischActivity.this,
 					EssenkarteActivity.class);
-			startActivity(iTisch);
+			startActivity(iEssen);
 			finish();
 			return true;
 			
 		case R.id.getraenkekarte:
-			Intent iEssen = new Intent(TischActivity.this,
+			Intent iGetraenke = new Intent(TischActivity.this,
 					GetraenkekarteActivity.class);
-			startActivity(iEssen);
+			startActivity(iGetraenke);
 			finish();
 			return true;
 			

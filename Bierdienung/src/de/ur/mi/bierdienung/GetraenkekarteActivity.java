@@ -19,16 +19,17 @@ import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.parse.ListViewAdapter;
-import de.ur.mi.parse.parselistdownload;
+import de.ur.mi.parse.ParselistdownloadClass;
 
 public class GetraenkekarteActivity extends Activity {
 	
 	// Declare Variables
+	
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
 	ListViewAdapter adapter;
-	private List<parselistdownload> parselistdownloadList = null;
+	private List<ParselistdownloadClass> parselistdownloadList = null;
 	
 	public static final int INSERT_ID = Menu.FIRST;
 	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
@@ -39,8 +40,11 @@ public class GetraenkekarteActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
 		setContentView(R.layout.listview_main);
+		
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
+		
+		
 	}
 	
 	@Override
@@ -98,7 +102,7 @@ public class GetraenkekarteActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// Create the array
-			parselistdownloadList = new ArrayList<parselistdownload>();
+			parselistdownloadList = new ArrayList<ParselistdownloadClass>();
 			try {
 				// Locate the class table named "Country" in Parse.com
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
@@ -106,7 +110,7 @@ public class GetraenkekarteActivity extends Activity {
 
 				ob = query.find();
 				for (ParseObject Name : ob) {
-					parselistdownload map = new parselistdownload();
+					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
 					map.setPreis((String) Name.get("Preis"));
 					parselistdownloadList.add(map);

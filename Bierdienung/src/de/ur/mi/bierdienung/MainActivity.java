@@ -8,7 +8,7 @@ import com.parse.ParseUser;
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.Ausschank;
 import de.ur.mi.ausschank_kueche.Kueche;
-import de.ur.mi.bedienung.Bedienung;
+import de.ur.mi.bierdienung.config.Einstellungen;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
