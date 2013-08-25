@@ -77,7 +77,7 @@ public class ToDoListActivity extends ListActivity {
 		protected void onPostExecute(Void result) {
 			// Put the list of todos into the list view
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					ToDoListActivity.this, R.layout.todo_row);
+					ToDoListActivity.this, R.layout.activity_todo_only_textview);
 			for (ParseObject todo : todos) {
 				adapter.add((String) todo.get("name"));
 			}
@@ -92,7 +92,7 @@ public class ToDoListActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.listview);
 
 		TextView empty = (TextView) findViewById(android.R.id.empty);
 		empty.setVisibility(View.INVISIBLE);
