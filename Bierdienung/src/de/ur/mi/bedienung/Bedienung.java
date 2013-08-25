@@ -10,7 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import de.ur.bierdienung.R;
-import de.ur.mi.parse.ToDoListActivity;
+import de.ur.mi.bierdienung.TischActivity;
 
 public class Bedienung extends Activity {
 
@@ -30,7 +30,7 @@ public class Bedienung extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Bedienung.this, ToDoListActivity.class);
+				Intent i = new Intent(Bedienung.this, TischActivity.class);
 				tNr = Integer.parseInt(tischNummer.getText().toString());
 				startActivity(i);
 			}
