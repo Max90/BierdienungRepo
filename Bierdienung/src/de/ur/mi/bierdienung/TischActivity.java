@@ -38,12 +38,12 @@ public class TischActivity extends ListActivity {
 		// Bundle e = getIntent().getExtras();
 		// int nr = e.getInt("tisch");
 
-		String tischNr = "tisch" + Bedienung.getTNR();
-
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of todos in sorted order
-			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(tischNr);
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+					LoginSignupActivity.getParseUser() + "_Bestellung");
+			query.whereEqualTo("Tisch", Bedienung.getTNR());
 			query.orderByDescending("_created_at");
 
 			try {
@@ -93,8 +93,7 @@ public class TischActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listview);	
-		
+		setContentView(R.layout.listview);
 
 		TextView empty = (TextView) findViewById(android.R.id.empty);
 		empty.setVisibility(View.INVISIBLE);
@@ -102,7 +101,6 @@ public class TischActivity extends ListActivity {
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,21 +146,21 @@ public class TischActivity extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	
+
 		case R.id.speisekarte:
 			Intent iEssen = new Intent(TischActivity.this,
 					EssenkarteActivity.class);
 			startActivity(iEssen);
 			finish();
 			return true;
-			
+
 		case R.id.getraenkekarte:
 			Intent iGetraenke = new Intent(TischActivity.this,
 					GetraenkekarteActivity.class);
 			startActivity(iGetraenke);
 			finish();
 			return true;
-			
+
 		case R.id.action_settings:
 			finish();
 			return true;
@@ -170,6 +168,5 @@ public class TischActivity extends ListActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
-
 
 }

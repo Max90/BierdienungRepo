@@ -110,6 +110,7 @@ public class EssenkarteActivity extends Activity {
 					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
 					map.setPreis((String) Name.get("Preis"));
+					map.setArt((String) Name.get("Art"));
 					parselistdownloadList.add(map);
 				}
 			} catch (ParseException e) {

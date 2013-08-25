@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.bierdienung.Bedienung;
+import de.ur.mi.bierdienung.LoginSignupActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,11 +84,13 @@ public class ListViewAdapter extends BaseAdapter {
 						+ " bestellt";
 						
 				 ParseObject objectToSave = new
-				 ParseObject("tisch"+Bedienung.getTNR());
+				 ParseObject(LoginSignupActivity.getParseUser()+"_Bestellung");
 				 objectToSave.put("Name",
 				 parselistdownloadList.get(position).getName());
 				 objectToSave.put("Preis",
 				 parselistdownloadList.get(position).getPreis());
+				 objectToSave.put("Tisch", Bedienung.getTNR());
+				 objectToSave.put("Art", parselistdownloadList.get(position).getArt());
 				 objectToSave.saveInBackground();
 				
 				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();

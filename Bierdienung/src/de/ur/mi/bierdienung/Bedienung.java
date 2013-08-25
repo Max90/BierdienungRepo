@@ -30,14 +30,13 @@ public class Bedienung extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Bedienung.this, TischActivity.class);
-				tNr = Integer.parseInt(tischNummer.getText().toString());											
-		
+				tNr = Integer.parseInt(tischNummer.getText().toString());
+
 				startActivity(i);
 			}
 		});
 
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

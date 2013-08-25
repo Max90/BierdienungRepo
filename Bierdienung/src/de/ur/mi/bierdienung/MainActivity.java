@@ -1,10 +1,5 @@
 package de.ur.mi.bierdienung;
 
-
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseUser;
-
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.Ausschank;
 import de.ur.mi.ausschank_kueche.Kueche;
@@ -31,18 +26,7 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		setupUI();
-		
-	
-		
-		//Parse -------------
-		Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu", "FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW"); 
-		ParseUser.enableAutomaticUser();
-		ParseACL defaultACL = new ParseACL();
-		// Optionally enable public read access.
-		defaultACL.setPublicReadAccess(true);
-		ParseACL.setDefaultACL(defaultACL, true);
-		
-		
+			
 	}
 
 	private void setupUI() {
