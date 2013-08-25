@@ -59,7 +59,7 @@ public class Kueche extends Activity {
 			// Create a progressdialog
 			mProgressDialog = new ProgressDialog(Kueche.this);
 			// Set progressdialog title
-			mProgressDialog.setTitle("Lade Getraenkeliste");
+			mProgressDialog.setTitle("Lade Kuechenliste");
 			// Set progressdialog message
 			mProgressDialog.setMessage("Loading...");
 			mProgressDialog.setIndeterminate(false);

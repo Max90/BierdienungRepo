@@ -60,7 +60,7 @@ public class Ausschank extends Activity {
 			// Create a progressdialog
 			mProgressDialog = new ProgressDialog(Ausschank.this);
 			// Set progressdialog title
-			mProgressDialog.setTitle("Lade Getraenkeliste");
+			mProgressDialog.setTitle("Lade Ausschankliste");
 			// Set progressdialog message
 			mProgressDialog.setMessage("Loading...");
 			mProgressDialog.setIndeterminate(false);
