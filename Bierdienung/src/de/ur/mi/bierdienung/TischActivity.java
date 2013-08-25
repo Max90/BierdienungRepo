@@ -80,7 +80,7 @@ public class TischActivity extends ListActivity {
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 					TischActivity.this, R.layout.activity_todo_only_textview);
 			for (ParseObject todo : todos) {
-				adapter.add((String) todo.get("name"));
+				adapter.add((String) todo.get("Name"));
 			}
 			setListAdapter(adapter);
 			TischActivity.this.mProgressDialog.dismiss();
