@@ -77,6 +77,7 @@ public class Ausschank extends Activity {
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 						LoginSignupActivity.getParseUser() + "_Bestellung");
 				query.whereEqualTo("Art", "Getraenk");
+				query.orderByAscending("Name");
 				ob = query.find();
 				for (ParseObject Name : ob) {
 					ParselistdownloadClass map = new ParselistdownloadClass();
