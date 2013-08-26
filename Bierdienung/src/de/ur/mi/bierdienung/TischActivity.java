@@ -92,6 +92,8 @@ public class TischActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listview_tisch);
 
+		setTitle("Tisch " + Bedienung.getTNR());
+
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
 	}

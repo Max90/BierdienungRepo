@@ -22,49 +22,47 @@ import de.ur.mi.parse.ListViewAdapter;
 import de.ur.mi.parse.ParselistdownloadClass;
 
 public class GetraenkekarteActivity extends Activity {
-	
+
 	// Declare Variables
-	
+
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
 	ListViewAdapter adapter;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
-	
+
 	public static final int INSERT_ID = Menu.FIRST;
 	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
 		setContentView(R.layout.listview_getranke_essen);
-		
+
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
-		
-		
+
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	
+
 		case R.id.tisch:
 			Intent iTisch = new Intent(GetraenkekarteActivity.this,
 					TischActivity.class);
 			startActivity(iTisch);
 			finish();
 			return true;
-			
+
 		case R.id.speisekarte:
 			Intent iEssen = new Intent(GetraenkekarteActivity.this,
 					EssenkarteActivity.class);
 			startActivity(iEssen);
 			finish();
 			return true;
-			
+
 		case R.id.action_settings:
 			finish();
 			return true;
@@ -72,16 +70,17 @@ public class GetraenkekarteActivity extends Activity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 
+		setTitle("Tisch " + Bedienung.getTNR());
+
 		return result;
 	}
-
 
 	// RemoteDataTask AsyncTask
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {

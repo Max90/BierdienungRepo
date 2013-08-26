@@ -39,6 +39,8 @@ public class EssenkarteActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
 		setContentView(R.layout.listview_getranke_essen);
+		
+		setTitle("Tisch " + Bedienung.getTNR());
 
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
