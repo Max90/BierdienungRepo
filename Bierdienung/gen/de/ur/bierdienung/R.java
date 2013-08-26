@@ -28,31 +28,35 @@ public final class R {
         public static final int tisch_icon=0x7f020004;
     }
     public static final class id {
-        public static final int action_settings=0x7f080016;
-        public static final int ausschank=0x7f08000a;
+        public static final int action_settings=0x7f08001a;
+        public static final int ausschank=0x7f08000c;
         public static final int bEnterBedienung=0x7f080002;
-        public static final int bedienung=0x7f080008;
-        public static final int einstellungen=0x7f08000b;
-        public static final int getraenkekarte=0x7f080018;
-        public static final int kueche=0x7f080009;
-        public static final int listview=0x7f080005;
-        public static final int listviewName=0x7f080014;
-        public static final int listviewPreis=0x7f080015;
-        public static final int login=0x7f080010;
-        public static final int logo=0x7f080007;
+        public static final int bedienung=0x7f08000a;
+        public static final int einstellungen=0x7f08000d;
+        public static final int getraenkekarte=0x7f08001c;
+        public static final int kueche=0x7f08000b;
+        public static final int listview=0x7f080007;
+        public static final int listviewName=0x7f080017;
+        public static final int listviewPreis=0x7f080018;
+        public static final int login=0x7f080012;
+        public static final int logo=0x7f080009;
         public static final int nr=0x7f080001;
-        public static final int password=0x7f08000f;
-        public static final int progressBarLogin=0x7f080012;
-        public static final int refresh=0x7f080006;
-        public static final int signup=0x7f080011;
+        public static final int password=0x7f080011;
+        public static final int progressBarLogin=0x7f080014;
+        public static final int refresh=0x7f080008;
+        public static final int signup=0x7f080013;
         public static final int speisekarte=0x7f080003;
-        public static final int text=0x7f080013;
-        public static final int tisch=0x7f080017;
+        public static final int text=0x7f080015;
+        public static final int textViewPreis=0x7f080016;
+        public static final int textViewProdukt=0x7f080005;
+        public static final int textViewTisch=0x7f080006;
+        public static final int textviewProdukt=0x7f080019;
+        public static final int tisch=0x7f08001b;
         public static final int tisch_nr=0x7f080000;
         public static final int tische=0x7f080004;
-        public static final int txtpassword=0x7f08000e;
-        public static final int txtusername=0x7f08000c;
-        public static final int username=0x7f08000d;
+        public static final int txtpassword=0x7f080010;
+        public static final int txtusername=0x7f08000e;
+        public static final int username=0x7f08000f;
     }
     public static final class layout {
         public static final int activity_bedienung=0x7f030000;
@@ -61,9 +65,9 @@ public final class R {
         public static final int activity_main=0x7f030003;
         public static final int activity_signup=0x7f030004;
         public static final int activity_todo_only_textview=0x7f030005;
-        public static final int listview=0x7f030006;
+        public static final int listview_getranke_essen=0x7f030006;
         public static final int listview_item=0x7f030007;
-        public static final int listview_main=0x7f030008;
+        public static final int listview_tisch=0x7f030008;
     }
     public static final class menu {
         public static final int create_bestellung=0x7f070000;
@@ -89,10 +93,13 @@ public final class R {
         public static final int menu_delete=0x7f050010;
         public static final int nameLabel=0x7f050011;
         public static final int nr=0x7f05000d;
+        public static final int preis=0x7f05001a;
         public static final int preisLabel=0x7f050012;
+        public static final int produkt=0x7f050019;
         public static final int refresh=0x7f050008;
         public static final int speisekarte=0x7f050006;
         public static final int test=0x7f050018;
+        public static final int tisch=0x7f05001b;
         public static final int tisch_nr=0x7f05000c;
         public static final int tische=0x7f050007;
     }

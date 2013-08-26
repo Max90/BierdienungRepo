@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -84,8 +83,6 @@ public class TischActivity extends ListActivity {
 			}
 			setListAdapter(adapter);
 			TischActivity.this.mProgressDialog.dismiss();
-			TextView empty = (TextView) findViewById(android.R.id.empty);
-			empty.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -93,10 +90,7 @@ public class TischActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listview);
-
-		TextView empty = (TextView) findViewById(android.R.id.empty);
-		empty.setVisibility(View.INVISIBLE);
+		setContentView(R.layout.listview_tisch);
 
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());

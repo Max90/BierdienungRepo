@@ -38,7 +38,7 @@ public class EssenkarteActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
-		setContentView(R.layout.listview_main);
+		setContentView(R.layout.listview_getranke_essen);
 
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();

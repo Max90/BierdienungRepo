@@ -81,7 +81,7 @@ public class Ausschank extends Activity {
 				for (ParseObject Name : ob) {
 					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
-					map.setPreis((String) Name.get("Preis"));
+					map.setPreis((String) Name.get("Tisch"));
 					map.setArt((String) Name.get("Art"));
 					parselistdownloadList.add(map);
 				}

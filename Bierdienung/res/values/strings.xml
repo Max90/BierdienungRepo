@@ -26,5 +26,7 @@
     <string name="SignupBtn">Sign Up</string>
     <string name="appicon">AppIcon</string>
     <string name="test">test</string>
-
+    <string name="produkt">Produkt: </string>
+	<string name="preis">Preis: </string>
+	<string name="tisch">Tisch: </string>
 </resources>

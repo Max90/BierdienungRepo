@@ -13,7 +13,7 @@ public class Bedienung extends Activity {
 
 	private EditText tischNummer;
 	private Button bEnterBedienung;
-	private static int tNr;
+	private static String tNr;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +28,14 @@ public class Bedienung extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Bedienung.this, TischActivity.class);
-				tNr = Integer.parseInt(tischNummer.getText().toString());
+				tNr = tischNummer.getText().toString();
 
 				startActivity(i);
 			}
 		});
 	}
 
-	public static int getTNR() {
+	public static String getTNR() {
 		return tNr;
 	}
 

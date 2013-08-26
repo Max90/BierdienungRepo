@@ -4,6 +4,7 @@ public class ParselistdownloadClass {
     private String name;
     private String preis;
     private String art;
+    private String tisch;
  
     public String getName() {
         return name;
@@ -27,6 +28,14 @@ public class ParselistdownloadClass {
  
     public void setArt(String art) {
         this.art = art;
+    }
+    
+    public String getTisch() {
+        return tisch;
+    }
+ 
+    public void setTisch(String tisch) {
+        this.tisch = tisch;
     }
  
  
