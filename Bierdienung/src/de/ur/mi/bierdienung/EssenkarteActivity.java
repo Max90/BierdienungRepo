@@ -21,10 +21,9 @@ import de.ur.bierdienung.R;
 import de.ur.mi.parse.ListViewAdapter;
 import de.ur.mi.parse.ParselistdownloadClass;
 
-public class GetraenkekarteActivity extends Activity {
+public class EssenkarteActivity extends Activity {
 	
 	// Declare Variables
-	
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
@@ -40,11 +39,9 @@ public class GetraenkekarteActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
 		setContentView(R.layout.listview_main);
-		
+
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
-		
-		
 	}
 	
 	@Override
@@ -52,16 +49,16 @@ public class GetraenkekarteActivity extends Activity {
 		switch (item.getItemId()) {
 	
 		case R.id.tisch:
-			Intent iTisch = new Intent(GetraenkekarteActivity.this,
+			Intent iTisch = new Intent(EssenkarteActivity.this,
 					TischActivity.class);
 			startActivity(iTisch);
 			finish();
 			return true;
 			
-		case R.id.speisekarte:
-			Intent iEssen = new Intent(GetraenkekarteActivity.this,
-					EssenkarteActivity.class);
-			startActivity(iEssen);
+		case R.id.getraenkekarte:
+			Intent iGetraenke = new Intent(EssenkarteActivity.this,
+					GetraenkekarteActivity.class);
+			startActivity(iGetraenke);
 			finish();
 			return true;
 			
@@ -89,9 +86,9 @@ public class GetraenkekarteActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			// Create a progressdialog
-			mProgressDialog = new ProgressDialog(GetraenkekarteActivity.this);
+			mProgressDialog = new ProgressDialog(EssenkarteActivity.this);
 			// Set progressdialog title
-			mProgressDialog.setTitle("Lade Getraenkeliste");
+			mProgressDialog.setTitle("Lade Essensliste");
 			// Set progressdialog message
 			mProgressDialog.setMessage("Loading...");
 			mProgressDialog.setIndeterminate(false);
@@ -106,7 +103,7 @@ public class GetraenkekarteActivity extends Activity {
 			try {
 				// Locate the class table named "Country" in Parse.com
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-						"Getraenke");
+						"Essen");
 
 				ob = query.find();
 				for (ParseObject Name : ob) {
@@ -128,7 +125,7 @@ public class GetraenkekarteActivity extends Activity {
 			// Locate the listview in listview_main.xml
 			listview = (ListView) findViewById(R.id.listview);
 			// Pass the results into ListViewAdapter.java
-			adapter = new ListViewAdapter(GetraenkekarteActivity.this,
+			adapter = new ListViewAdapter(EssenkarteActivity.this,
 					parselistdownloadList);
 			// Binds the Adapter to the ListView
 			listview.setAdapter(adapter);

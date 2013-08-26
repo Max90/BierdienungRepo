@@ -9,7 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/bdlogo"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/appicon" />
 
     <Button
         android:id="@+id/bedienung"

@@ -1,20 +1,13 @@
 package de.ur.mi.bierdienung;
 
-
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseUser;
-
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.Ausschank;
 import de.ur.mi.ausschank_kueche.Kueche;
-import de.ur.mi.bedienung.Bedienung;
+import de.ur.mi.bierdienung.config.Einstellungen;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
@@ -28,21 +21,9 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		setupUI();
-		
-	
-		
-		//Parse -------------
-		Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu", "FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW"); 
-		ParseUser.enableAutomaticUser();
-		ParseACL defaultACL = new ParseACL();
-		// Optionally enable public read access.
-		defaultACL.setPublicReadAccess(true);
-		ParseACL.setDefaultACL(defaultACL, true);
-		
-		
+			
 	}
 
 	private void setupUI() {
@@ -96,11 +77,5 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 }

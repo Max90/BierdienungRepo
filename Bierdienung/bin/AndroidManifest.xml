@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,6 +19,14 @@
         <activity
             android:name="de.ur.mi.bierdienung.MainActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="de.ur.mi.ausschank_kueche.Kueche"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="de.ur.mi.bierdienung.LoginSignupActivity"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,26 +34,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.ur.mi.ausschank_kueche.Kueche"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
             android:name="de.ur.mi.ausschank_kueche.Ausschank"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="de.ur.mi.bedienung.Bedienung"
-            android:label="@string/app_name"
+            android:name="de.ur.mi.bierdienung.Bedienung"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
-        <activity
-            android:name="de.ur.mi.bierdienung.Einstellungen"
-            android:label="@string/app_name" >
+        <activity android:name="de.ur.mi.bierdienung.config.Einstellungen" >
         </activity>
         <activity
-            android:name="de.ur.mi.parse.ToDoListActivity"
-            android:label="@string/app_name"
+            android:name="de.ur.mi.bierdienung.TischActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="de.ur.mi.bierdienung.EssenkarteActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -54,8 +58,9 @@
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.GetraenkekarteActivity"
-            android:label="@string/title_activity_getraenkekarte"
             android:screenOrientation="portrait" >
+        </activity>
+        <activity android:name="de.ur.mi.parse.SingleItemView" >
         </activity>
     </application>
 

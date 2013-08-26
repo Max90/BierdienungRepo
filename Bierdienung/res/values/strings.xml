@@ -15,15 +15,16 @@
     <string name="getraenke">Getränke</string>
     <string name="tisch_nr">Tisch-Nummer: </string>
     <string name="nr">Nummer eingeben</string>
-    <string name="title_activity_parse">Parse</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_create_bestellung">CreateBestellung</string>
-    <string name="empty">There are no todo items.</string>
-    <string name="menu_insert">Add Todo</string>
-    <string name="name">Enter your todo</string>
+    <string name="empty">Tisch ist leer</string>
     <string name="confirm">Done</string>
-    <string name="create_todo">Create Todo</string>
-    <string name="menu_delete">Delete Todo</string>
-    <string name="title_activity_getraenkekarte">GetraenkekarteActivity</string>
+    <string name="menu_delete">Delete</string>
+    <string name="nameLabel">"Name: "</string>
+    <string name="preisLabel">"Preis: "</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="LoginBtn">Login</string>
+    <string name="SignupBtn">Sign Up</string>
+    <string name="appicon">AppIcon</string>
+    <string name="test">test</string>
 
 </resources>
