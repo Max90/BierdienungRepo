@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.bierdienung.Bedienung;
+import de.ur.mi.bierdienung.BedienungTischAuswahlActivity;
 import de.ur.mi.bierdienung.LoginSignupActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -89,7 +89,7 @@ public class ListViewAdapter extends BaseAdapter {
 				 parselistdownloadList.get(position).getName());
 				 objectToSave.put("Preis",
 				 parselistdownloadList.get(position).getPreis());
-				 objectToSave.put("Tisch", Bedienung.getTNR());
+				 objectToSave.put("Tisch", BedienungTischAuswahlActivity.getTNR());
 				 objectToSave.put("Art", parselistdownloadList.get(position).getArt());
 				 objectToSave.saveInBackground();
 				

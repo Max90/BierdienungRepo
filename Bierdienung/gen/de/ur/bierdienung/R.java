@@ -46,8 +46,8 @@ public final class R {
         public static final int refresh=0x7f080008;
         public static final int signup=0x7f080013;
         public static final int speisekarte=0x7f080003;
-        public static final int text=0x7f080015;
-        public static final int textViewPreis=0x7f080016;
+        public static final int text=0x7f080016;
+        public static final int textViewPreis=0x7f080015;
         public static final int textViewProdukt=0x7f080005;
         public static final int textViewTisch=0x7f080006;
         public static final int textviewProdukt=0x7f080019;
@@ -64,8 +64,8 @@ public final class R {
         public static final int activity_kueche_ausschank=0x7f030002;
         public static final int activity_main=0x7f030003;
         public static final int activity_signup=0x7f030004;
-        public static final int activity_todo_only_textview=0x7f030005;
-        public static final int listview_getranke_essen=0x7f030006;
+        public static final int activity_speisekarte=0x7f030005;
+        public static final int activity_todo_only_textview=0x7f030006;
         public static final int listview_item=0x7f030007;
         public static final int listview_tisch=0x7f030008;
     }

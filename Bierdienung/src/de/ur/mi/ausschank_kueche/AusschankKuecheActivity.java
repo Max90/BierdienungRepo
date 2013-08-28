@@ -1,16 +1,16 @@
-package de.ur.mi.bierdienung;
+package de.ur.mi.ausschank_kueche;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.parse.ParseException;
@@ -18,68 +18,42 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.parse.ListViewAdapter;
+import de.ur.mi.bierdienung.LoginSignupActivity;
+import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
 
-public class GetraenkekarteActivity extends Activity {
-
+public class AusschankKuecheActivity extends Activity {
 	// Declare Variables
 
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
-	ListViewAdapter adapter;
+	ListViewAdapter_Kueche_Ausschank adapter;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
-
-	public static final int INSERT_ID = Menu.FIRST;
-	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
+	private Button refresh;
+	private String karte;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Get the view from listview_main.xml
-		setContentView(R.layout.listview_getranke_essen);
+		setContentView(R.layout.activity_kueche_ausschank);
+
+		refresh = (Button) findViewById(R.id.refresh);
+
+		Bundle extras = getIntent().getExtras();
+		karte = extras.getString("name");
+
+		refresh.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				new RemoteDataTask().execute();
+
+			}
+		});
 
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
-
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-
-		case R.id.tisch:
-			Intent iTisch = new Intent(GetraenkekarteActivity.this,
-					TischActivity.class);
-			startActivity(iTisch);
-			finish();
-			return true;
-
-		case R.id.speisekarte:
-			Intent iEssen = new Intent(GetraenkekarteActivity.this,
-					EssenkarteActivity.class);
-			startActivity(iEssen);
-			finish();
-			return true;
-
-		case R.id.action_settings:
-			finish();
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean result = super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-
-		setTitle("Tisch " + Bedienung.getTNR());
-
-		return result;
 	}
 
 	// RemoteDataTask AsyncTask
@@ -88,9 +62,9 @@ public class GetraenkekarteActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			// Create a progressdialog
-			mProgressDialog = new ProgressDialog(GetraenkekarteActivity.this);
+			mProgressDialog = new ProgressDialog(AusschankKuecheActivity.this);
 			// Set progressdialog title
-			mProgressDialog.setTitle("Lade Getraenkeliste");
+			mProgressDialog.setTitle("Lade Ausschankliste");
 			// Set progressdialog message
 			mProgressDialog.setMessage("Loading...");
 			mProgressDialog.setIndeterminate(false);
@@ -105,13 +79,14 @@ public class GetraenkekarteActivity extends Activity {
 			try {
 				// Locate the class table named "Country" in Parse.com
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-						"Getraenke");
-
+						LoginSignupActivity.getParseUser() + "_Bestellung");
+				query.whereEqualTo("Art", karte);
+				query.orderByAscending("Name");
 				ob = query.find();
 				for (ParseObject Name : ob) {
 					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
-					map.setPreis((String) Name.get("Preis"));
+					map.setPreis((String) Name.get("Tisch"));
 					map.setArt((String) Name.get("Art"));
 					parselistdownloadList.add(map);
 				}
@@ -127,12 +102,13 @@ public class GetraenkekarteActivity extends Activity {
 			// Locate the listview in listview_main.xml
 			listview = (ListView) findViewById(R.id.listview);
 			// Pass the results into ListViewAdapter.java
-			adapter = new ListViewAdapter(GetraenkekarteActivity.this,
-					parselistdownloadList);
+			adapter = new ListViewAdapter_Kueche_Ausschank(
+					AusschankKuecheActivity.this, parselistdownloadList);
 			// Binds the Adapter to the ListView
 			listview.setAdapter(adapter);
 			// Close the progressdialog
 			mProgressDialog.dismiss();
 		}
 	}
+
 }

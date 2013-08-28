@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import de.ur.bierdienung.R;
 
-public class Bedienung extends Activity {
+public class BedienungTischAuswahlActivity extends Activity {
 
 	private EditText tischNummer;
 	private Button bEnterBedienung;
@@ -27,9 +27,8 @@ public class Bedienung extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Bedienung.this, TischActivity.class);
+				Intent i = new Intent(BedienungTischAuswahlActivity.this, TischActivity.class);
 				tNr = tischNummer.getText().toString();
-
 				startActivity(i);
 			}
 		});

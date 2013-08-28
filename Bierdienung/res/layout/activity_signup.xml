@@ -16,7 +16,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtusername"
-        android:inputType="text"
+        android:inputType="textNoSuggestions"
+        android:imeOptions=""
         android:text="@string/test" >
 
         <requestFocus />

@@ -42,7 +42,7 @@ public class TischActivity extends ListActivity {
 			// Gets the current list of todos in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_Bestellung");
-			query.whereEqualTo("Tisch", Bedienung.getTNR());
+			query.whereEqualTo("Tisch", BedienungTischAuswahlActivity.getTNR());
 			query.orderByDescending("_created_at");
 
 			try {
@@ -92,7 +92,7 @@ public class TischActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.listview_tisch);
 
-		setTitle("Tisch " + Bedienung.getTNR());
+		setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
 
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
@@ -145,14 +145,16 @@ public class TischActivity extends ListActivity {
 
 		case R.id.speisekarte:
 			Intent iEssen = new Intent(TischActivity.this,
-					EssenkarteActivity.class);
+					SpeiseKartenActivity.class);
+			iEssen.putExtra("name", "Essen");
 			startActivity(iEssen);
 			finish();
 			return true;
 
 		case R.id.getraenkekarte:
 			Intent iGetraenke = new Intent(TischActivity.this,
-					GetraenkekarteActivity.class);
+					SpeiseKartenActivity.class);
+			iGetraenke.putExtra("name", "Getraenke");
 			startActivity(iGetraenke);
 			finish();
 			return true;

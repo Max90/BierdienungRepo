@@ -20,7 +20,7 @@
     <string name="menu_delete">Delete</string>
     <string name="nameLabel">"Name: "</string>
     <string name="preisLabel">"Preis: "</string>
-    <string name="Username">Username</string>
+    <string name="Username">Username (keine Zahlen benutzen!)</string>
     <string name="Password">Password</string>
     <string name="LoginBtn">Login</string>
     <string name="SignupBtn">Sign Up</string>
