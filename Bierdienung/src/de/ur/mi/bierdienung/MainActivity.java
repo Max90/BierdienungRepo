@@ -2,7 +2,7 @@ package de.ur.mi.bierdienung;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.AusschankKuecheActivity;
-import de.ur.mi.bierdienung.config.Einstellungen;
+import de.ur.mi.bierdienung.config.EinstellungenActivity;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -35,9 +35,8 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(MainActivity.this, Einstellungen.class);
+				Intent i = new Intent(MainActivity.this, EinstellungenActivity.class);
 				startActivity(i);
-
 			}
 		});
 
@@ -48,7 +47,6 @@ public class MainActivity extends Activity {
 				Intent i = new Intent(MainActivity.this,
 						BedienungTischAuswahlActivity.class);
 				startActivity(i);
-
 			}
 		});
 
@@ -60,7 +58,6 @@ public class MainActivity extends Activity {
 						AusschankKuecheActivity.class);
 				i.putExtra("name", "Getraenk");
 				startActivity(i);
-
 			}
 		});
 
@@ -72,7 +69,6 @@ public class MainActivity extends Activity {
 						AusschankKuecheActivity.class);
 				i.putExtra("name", "Essen");
 				startActivity(i);
-
 			}
 		});
 	}

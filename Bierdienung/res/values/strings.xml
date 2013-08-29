@@ -2,13 +2,14 @@
 <resources>
 
     <string name="app_name">Bierdienung</string>
-    <string name="action_settings">Tisch wechseln</string>
+    <string name="action_change_table">Tisch wechseln</string>
+    <string name="action_add">Produkt hinzufügen</string>
     <string name="bedienung">Bedienung</string>
     <string name="ausschank">Ausschank</string>
     <string name="kueche">Küche</string>
     <string name="einstellungen">Einstellungen</string>
-    <string name="speisekarte">Speisekarte eingeben</string>
-    <string name="tische">Tische anlegen</string>
+    <string name="speisekarte">Speisekarte manipulieren</string>
+    <string name="getraenkekarte">Getränkekarte manipulieren</string>
     <string name="refresh">Refresh</string>
     <string name="enter_bedienung">weiter</string>
     <string name="essen">Essen</string>
@@ -16,17 +17,21 @@
     <string name="tisch_nr">Tisch-Nummer: </string>
     <string name="nr">Nummer eingeben</string>
     <string name="empty">Tisch ist leer</string>
-    <string name="confirm">Done</string>
     <string name="menu_delete">Delete</string>
     <string name="nameLabel">"Name: "</string>
     <string name="preisLabel">"Preis: "</string>
-    <string name="Username">Username (keine Zahlen benutzen!)</string>
-    <string name="Password">Password</string>
+    <string name="Username">Username: </string>
+    <string name="Password">Password: </string>
+    <string name="kellnername">Kellnername/-nummer: </string>
     <string name="LoginBtn">Login</string>
     <string name="SignupBtn">Sign Up</string>
     <string name="appicon">AppIcon</string>
     <string name="test">test</string>
     <string name="produkt">Produkt: </string>
-	<string name="preis">Preis: </string>
-	<string name="tisch">Tisch: </string>
-</resources>
+    <string name="produktmitmenge">Produkt (mit Größenangabe): </string>
+    <string name="preis">Preis: </string>
+    <string name="preisohnezeichen">Preis (ohne Eurozeichen): </string>
+    <string name="tisch">Tisch: </string>
+    <string name="uebernehmen">Übernehmen</string>
+    <string name="change">Produkt ändern</string>
+</resources>

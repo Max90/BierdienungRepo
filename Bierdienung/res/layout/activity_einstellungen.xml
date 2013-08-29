@@ -5,19 +5,19 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/speisekarte"
+        android:id="@+id/speisekarteeingeben"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/speisekarte" />
 
     <Button
-        android:id="@+id/tische"
+        android:id="@+id/getraenkekarteeingeben"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/speisekarte"
+        android:layout_below="@+id/speisekarteeingeben"
         android:layout_marginTop="20dp"
-        android:text="@string/tische" />
+        android:text="@string/getraenkekarte" />
 
     
 </RelativeLayout>

@@ -91,8 +91,9 @@ public class ListViewAdapter extends BaseAdapter {
 				 parselistdownloadList.get(position).getPreis());
 				 objectToSave.put("Tisch", BedienungTischAuswahlActivity.getTNR());
 				 objectToSave.put("Art", parselistdownloadList.get(position).getArt());
+				 objectToSave.put("Kategorie", parselistdownloadList.get(position).getKategorie());
+				 objectToSave.put("Kellner", LoginSignupActivity.getKellner());
 				 objectToSave.saveInBackground();
-				
 				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 
 			}

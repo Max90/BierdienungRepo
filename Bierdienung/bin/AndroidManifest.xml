@@ -25,15 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity"
-            android:label="@string/app_name" >
+        <activity android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity" >
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.BedienungTischAuswahlActivity"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
-        <activity android:name="de.ur.mi.bierdienung.config.Einstellungen" >
+        <activity android:name="de.ur.mi.bierdienung.config.EinstellungenActivity" >
+        </activity>
+        <activity android:name="de.ur.mi.bierdienung.config.ManipulateKartenActivity" >
+        </activity>
+        <activity android:name="de.ur.mi.bierdienung.config.CreateProdukt" >
         </activity>
         <activity android:name="de.ur.mi.bierdienung.TischActivity" >
         </activity>

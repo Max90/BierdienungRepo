@@ -26,6 +26,8 @@ public class LoginSignupActivity extends Activity {
 	Button signup;
 	static String usernametxt;
 	static String passwordtxt;
+	static String kellnername;
+	EditText kellner;
 	EditText password;
 	EditText username;
 	ProgressDialog mProgressDialog;
@@ -49,6 +51,7 @@ public class LoginSignupActivity extends Activity {
 
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
+		kellner = (EditText) findViewById(R.id.kellnernamen);
 
 		// Locate Buttons in main.xml
 		loginbutton = (Button) findViewById(R.id.login);
@@ -58,6 +61,7 @@ public class LoginSignupActivity extends Activity {
 		loginbutton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
+				kellnername = kellner.getText().toString();
 
 				new RemoteDataTask() {
 					protected Void doInBackground(Void... params) {
@@ -179,4 +183,10 @@ public class LoginSignupActivity extends Activity {
 	public static String getParseUser() {
 		return usernametxt;
 	}
+
+	public static String getKellner() {
+		return kellnername;
+
+	}
+
 }

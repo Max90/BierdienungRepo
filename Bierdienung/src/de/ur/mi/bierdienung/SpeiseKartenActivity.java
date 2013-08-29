@@ -25,7 +25,6 @@ import de.ur.mi.parse.ParselistdownloadClass;
 public class SpeiseKartenActivity extends Activity {
 
 	// Declare Variables
-
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
@@ -45,6 +44,8 @@ public class SpeiseKartenActivity extends Activity {
 
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
+
+		setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
 
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
@@ -92,8 +93,6 @@ public class SpeiseKartenActivity extends Activity {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 
-		setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
-
 		return result;
 	}
 
@@ -105,7 +104,7 @@ public class SpeiseKartenActivity extends Activity {
 			// Create a progressdialog
 			mProgressDialog = new ProgressDialog(SpeiseKartenActivity.this);
 			// Set progressdialog title
-			mProgressDialog.setTitle("Lade Getraenkeliste");
+			mProgressDialog.setTitle("Lade " + karte + "liste");
 			// Set progressdialog message
 			mProgressDialog.setMessage("Loading...");
 			mProgressDialog.setIndeterminate(false);
@@ -120,14 +119,20 @@ public class SpeiseKartenActivity extends Activity {
 			try {
 				// Locate the class table named "Country" in Parse.com
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-						karte);
-
+						LoginSignupActivity.getParseUser() + "_" + karte);
+				query.orderByAscending("Name");
+				if (karte.length() > 6) {
+					query.orderByAscending("Kategorie");
+				} else {
+					query.orderByDescending("Kategorie");
+				}
 				ob = query.find();
 				for (ParseObject Name : ob) {
 					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
 					map.setPreis((String) Name.get("Preis"));
 					map.setArt((String) Name.get("Art"));
+					map.setKategorie((String) Name.get("Kategorie"));
 					parselistdownloadList.add(map);
 				}
 			} catch (ParseException e) {
@@ -140,7 +145,7 @@ public class SpeiseKartenActivity extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			// Locate the listview in listview_main.xml
-			listview = (ListView) findViewById(R.id.listview);
+			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
 			adapter = new ListViewAdapter(SpeiseKartenActivity.this,
 					parselistdownloadList);

@@ -55,6 +55,8 @@ public class AusschankKuecheActivity extends Activity {
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
+	
+
 
 	// RemoteDataTask AsyncTask
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
@@ -100,7 +102,7 @@ public class AusschankKuecheActivity extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			// Locate the listview in listview_main.xml
-			listview = (ListView) findViewById(R.id.listview);
+			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
 			adapter = new ListViewAdapter_Kueche_Ausschank(
 					AusschankKuecheActivity.this, parselistdownloadList);
