@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 import de.ur.bierdienung.R;
 
 public class CreateProdukt extends Activity {
@@ -40,6 +41,14 @@ public class CreateProdukt extends Activity {
 				getkat();
 				bundle.putString("kategorie", kat);
 				bundle.putInt("position", position);
+
+				if (nameText.getText().toString().equals("")
+						|| preisText.getText().toString().equals("")) {
+					Toast.makeText(view.getContext(),
+							"Bitte Eingaben vervollständigen",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 
 				Intent intent = new Intent();
 				intent.putExtras(bundle);

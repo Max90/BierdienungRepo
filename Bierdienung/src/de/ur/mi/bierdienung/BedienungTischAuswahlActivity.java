@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import de.ur.bierdienung.R;
 
 public class BedienungTischAuswahlActivity extends Activity {
@@ -27,8 +28,14 @@ public class BedienungTischAuswahlActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(BedienungTischAuswahlActivity.this, TischActivity.class);
+				Intent i = new Intent(BedienungTischAuswahlActivity.this,
+						TischActivity.class);
 				tNr = tischNummer.getText().toString();
+				if (tNr.equals("")) {
+					Toast.makeText(v.getContext(), "Bitte Tisch eingeben",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				startActivity(i);
 			}
 		});

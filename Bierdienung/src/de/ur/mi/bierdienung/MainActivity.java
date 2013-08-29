@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent(MainActivity.this,
 						AusschankKuecheActivity.class);
-				i.putExtra("name", "Getraenk");
+				i.putExtra("name", "Getraenke");
 				startActivity(i);
 			}
 		});
