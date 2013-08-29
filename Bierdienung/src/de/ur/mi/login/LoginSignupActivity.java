@@ -2,6 +2,7 @@ package de.ur.mi.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
+import com.parse.PushService;
 import com.parse.SignUpCallback;
 
 import de.ur.bierdienung.R;
@@ -31,6 +34,8 @@ public class LoginSignupActivity extends Activity {
 	EditText password;
 	EditText username;
 	ProgressDialog mProgressDialog;
+	private Context ctx;
+	
 
 	/** Called when the activity is first created. */
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,11 +47,18 @@ public class LoginSignupActivity extends Activity {
 		// Parse -------------
 		Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu",
 				"FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW");
+		
+		ParseInstallation.getCurrentInstallation().saveInBackground();
 		ParseUser.enableAutomaticUser();
 		ParseACL defaultACL = new ParseACL();
 		// Optionally enable public read access.
 		defaultACL.setPublicReadAccess(true);
 		ParseACL.setDefaultACL(defaultACL, true);
+		// Push Push Push
+		PushService.setDefaultPushCallback(this, MainActivity.class);
+		ctx = this.getApplicationContext();
+		
+		
 		// ----------------------------------------
 
 		username = (EditText) findViewById(R.id.username);
@@ -62,7 +74,13 @@ public class LoginSignupActivity extends Activity {
 
 			public void onClick(View arg0) {
 				kellnername = kellner.getText().toString();
-
+				
+				// Push Push Push
+				PushService.subscribe(ctx, kellnername, LoginSignupActivity.class);
+				
+				
+				
+				
 				new RemoteDataTask() {
 					protected Void doInBackground(Void... params) {
 						// Retrieve the text entered from the EditText
@@ -86,6 +104,7 @@ public class LoginSignupActivity extends Activity {
 													getApplicationContext(),
 													"Successfully Logged in",
 													Toast.LENGTH_LONG).show();
+											
 											finish();
 										} else {
 											Toast.makeText(
@@ -124,6 +143,7 @@ public class LoginSignupActivity extends Activity {
 							ParseUser user = new ParseUser();
 							user.setUsername(usernametxt);
 							user.setPassword(passwordtxt);
+						
 							user.signUpInBackground(new SignUpCallback() {
 								public void done(ParseException e) {
 									if (e == null) {
@@ -185,6 +205,7 @@ public class LoginSignupActivity extends Activity {
 	}
 
 	public static String getKellner() {
+		
 		return kellnername;
 
 	}
