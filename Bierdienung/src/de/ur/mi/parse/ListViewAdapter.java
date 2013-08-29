@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.bierdienung.BedienungTischAuswahlActivity;
-import de.ur.mi.bierdienung.LoginSignupActivity;
+import de.ur.mi.login.LoginSignupActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

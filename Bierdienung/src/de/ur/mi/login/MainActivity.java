@@ -1,7 +1,8 @@
-package de.ur.mi.bierdienung;
+package de.ur.mi.login;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.AusschankKuecheActivity;
+import de.ur.mi.bierdienung.BedienungTischAuswahlActivity;
 import de.ur.mi.bierdienung.config.EinstellungenActivity;
 import android.os.Bundle;
 import android.app.Activity;

@@ -8,8 +8,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 
@@ -67,6 +69,18 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 				.getName());
 		holder.listviewPreis.setText(parselistdownloadList.get(position)
 				.getPreis());
+		// Listen for ListView Item Click
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				String key = parselistdownloadList.get(position).getName()
+						+ " wird bearbeitet";
+				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
+
+			}
+		});
 
 		return view;
 	}

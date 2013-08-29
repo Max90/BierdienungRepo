@@ -1,4 +1,4 @@
-package de.ur.mi.bierdienung;
+package de.ur.mi.login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

@@ -18,7 +18,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.bierdienung.LoginSignupActivity;
+import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
 

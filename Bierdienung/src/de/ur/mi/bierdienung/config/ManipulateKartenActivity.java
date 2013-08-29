@@ -22,7 +22,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.bierdienung.LoginSignupActivity;
+import de.ur.mi.login.LoginSignupActivity;
 
 public class ManipulateKartenActivity extends ListActivity {
 	private static final int ACTIVITY_CREATE = 0;
@@ -83,7 +83,7 @@ public class ManipulateKartenActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listview_tisch);
+		setContentView(R.layout.activity_tisch);
 
 		setTitle(EinstellungenActivity.getKarte());
 

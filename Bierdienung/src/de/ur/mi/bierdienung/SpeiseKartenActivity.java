@@ -19,6 +19,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
+import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.ListViewAdapter;
 import de.ur.mi.parse.ParselistdownloadClass;
 
