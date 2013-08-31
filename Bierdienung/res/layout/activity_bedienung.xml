@@ -32,4 +32,11 @@
         android:layout_marginTop="20dp"
         android:text="@string/enter_bedienung" />
 
+    <Button
+        android:id="@+id/bAbrechnung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bEnterBedienung"
+        android:text="@string/abrechnen" />
+
 </RelativeLayout>

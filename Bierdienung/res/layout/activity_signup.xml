@@ -6,7 +6,7 @@
     android:padding="10dip" >
 
     <TextView
-        android:id="@+id/txtusername"
+        android:id="@+id/txtUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/Username" />
@@ -15,15 +15,16 @@
         android:id="@+id/username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtusername"
-        android:inputType="text"
+        android:layout_below="@+id/txtUsername"
+        android:hint="@string/Username"
+        android:inputType="textNoSuggestions"
         android:text="@string/test" >
 
         <requestFocus />
     </EditText>
 
     <TextView
-        android:id="@+id/txtpassword"
+        android:id="@+id/txtPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
@@ -33,15 +34,31 @@
         android:id="@+id/password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtpassword"
+        android:layout_below="@+id/txtPassword"
+        android:hint="@string/Password"
         android:inputType="textPassword"
+        android:text="@string/test" />
+
+    <TextView
+        android:id="@+id/txtKellnernamen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:text="@string/kellnername" />
+
+    <EditText
+        android:id="@+id/kellnernamen"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtKellnernamen"
+        android:hint="@string/kellnername"
         android:text="@string/test" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
+        android:layout_below="@+id/kellnernamen"
         android:text="@string/LoginBtn" />
 
     <Button

@@ -15,13 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
+import de.ur.mi.login.LoginSignupActivity;
 
 public class TischActivity extends ListActivity {
 
@@ -33,17 +33,13 @@ public class TischActivity extends ListActivity {
 	private ProgressDialog mProgressDialog;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-        // hier soll für jeden Tisch eine neue Tabelle angelegt werden indem ich
-        // die eingegebene Nummer in eine Variable abspeichere
-        // Bundle e = getIntent().getExtras();
-		// int nr = e.getInt("tisch");
 
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of todos in sorted order
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_Bestellung");
-			query.whereEqualTo("Tisch", Bedienung.getTNR());
+			query.whereEqualTo("Tisch", BedienungTischAuswahlActivity.getTNR());
 			query.orderByDescending("_created_at");
 
 			try {
@@ -84,8 +80,6 @@ public class TischActivity extends ListActivity {
 			}
 			setListAdapter(adapter);
 			TischActivity.this.mProgressDialog.dismiss();
-			TextView empty = (TextView) findViewById(android.R.id.empty);
-			empty.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -93,10 +87,9 @@ public class TischActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.listview);
+		setContentView(R.layout.activity_tisch);
 
-		TextView empty = (TextView) findViewById(android.R.id.empty);
-		empty.setVisibility(View.INVISIBLE);
+		setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
 
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
@@ -149,14 +142,16 @@ public class TischActivity extends ListActivity {
 
 		case R.id.speisekarte:
 			Intent iEssen = new Intent(TischActivity.this,
-					EssenkarteActivity.class);
+					SpeiseKartenActivity.class);
+			iEssen.putExtra("name", "Essen");
 			startActivity(iEssen);
 			finish();
 			return true;
 
 		case R.id.getraenkekarte:
 			Intent iGetraenke = new Intent(TischActivity.this,
-					GetraenkekarteActivity.class);
+					SpeiseKartenActivity.class);
+			iGetraenke.putExtra("name", "Getraenke");
 			startActivity(iGetraenke);
 			finish();
 			return true;
