@@ -28,9 +28,9 @@ public class CreateProdukt extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_createprodukt);
-		setTitle("Produkt ‰ndern");
+        setTitle("Produkt √§ndern");
 
-		setUI();
+        setUI();
 
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -45,8 +45,8 @@ public class CreateProdukt extends Activity {
 				if (nameText.getText().toString().equals("")
 						|| preisText.getText().toString().equals("")) {
 					Toast.makeText(view.getContext(),
-							"Bitte Eingaben vervollst‰ndigen",
-							Toast.LENGTH_SHORT).show();
+                            "Bitte Eingaben vervollst√§ndigen",
+                            Toast.LENGTH_SHORT).show();
 					return;
 				}
 

@@ -7,6 +7,7 @@ import com.parse.ParsePush;
 
 import de.ur.bierdienung.R;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,25 +75,25 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-				String key = parselistdownloadList.get(position).getName()
-						+ " Bestellung fertig";
-				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
-				
-				//PUSH PUSH PUSH
-				
-				// so soll notification zu richtigem Kellner kommen... gehört dann anStelle von "sepp" hin
-				String kellnerPush = parselistdownloadList.get(position).getUser();
-				ParsePush push = new ParsePush(); 
-				push.setChannel("sepp"); 
-				push.setMessage(key); 
-				push.sendInBackground();
+                v.setBackgroundColor(Color.RED);
+                String key = parselistdownloadList.get(position).getName()
+                        + " Bestellung fertig";
+                Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 
-			}
-		});
+                //PUSH PUSH PUSH
 
-		return view;
+                // so soll notification zu richtigem Kellner kommen... gehÃ¶rt dann anStelle von "sepp" hin
+                String kellnerPush = parselistdownloadList.get(position).getUser();
+                ParsePush push = new ParsePush();
+                push.setChannel("sepp");
+                push.setMessage(key);
+                push.sendInBackground();
+            }
+        });
+
+        return view;
 	}
 }
