@@ -1,11 +1,17 @@
 package de.ur.mi.login;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,21 +41,44 @@ public class LoginSignupActivity extends Activity {
 	EditText username;
 	ProgressDialog mProgressDialog;
 	private Context ctx;
-	
 
-	/** Called when the activity is first created. */
-	public void onCreate(Bundle savedInstanceState) {
+
+    public Context context = this;
+    private int dialogId = 0;
+
+
+    public Context getContext() {
+        return context;
+    }
+
+    /** Called when the activity is first created. */
+    public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Get the view from main.xml
 		setContentView(R.layout.activity_signup);
-		// Locate EditTexts in main.xml
 
-		// Parse -------------
+        // connection check
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            boolean isConnected = activeNetwork.isConnectedOrConnecting();
+            if (!isConnected) {
+                showDialog(0);
+            }
+        } else
+            showDialog(0);
+
+        //------------------------------------------------------------------------------------------
+
+        // Locate EditTexts in main.xml
+
+        // Parse -------------
 		Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu",
 				"FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW");
-		
-		ParseInstallation.getCurrentInstallation().saveInBackground();
-		ParseUser.enableAutomaticUser();
+
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+        ParseUser.enableAutomaticUser();
 		ParseACL defaultACL = new ParseACL();
 		// Optionally enable public read access.
 		defaultACL.setPublicReadAccess(true);
@@ -57,11 +86,11 @@ public class LoginSignupActivity extends Activity {
 		// Push Push Push
 		PushService.setDefaultPushCallback(this, MainActivity.class);
 		ctx = this.getApplicationContext();
-		
-		
-		// ----------------------------------------
 
-		username = (EditText) findViewById(R.id.username);
+
+        // ----------------------------------------
+
+        username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		kellner = (EditText) findViewById(R.id.kellnernamen);
 
@@ -74,15 +103,13 @@ public class LoginSignupActivity extends Activity {
 
 			public void onClick(View arg0) {
 				kellnername = kellner.getText().toString();
-				
-				// Push Push Push
-				PushService.subscribe(ctx, kellnername, LoginSignupActivity.class);
-				
-				
-				
-				
-				new RemoteDataTask() {
-					protected Void doInBackground(Void... params) {
+
+                // Push Push Push
+                PushService.subscribe(ctx, kellnername, LoginSignupActivity.class);
+
+
+                new RemoteDataTask() {
+                    protected Void doInBackground(Void... params) {
 						// Retrieve the text entered from the EditText
 						usernametxt = username.getText().toString();
 						passwordtxt = password.getText().toString();
@@ -104,9 +131,9 @@ public class LoginSignupActivity extends Activity {
 													getApplicationContext(),
 													"Successfully Logged in",
 													Toast.LENGTH_LONG).show();
-											
-											finish();
-										} else {
+
+                                            finish();
+                                        } else {
 											Toast.makeText(
 													getApplicationContext(),
 													"No such user exist, please signup",
@@ -143,9 +170,9 @@ public class LoginSignupActivity extends Activity {
 							ParseUser user = new ParseUser();
 							user.setUsername(usernametxt);
 							user.setPassword(passwordtxt);
-						
-							user.signUpInBackground(new SignUpCallback() {
-								public void done(ParseException e) {
+
+                            user.signUpInBackground(new SignUpCallback() {
+                                public void done(ParseException e) {
 									if (e == null) {
 										// Show a simple Toast message upon
 										// successful
@@ -172,8 +199,25 @@ public class LoginSignupActivity extends Activity {
 
 	}
 
-	// RemoteDataTask AsyncTask
-	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+
+    // creates the dialog for internet connection
+    // and links to the internet menu if no connection available
+    @Override
+    public Dialog onCreateDialog(int dialogId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.no_connection_string)
+                .setPositiveButton(R.string.connect, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+        // Create the AlertDialog object and return it
+        return builder.create();
+    }
+
+    // RemoteDataTask AsyncTask
+    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -205,9 +249,9 @@ public class LoginSignupActivity extends Activity {
 	}
 
 	public static String getKellner() {
-		
-		return kellnername;
 
-	}
+        return kellnername;
+
+    }
 
 }

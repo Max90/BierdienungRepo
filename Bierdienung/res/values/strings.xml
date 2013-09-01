@@ -14,24 +14,27 @@
     <string name="enter_bedienung">Bestellung aufnehmen</string>
     <string name="essen">Essen</string>
     <string name="getraenke">Getränke</string>
-    <string name="tisch_nr">Tisch-Nummer: </string>
+    <string name="tisch_nr">Tisch-Nummer:</string>
     <string name="nr">Nummer eingeben</string>
     <string name="empty">Tisch ist leer</string>
     <string name="menu_delete">Löschen</string>
-    <string name="Username">Username: </string>
-    <string name="Password">Password: </string>
-    <string name="kellnername">Kellnername/-nummer: </string>
+    <string name="Username">Username:</string>
+    <string name="Password">Password:</string>
+    <string name="kellnername">Kellnername/-nummer:</string>
     <string name="LoginBtn">Einloggen</string>
     <string name="SignupBtn">Registrieren</string>
     <string name="appicon">AppIcon</string>
     <string name="test">test</string>
-    <string name="produkt">Produkt: </string>
-    <string name="produktmitmenge">Produkt (mit Größenangabe): </string>
-    <string name="preis">Preis: </string>
-    <string name="preisohnezeichen">Preis (ohne Eurozeichen): </string>
-    <string name="tisch">Tisch: </string>
+    <string name="produkt">Produkt:</string>
+    <string name="produktmitmenge">Produkt (mit Größenangabe):</string>
+    <string name="preis">Preis:</string>
+    <string name="preisohnezeichen">Preis (ohne Eurozeichen):</string>
+    <string name="tisch">Tisch:</string>
     <string name="uebernehmen">Übernehmen</string>
     <string name="change">Produkt ändern</string>
     <string name="abrechnen">Tisch abrechnen</string>
     <string name="betrag">Betrag insgesamt:</string>
-</resources>
+    <string name="no_connection_string">Keine Internetverbindung vorhanden</string>
+    <string name="connect">verbinden</string>
+
+</resources>
