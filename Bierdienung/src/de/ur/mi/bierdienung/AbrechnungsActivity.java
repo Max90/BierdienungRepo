@@ -3,8 +3,11 @@ package de.ur.mi.bierdienung;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,7 +38,9 @@ public class AbrechnungsActivity extends ListActivity {
 	private double betrag = 0;
 	private TextView Betrag;
 	private Button bAbrechnen;
+	private List<ParseObject> parselist;
 	private ArrayList<Integer> list = new ArrayList<Integer>();
+	final Context context = this;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -102,16 +107,50 @@ public class AbrechnungsActivity extends ListActivity {
 		bAbrechnen.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				new RemoteDataTask() {
-					protected Void doInBackground(Void... params) {
-						for (int i = 0; i < list.size(); i++) {
-							todos.remove(i);
-						}
-						super.doInBackground();
-						return null;
-					}
-				}.execute();
+				
+				
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
+		 
+					// set title
+					alertDialogBuilder.setTitle("Tisch abrechnen?");
+		 
+					// set dialog message
+					alertDialogBuilder
+						.setMessage("Alles auf der Rechnung?")
+						.setCancelable(false)
+						.setPositiveButton("Ja",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								// Delete the remote object
+								for (int i = 0; i < list.size(); i++) {
+									final ParseObject todo = todos.get(i);
 
+									new RemoteDataTask() {
+										protected Void doInBackground(Void... params) {
+											try {
+												todo.delete();
+											} catch (ParseException e) {
+											}
+											super.doInBackground();
+											return null;
+										}
+									}.execute();
+
+								}
+
+								Betrag.setText("Betrag insgesamt: ");
+							}
+						  })
+						.setNegativeButton("Nein",new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								dialog.cancel();
+							}
+						});
+
+						AlertDialog alertDialog = alertDialogBuilder.create();
+						alertDialog.show();
+
+				
 			}
 		});
 	}
@@ -156,6 +195,7 @@ public class AbrechnungsActivity extends ListActivity {
 			betrag -= todos.get(position).getDouble("Preis");
 			v.setBackgroundColor(Color.WHITE);
 			v.setTag("white");
+			parselist.add(todos.get(position));
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i) == position) {
 					list.remove(i);

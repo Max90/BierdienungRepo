@@ -71,7 +71,20 @@ public class ListViewAdapter extends BaseAdapter {
 		// Set the results into TextViews
 		holder.listviewName.setText(parselistdownloadList.get(position)
 				.getName());
-		holder.listviewPreis.setText(String.valueOf(parselistdownloadList.get(position).getPreis()));
+
+		double preise = parselistdownloadList.get(position).getPreis();
+		String preis = String.valueOf(preise);
+		boolean check = true;
+		for (int i = 0; i < preis.length(); i++) {
+			if (preis.charAt(i) == '.') {
+				check = false;
+			}
+		}
+		if (check) {
+			preis = preis + ".0";
+		}
+
+		holder.listviewPreis.setText(preis);
 
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {
@@ -81,18 +94,21 @@ public class ListViewAdapter extends BaseAdapter {
 
 				String key = parselistdownloadList.get(position).getName()
 						+ " bestellt";
-						
-				 ParseObject objectToSave = new
-				 ParseObject(LoginSignupActivity.getParseUser()+"_Bestellung");
-				 objectToSave.put("Name",
-				 parselistdownloadList.get(position).getName());
-				 objectToSave.put("Preis",
-				 parselistdownloadList.get(position).getPreis());
-				 objectToSave.put("Tisch", BedienungTischAuswahlActivity.getTNR());
-				 objectToSave.put("Art", parselistdownloadList.get(position).getArt());
-				 objectToSave.put("Kategorie", parselistdownloadList.get(position).getKategorie());
-				 objectToSave.put("Kellner", LoginSignupActivity.getKellner());
-				 objectToSave.saveInBackground();
+
+				ParseObject objectToSave = new ParseObject(LoginSignupActivity
+						.getParseUser() + "_Bestellung");
+				objectToSave.put("Name", parselistdownloadList.get(position)
+						.getName());
+				objectToSave.put("Preis", parselistdownloadList.get(position)
+						.getPreis());
+				objectToSave.put("Tisch",
+						BedienungTischAuswahlActivity.getTNR());
+				objectToSave.put("Art", parselistdownloadList.get(position)
+						.getArt());
+				objectToSave.put("Kategorie",
+						parselistdownloadList.get(position).getKategorie());
+				objectToSave.put("Kellner", LoginSignupActivity.getKellner());
+				objectToSave.saveInBackground();
 				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 
 			}
