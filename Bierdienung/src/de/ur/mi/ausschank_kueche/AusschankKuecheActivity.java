@@ -89,7 +89,7 @@ public class AusschankKuecheActivity extends Activity {
 				for (ParseObject Name : ob) {
 					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
-					map.setPreis((String) Name.get("Tisch"));
+					map.setPreis((Double) Name.get("Tisch"));
 					map.setArt((String) Name.get("Art"));
 					map.setId((String) Name.get("objectId"));
 					parselistdownloadList.add(map);

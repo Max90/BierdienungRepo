@@ -16,6 +16,7 @@ public class BedienungTischAuswahlActivity extends Activity {
 	private Button bEnterBedienung;
 	private Button bAbrechnung;
 	private static String tNr;
+	private static int tisch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,9 @@ public class BedienungTischAuswahlActivity extends Activity {
 		});
 	}
 
-	public static String getTNR() {
-		return tNr;
+	public static int getTNR() {
+		tisch = Integer.parseInt(tNr);
+		return tisch;
 	}
 
 	@Override

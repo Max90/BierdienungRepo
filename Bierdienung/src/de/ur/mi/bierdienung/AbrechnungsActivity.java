@@ -1,9 +1,11 @@
 package de.ur.mi.bierdienung;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -13,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -27,6 +32,10 @@ public class AbrechnungsActivity extends ListActivity {
 
 	private List<ParseObject> todos;
 	private ProgressDialog mProgressDialog;
+	private double betrag = 0;
+	private TextView Betrag;
+	private Button bAbrechnen;
+	private ArrayList<Integer> list = new ArrayList<Integer>();
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -48,14 +57,10 @@ public class AbrechnungsActivity extends ListActivity {
 
 		@Override
 		protected void onPreExecute() {
-			// Create a progressdialog
 			mProgressDialog = new ProgressDialog(AbrechnungsActivity.this);
-			// Set progressdialog title
 			mProgressDialog.setTitle("Lade Tischliste");
-			// Set progressdialog message
 			mProgressDialog.setMessage("Loading...");
 			mProgressDialog.setIndeterminate(false);
-			// Show progressdialog
 			mProgressDialog.show();
 			super.onPreExecute();
 		}
@@ -85,11 +90,30 @@ public class AbrechnungsActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_abrechnung);
+		Betrag = (TextView) findViewById(R.id.textview);
 
 		setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
 
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
+
+		bAbrechnen = (Button) findViewById(R.id.bTischAbrechnen);
+
+		bAbrechnen.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				new RemoteDataTask() {
+					protected Void doInBackground(Void... params) {
+						for (int i = 0; i < list.size(); i++) {
+							todos.remove(i);
+						}
+						super.doInBackground();
+						return null;
+					}
+				}.execute();
+
+			}
+		});
 	}
 
 	@Override
@@ -122,6 +146,30 @@ public class AbrechnungsActivity extends ListActivity {
 			return true;
 		}
 		return super.onContextItemSelected(item);
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+
+		if (v.getTag() == "red") {
+			betrag -= todos.get(position).getDouble("Preis");
+			v.setBackgroundColor(Color.WHITE);
+			v.setTag("white");
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) == position) {
+					list.remove(i);
+				}
+			}
+		} else {
+			v.setBackgroundColor(Color.RED);
+			v.setTag("red");
+			betrag += todos.get(position).getDouble("Preis");
+			list.add(position);
+		}
+
+		Betrag.setText("Betrag insgesamt: " + String.valueOf(betrag));
+
 	}
 
 }

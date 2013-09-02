@@ -71,8 +71,7 @@ public class ListViewAdapter extends BaseAdapter {
 		// Set the results into TextViews
 		holder.listviewName.setText(parselistdownloadList.get(position)
 				.getName());
-		holder.listviewPreis.setText(parselistdownloadList.get(position)
-				.getPreis());
+		holder.listviewPreis.setText(String.valueOf(parselistdownloadList.get(position).getPreis()));
 
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {

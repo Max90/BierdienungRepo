@@ -110,7 +110,7 @@ public class ManipulateKartenActivity extends ListActivity {
 			new RemoteDataTask() {
 				protected Void doInBackground(Void... params) {
 					String name = extras.getString("name");
-					String preis = extras.getString("preis");
+					double preis = extras.getDouble("preis");
 					String kategorie = extras.getString("kategorie");
 					ParseObject ob = new ParseObject(
 							LoginSignupActivity.getParseUser() + "_"
@@ -119,7 +119,7 @@ public class ManipulateKartenActivity extends ListActivity {
 					ob.put("Preis", preis);
 					ob.put("Kategorie", kategorie);
 					ob.put("Art", EinstellungenActivity.getKarte());
-					
+
 					try {
 						ob.save();
 					} catch (ParseException e) {
@@ -135,7 +135,7 @@ public class ManipulateKartenActivity extends ListActivity {
 			final ParseObject ob;
 			ob = todos.get(extras.getInt("position"));
 			ob.put("Name", extras.getString("name"));
-			ob.put("Preis", extras.getString("preis"));
+			ob.put("Preis", extras.getDouble("preis"));
 			ob.put("Kategorie", extras.getString("kategorie"));
 			ob.put("Art", EinstellungenActivity.getKarte());
 
@@ -199,7 +199,6 @@ public class ManipulateKartenActivity extends ListActivity {
 			createTodo();
 			return true;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -208,7 +207,7 @@ public class ManipulateKartenActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 		Intent i = new Intent(this, CreateProdukt.class);
 		i.putExtra("name", todos.get(position).getString("Name").toString());
-		i.putExtra("preis", todos.get(position).getString("Preis").toString());
+		i.putExtra("preis", todos.get(position).getNumber(("Preis")));
 		i.putExtra("kategorie", todos.get(position).getString("Kategorie")
 				.toString());
 		i.putExtra("position", position);

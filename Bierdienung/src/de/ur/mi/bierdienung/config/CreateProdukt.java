@@ -28,27 +28,30 @@ public class CreateProdukt extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_createprodukt);
-        setTitle("Produkt ändern");
+		setTitle("Produkt ändern");
 
-        setUI();
+		setUI();
 
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
+				
+				if (nameText.getText().length() < 1
+						|| preisText.getText().length() <1) {
+					Toast.makeText(view.getContext(),
+							"Bitte Eingaben vervollstÃ¤ndigen",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 
 				Bundle bundle = new Bundle();
 				bundle.putString("name", nameText.getText().toString());
-				bundle.putString("preis", preisText.getText().toString());
+				bundle.putDouble("preis",
+						Double.valueOf(preisText.getText().toString()));
 				getkat();
 				bundle.putString("kategorie", kat);
 				bundle.putInt("position", position);
 
-				if (nameText.getText().toString().equals("")
-						|| preisText.getText().toString().equals("")) {
-					Toast.makeText(view.getContext(),
-                            "Bitte Eingaben vervollstÃ¤ndigen",
-                            Toast.LENGTH_SHORT).show();
-					return;
-				}
+				
 
 				Intent intent = new Intent();
 				intent.putExtras(bundle);
@@ -85,11 +88,11 @@ public class CreateProdukt extends Activity {
 		if (extras != null) {
 			String name = extras.getString("name");
 			position = extras.getInt("position");
-			String preis = extras.getString("preis");
+			double preis = Double.valueOf(extras.getDouble("preis"));
 			kat = extras.getString("kategorie");
 			if (name != null) {
 				nameText.setText(name);
-				preisText.setText(preis);
+				preisText.setText(Double.toString(preis));
 
 				if (kat.equals("Alkoholfrei")) {
 					radio0.setChecked(true);
