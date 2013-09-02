@@ -3,9 +3,14 @@ package de.ur.mi.parse;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
+import de.ur.mi.login.LoginSignupActivity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -75,25 +80,48 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+			@Override
+			public void onClick(View v) {
 
-                v.setBackgroundColor(Color.RED);
-                String key = parselistdownloadList.get(position).getName()
-                        + " Bestellung fertig";
-                Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
+				v.setBackgroundColor(Color.RED);
+				String key = parselistdownloadList.get(position).getName()
+						+ " Bestellung fertig";
+				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 
-                //PUSH PUSH PUSH
+				// PUSH PUSH PUSH
 
-                // so soll notification zu richtigem Kellner kommen... gehört dann anStelle von "sepp" hin
-                String kellnerPush = parselistdownloadList.get(position).getUser();
-                ParsePush push = new ParsePush();
-                push.setChannel("sepp");
-                push.setMessage(key);
-                push.sendInBackground();
-            }
-        });
+				ParseQuery<ParseObject> query = ParseQuery
+						.getQuery(LoginSignupActivity.getParseUser()
+								+ "_Bestellung");
 
-        return view;
+				// Retrieve the object by id
+				query.getInBackground(parselistdownloadList.get(position + 1)
+						.getId(), new GetCallback<ParseObject>() {
+
+					@Override
+					public void done(ParseObject object, ParseException e) {
+						if (e == null) {
+							// Now let's update it with some new data.
+							// In this case, only cheatMode and score
+							// will get sent to the Parse Cloud.
+							// playerName hasn't changed.
+							object.put("Used", "used");
+							object.saveInBackground();
+						}
+					}
+				});
+
+				// so soll notification zu richtigem Kellner kommen... gehört
+				// dann anStelle von "sepp" hin
+				String kellnerPush = parselistdownloadList.get(position)
+						.getUser();
+				ParsePush push = new ParsePush();
+				push.setChannel("sepp");
+				push.setMessage(key);
+				push.sendInBackground();
+			}
+		});
+
+		return view;
 	}
 }

@@ -28,7 +28,7 @@ public class CreateProdukt extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_createprodukt);
-        setTitle("Produkt Ã¤ndern");
+        setTitle("Produkt ändern");
 
         setUI();
 

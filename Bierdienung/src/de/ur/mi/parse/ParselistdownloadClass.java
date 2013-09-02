@@ -8,6 +8,7 @@ public class ParselistdownloadClass {
 	private String kategorie;
 	private String user;
 	private String used;
+	private String id;
 
 	public String getName() {
 		return name;
@@ -63,6 +64,14 @@ public class ParselistdownloadClass {
 
 	public void setUsed(String used) {
 		this.used = used;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

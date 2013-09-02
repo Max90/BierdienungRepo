@@ -49,8 +49,8 @@ public class AusschankKuecheActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+				// Execute RemoteDataTask AsyncTask
 				new RemoteDataTask().execute();
-				
 
 			}
 		});
@@ -58,8 +58,6 @@ public class AusschankKuecheActivity extends Activity {
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
-	
-
 
 	// RemoteDataTask AsyncTask
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
@@ -93,6 +91,7 @@ public class AusschankKuecheActivity extends Activity {
 					map.setName((String) Name.get("Name"));
 					map.setPreis((String) Name.get("Tisch"));
 					map.setArt((String) Name.get("Art"));
+					map.setId((String) Name.get("objectId"));
 					parselistdownloadList.add(map);
 				}
 			} catch (ParseException e) {
