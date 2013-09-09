@@ -70,7 +70,7 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 		holder.listviewName.setText(parselistdownloadList.get(position)
 				.getName());
 		holder.listviewPreis.setText(String.valueOf(parselistdownloadList.get(position)
-				.getPreis()));
+				.getTisch()));
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {
 
