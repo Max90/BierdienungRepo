@@ -192,10 +192,9 @@ public class AbrechnungsActivity extends ListActivity {
 		super.onListItemClick(l, v, position, id);
 
 		if (v.getTag() == "red") {
-			betrag -= todos.get(position).getDouble("Preis");
-			v.setBackgroundColor(Color.WHITE);
+			betrag = betrag - todos.get(position).getDouble("Preis");
+			v.setBackgroundColor(Color.TRANSPARENT);
 			v.setTag("white");
-			parselist.add(todos.get(position));
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i) == position) {
 					list.remove(i);
@@ -204,11 +203,11 @@ public class AbrechnungsActivity extends ListActivity {
 		} else {
 			v.setBackgroundColor(Color.RED);
 			v.setTag("red");
-			betrag += todos.get(position).getDouble("Preis");
+			betrag = betrag + todos.get(position).getDouble("Preis");
 			list.add(position);
 		}
 
-		Betrag.setText("Betrag insgesamt: " + String.valueOf(betrag));
+		Betrag.setText("Betrag insgesamt: " + betrag);
 
 	}
 
