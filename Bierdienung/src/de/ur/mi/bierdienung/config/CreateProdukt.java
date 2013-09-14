@@ -28,9 +28,9 @@ public class CreateProdukt extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_createprodukt);
-		setTitle("Produkt ändern");
+        setTitle("Produkt Ã¤ndern");
 
-		setUI();
+        setUI();
 
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {

@@ -92,7 +92,8 @@ public class AusschankKuecheActivity extends Activity {
 					map.setTisch((String) Name.get("Tisch"));
 					map.setArt((String) Name.get("Art"));
 					map.setId((String) Name.get("objectId"));
-					parselistdownloadList.add(map);
+                    map.setKellner((String) Name.get("Kellner"));
+                    parselistdownloadList.add(map);
 				}
 			} catch (ParseException e) {
 				Log.e("Error", e.getMessage());

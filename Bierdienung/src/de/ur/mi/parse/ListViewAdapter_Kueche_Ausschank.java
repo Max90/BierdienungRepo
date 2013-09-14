@@ -83,14 +83,10 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 
 				// PUSH PUSH PUSH
-
-				// so soll notification zu richtigem Kellner kommen... gehört
-				// dann anStelle von "sepp" hin
-				// String kellnerPush = parselistdownloadList.get(position)
-				// .getUser();
-				ParsePush push = new ParsePush();
-				push.setChannel("sepp");
-				push.setMessage(key);
+                String kellnerName = parselistdownloadList.get(position).getKellner();
+                ParsePush push = new ParsePush();
+                push.setChannel(kellnerName);
+                push.setMessage(key);
 				push.sendInBackground();
 			}
 		});

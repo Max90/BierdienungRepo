@@ -9,9 +9,19 @@ public class ParselistdownloadClass {
 	private String user;
 	private String used;
 	private String id;
+    private String kellner;
 
-	public String getName() {
-		return name;
+    public String getKellner() {
+        return kellner;
+    }
+
+    public void setKellner(String kellner) {
+        this.kellner = kellner;
+    }
+
+    public String getName() {
+
+        return name;
 	}
 
 	public void setName(String name) {
@@ -22,8 +32,12 @@ public class ParselistdownloadClass {
 		return preis;
 	}
 
-	public void setPreis(Double double1) {
-		this.preis = double1;
+    public void setPreis(double preis) {
+        this.preis = preis;
+    }
+
+    public void setPreis(Double double1) {
+        this.preis = double1;
 	}
 
 	public String getArt() {
