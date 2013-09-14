@@ -144,7 +144,7 @@ public class TischActivity extends ListActivity {
 
             case R.id.speisekarte:
                 Intent iEssen = new Intent(TischActivity.this,
-                        SpeiseKartenActivity.class);
+                        SpeiseUndGetraenkeKartenActivity.class);
                 iEssen.putExtra("name", "Essen");
                 startActivity(iEssen);
                 finish();
@@ -152,7 +152,7 @@ public class TischActivity extends ListActivity {
 
             case R.id.getraenkekarte:
                 Intent iGetraenke = new Intent(TischActivity.this,
-                        SpeiseKartenActivity.class);
+                        SpeiseUndGetraenkeKartenActivity.class);
                 iGetraenke.putExtra("name", "Getraenke");
                 startActivity(iGetraenke);
                 finish();
@@ -161,6 +161,10 @@ public class TischActivity extends ListActivity {
             case R.id.change_table:
                 finish();
                 return true;
+
+            case R.id.compute_table:
+                Intent computeTableIntent = new Intent(TischActivity.this, AbrechnungsActivity.class);
+                startActivity(computeTableIntent);
         }
 
         return super.onOptionsItemSelected(item);

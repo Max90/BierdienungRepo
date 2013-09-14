@@ -39,7 +39,7 @@
             android:name="de.ur.mi.bierdienung.BedienungTischAuswahlActivity"
             android:windowSoftInputMode="stateAlwaysVisible"></activity>
         <activity android:name="de.ur.mi.bierdienung.TischActivity"></activity>
-        <activity android:name="de.ur.mi.bierdienung.SpeiseKartenActivity"></activity>
+        <activity android:name="de.ur.mi.bierdienung.SpeiseUndGetraenkeKartenActivity"></activity>
         <activity android:name="de.ur.mi.bierdienung.AbrechnungsActivity"></activity>
         <activity android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity"></activity>
         <activity android:name="de.ur.mi.bierdienung.config.EinstellungenActivity"></activity>
