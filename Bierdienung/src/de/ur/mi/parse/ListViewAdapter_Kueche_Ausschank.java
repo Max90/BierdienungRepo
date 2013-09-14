@@ -82,13 +82,15 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 						+ " Bestellung fertig";
 				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 
-				// PUSH PUSH PUSH
-                String kellnerName = parselistdownloadList.get(position).getKellner();
+                // PushNotification for Waiter who accepted order when meal is cooked
+                if (parselistdownloadList.get(position).getArt().equals("Essen")) {
+                    String kellnerName = parselistdownloadList.get(position).getKellner();
                 ParsePush push = new ParsePush();
                 push.setChannel(kellnerName);
                 push.setMessage(key);
 				push.sendInBackground();
-			}
+                }
+            }
 		});
 
 		return view;

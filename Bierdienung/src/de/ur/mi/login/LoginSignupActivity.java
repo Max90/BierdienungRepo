@@ -74,8 +74,7 @@ public class LoginSignupActivity extends Activity {
         // Locate EditTexts in main.xml
 
         // Parse -------------
-		Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu",
-				"FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW");
+        Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu", "FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW");
 
         ParseInstallation.getCurrentInstallation().saveInBackground();
         ParseUser.enableAutomaticUser();

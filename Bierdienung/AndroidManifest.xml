@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.ur.bierdienung"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,19 +17,18 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <service android:name="com.parse.PushService" />
 
-        <receiver android:name="com.parse.ParseBroadcastReceiver" >
+        <receiver android:name="com.parse.ParseBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
 
-        <activity android:name="de.ur.mi.login.MainActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.login.LoginSignupActivity" >
+        <activity android:name="de.ur.mi.login.MainActivity"></activity>
+        <activity android:name="de.ur.mi.login.LoginSignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,24 +37,15 @@
         </activity>
         <activity
             android:name="de.ur.mi.bierdienung.BedienungTischAuswahlActivity"
-            android:windowSoftInputMode="stateAlwaysVisible" >
-        </activity>
-        <activity android:name="de.ur.mi.bierdienung.TischActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.bierdienung.SpeiseKartenActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.bierdienung.AbrechnungsActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.bierdienung.config.EinstellungenActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.bierdienung.config.ManipulateKartenActivity" >
-        </activity>
-        <activity android:name="de.ur.mi.bierdienung.config.CreateProdukt" >
-        </activity>
-        <activity android:name="de.ur.mi.parse.SingleItemView" >
-        </activity>
+            android:windowSoftInputMode="stateAlwaysVisible"></activity>
+        <activity android:name="de.ur.mi.bierdienung.TischActivity"></activity>
+        <activity android:name="de.ur.mi.bierdienung.SpeiseKartenActivity"></activity>
+        <activity android:name="de.ur.mi.bierdienung.AbrechnungsActivity"></activity>
+        <activity android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity"></activity>
+        <activity android:name="de.ur.mi.bierdienung.config.EinstellungenActivity"></activity>
+        <activity android:name="de.ur.mi.bierdienung.config.ManipulateKartenActivity"></activity>
+        <activity android:name="de.ur.mi.bierdienung.config.CreateProdukt"></activity>
+        <activity android:name="de.ur.mi.parse.SingleItemView"></activity>
     </application>
 
 </manifest>
