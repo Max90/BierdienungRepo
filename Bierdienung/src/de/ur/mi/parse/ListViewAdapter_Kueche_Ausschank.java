@@ -22,6 +22,7 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 	LayoutInflater inflater;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
+	private ArrayList<Integer> positionList = new ArrayList<Integer>();
 	private ArrayList<ParselistdownloadClass> arraylist;
 	
 	AppSingleton appsingleton;
@@ -86,8 +87,10 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 					for (int i = 0; i < deleteList.size(); i++) {
 						if (deleteList.get(i) == appsingleton.objectList.get(position)) {
 							deleteList.remove(i);
+							positionList.remove(position);
 						}
 						appsingleton.delteObjectList = deleteList;
+						appsingleton.positionList = positionList;
 					}
 					
 				} else {
@@ -95,23 +98,13 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 					v.setTag("red");
 
 					deleteList.add(appsingleton.objectList.get(position));
+					positionList.add(position);
 					appsingleton.delteObjectList = deleteList;
+					appsingleton.positionList = positionList;
 				}
 
-				// PushNotification for Waiter who accepted order when meal is
-				// cooked
-				if (parselistdownloadList.get(position).getArt()
-						.equals("Essen")) {
-
-					String key = parselistdownloadList.get(position).getName()
-							+ " Bestellung fertig";
-					String kellnerName = parselistdownloadList.get(position)
-							.getKellner();
-					ParsePush push = new ParsePush();
-					push.setChannel(kellnerName);
-					push.setMessage(key);
-					push.sendInBackground();
-				}
+				
+             
 			}
 		});
 		return view;

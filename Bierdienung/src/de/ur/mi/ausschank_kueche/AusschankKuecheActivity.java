@@ -1,4 +1,5 @@
 package de.ur.mi.ausschank_kueche;
+
 import java.util.ArrayList;
 import java.util.List;
 import android.app.Activity;
@@ -12,12 +13,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.AppSingleton;
 import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
+
 public class AusschankKuecheActivity extends Activity {
 	// Declare Variables
 	ListView listview;
@@ -28,7 +31,7 @@ public class AusschankKuecheActivity extends Activity {
 	private Button refresh;
 	private String karte;
 	AppSingleton appsingleton;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,31 +44,53 @@ public class AusschankKuecheActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// Execute RemoteDataTask AsyncTask
-				
-				 for (int i = 0; i < appsingleton.delteObjectList.size(); i++) {
 
-                     //set the todoObject to the item in list
-                     final ParseObject paidItem = appsingleton.delteObjectList.get(i);
+				for (int i = 0; i < appsingleton.delteObjectList.size(); i++) {
 
-                     new RemoteDataTask() {
-                         protected Void doInBackground(Void... params) {
-                             try {
-                                 paidItem.delete();
-                             } catch (ParseException e) {
-                             }
-                             super.doInBackground();
-                             return null;
-                         }
-                     }.execute();
-                     mProgressDialog.dismiss();
-                 }
-				 
-				//new RemoteDataTask().execute();
+					// set the todoObject to the item in list
+					final ParseObject paidItem = appsingleton.delteObjectList
+							.get(i);
+
+					new RemoteDataTask() {
+						protected Void doInBackground(Void... params) {
+							try {
+								paidItem.delete();
+
+							} catch (ParseException e) {
+							}
+							super.doInBackground();
+							return null;
+						}
+					}.execute();
+					mProgressDialog.dismiss();
+				}
+
+				// PushNotification for Waiter who accepted order when meal is
+				// cooked
+				for (int i = 0; i < appsingleton.positionList.size(); i++) {
+					if (parselistdownloadList
+							.get(appsingleton.positionList.get(i)).getArt()
+							.equals("Essen")) {
+
+						String key = parselistdownloadList.get(
+								appsingleton.positionList.get(i)).getName()
+								+ " Bestellung fertig";
+						String kellnerName = parselistdownloadList.get(
+								appsingleton.positionList.get(i)).getKellner();
+						ParsePush push = new ParsePush();
+						push.setChannel(kellnerName);
+						push.setMessage(key);
+						push.sendInBackground();
+					}
+
+				}
+
 			}
 		});
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
+
 	// RemoteDataTask AsyncTask
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 		@Override
@@ -81,6 +106,7 @@ public class AusschankKuecheActivity extends Activity {
 			// Show progressdialog
 			mProgressDialog.show();
 		}
+
 		@Override
 		protected Void doInBackground(Void... params) {
 			// Create the array
@@ -99,8 +125,8 @@ public class AusschankKuecheActivity extends Activity {
 					map.setTisch((String) Name.get("Tisch"));
 					map.setArt((String) Name.get("Art"));
 					map.setId((String) Name.get("objectId"));
-                    map.setKellner((String) Name.get("Kellner"));
-                    parselistdownloadList.add(map);
+					map.setKellner((String) Name.get("Kellner"));
+					parselistdownloadList.add(map);
 				}
 			} catch (ParseException e) {
 				Log.e("Error", e.getMessage());
@@ -108,6 +134,7 @@ public class AusschankKuecheActivity extends Activity {
 			}
 			return null;
 		}
+
 		@Override
 		protected void onPostExecute(Void result) {
 			// Locate the listview in listview_main.xml
