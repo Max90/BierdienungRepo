@@ -1,9 +1,6 @@
 package de.ur.mi.ausschank_kueche;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -13,20 +10,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-
 import com.parse.ParseException;
 import com.parse.ParseObject;
-
 import com.parse.ParseQuery;
-
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
+import de.ur.mi.parse.AppSingleton;
 import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
-
 public class AusschankKuecheActivity extends Activity {
 	// Declare Variables
-
 	ListView listview;
 	List<ParseObject> ob;
 	ProgressDialog mProgressDialog;
@@ -34,31 +27,45 @@ public class AusschankKuecheActivity extends Activity {
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private Button refresh;
 	private String karte;
-
+	AppSingleton appsingleton;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		appsingleton = AppSingleton.getInstance();
 		setContentView(R.layout.activity_kueche_ausschank);
-
 		refresh = (Button) findViewById(R.id.refresh);
-
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
-
 		refresh.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				// Execute RemoteDataTask AsyncTask
-				new RemoteDataTask().execute();
+				
+				 for (int i = 0; i < appsingleton.delteObjectList.size(); i++) {
 
+                     //set the todoObject to the item in list
+                     final ParseObject paidItem = appsingleton.delteObjectList.get(i);
+
+                     new RemoteDataTask() {
+                         protected Void doInBackground(Void... params) {
+                             try {
+                                 paidItem.delete();
+                             } catch (ParseException e) {
+                             }
+                             super.doInBackground();
+                             return null;
+                         }
+                     }.execute();
+                     mProgressDialog.dismiss();
+                 }
+				 
+				//new RemoteDataTask().execute();
 			}
 		});
-
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
-
 	// RemoteDataTask AsyncTask
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 		@Override
@@ -74,7 +81,6 @@ public class AusschankKuecheActivity extends Activity {
 			// Show progressdialog
 			mProgressDialog.show();
 		}
-
 		@Override
 		protected Void doInBackground(Void... params) {
 			// Create the array
@@ -86,6 +92,7 @@ public class AusschankKuecheActivity extends Activity {
 				query.whereEqualTo("Art", karte);
 				query.orderByAscending("Name");
 				ob = query.find();
+				appsingleton.objectList = (ArrayList<ParseObject>) ob;
 				for (ParseObject Name : ob) {
 					ParselistdownloadClass map = new ParselistdownloadClass();
 					map.setName((String) Name.get("Name"));
@@ -101,7 +108,6 @@ public class AusschankKuecheActivity extends Activity {
 			}
 			return null;
 		}
-
 		@Override
 		protected void onPostExecute(Void result) {
 			// Locate the listview in listview_main.xml
@@ -115,5 +121,4 @@ public class AusschankKuecheActivity extends Activity {
 			mProgressDialog.dismiss();
 		}
 	}
-
 }

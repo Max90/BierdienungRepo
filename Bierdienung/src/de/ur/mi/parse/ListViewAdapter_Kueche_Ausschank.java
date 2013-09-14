@@ -2,8 +2,9 @@ package de.ur.mi.parse;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.parse.ParsePush;
 
+import com.parse.ParseObject;
+import com.parse.ParsePush;
 import de.ur.bierdienung.R;
 import android.content.Context;
 import android.graphics.Color;
@@ -16,12 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
-
 	// Declare Variables
 	Context mContext;
 	LayoutInflater inflater;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
+	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
 	private ArrayList<ParselistdownloadClass> arraylist;
+	
+	AppSingleton appsingleton;
 
 	public ListViewAdapter_Kueche_Ausschank(Context context,
 			List<ParselistdownloadClass> parselistdownloadList) {
@@ -69,30 +72,48 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 		// Set the results into TextViews
 		holder.listviewName.setText(parselistdownloadList.get(position)
 				.getName());
-		holder.listviewPreis.setText(String.valueOf(parselistdownloadList.get(position)
-				.getTisch()));
+		holder.listviewPreis.setText(String.valueOf(parselistdownloadList.get(
+				position).getTisch()));
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
+				appsingleton = AppSingleton.getInstance();
+				if (v.getTag() == "red") {
 
-				v.setBackgroundColor(Color.RED);
-				String key = parselistdownloadList.get(position).getName()
-						+ " Bestellung fertig";
-				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
+					v.setBackgroundColor(Color.TRANSPARENT);
+					v.setTag("white");
+					for (int i = 0; i < deleteList.size(); i++) {
+						if (deleteList.get(i) == appsingleton.objectList.get(position)) {
+							deleteList.remove(i);
+						}
+						appsingleton.delteObjectList = deleteList;
+					}
+					
+				} else {
+					v.setBackgroundColor(Color.RED);
+					v.setTag("red");
 
-                // PushNotification for Waiter who accepted order when meal is cooked
-                if (parselistdownloadList.get(position).getArt().equals("Essen")) {
-                    String kellnerName = parselistdownloadList.get(position).getKellner();
-                ParsePush push = new ParsePush();
-                push.setChannel(kellnerName);
-                push.setMessage(key);
-				push.sendInBackground();
-                }
-            }
+					deleteList.add(appsingleton.objectList.get(position));
+					appsingleton.delteObjectList = deleteList;
+				}
+
+				// PushNotification for Waiter who accepted order when meal is
+				// cooked
+				if (parselistdownloadList.get(position).getArt()
+						.equals("Essen")) {
+
+					String key = parselistdownloadList.get(position).getName()
+							+ " Bestellung fertig";
+					String kellnerName = parselistdownloadList.get(position)
+							.getKellner();
+					ParsePush push = new ParsePush();
+					push.setChannel(kellnerName);
+					push.setMessage(key);
+					push.sendInBackground();
+				}
+			}
 		});
-
 		return view;
 	}
 }
