@@ -36,5 +36,9 @@
     <string name="betrag">Betrag insgesamt:</string>
     <string name="no_connection_string">Keine Internetverbindung vorhanden</string>
     <string name="connect">verbinden</string>
+    <string name="compute_table_string">Tisch Abrechnen</string>
+    <string name="meal_menu_string">speisekarte</string>
+    <string name="drink_menu_string">getränkekarte</string>
+    <string name="table_string">tisch</string>
 
 </resources>

@@ -1,24 +1,31 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/change_table"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/action_change_table"/>
+        android:title="@string/action_change_table" />
     <item
         android:id="@+id/tisch"
         android:icon="@drawable/tisch_icon"
         android:showAsAction="always"
-        android:title="tisch"/>
+        android:title="@string/table_string" />
     <item
         android:id="@+id/getraenkekarte"
         android:icon="@drawable/bier_icon"
         android:showAsAction="always"
-        android:title="getränkekarte"/>
+        android:title="@string/drink_menu_string" />
     <item
         android:id="@+id/speisekarte"
         android:icon="@drawable/essen_icon"
         android:showAsAction="always"
-        android:title="speisekarte"/>
+        android:title="@string/meal_menu_string" />
+
+
+    <item
+        android:id="@+id/compute_table"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/compute_table_string" />
 
 </menu>
