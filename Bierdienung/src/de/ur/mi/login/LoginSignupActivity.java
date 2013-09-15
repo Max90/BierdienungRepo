@@ -44,7 +44,7 @@ public class LoginSignupActivity extends Activity {
 
 
     public Context context = this;
-    private int dialogId = 0;
+//    private int dialogId = 0;
 
 
     public Context getContext() {

@@ -45,10 +45,10 @@ public class AusschankKuecheActivity extends Activity {
 			public void onClick(View v) {
 				// Execute RemoteDataTask AsyncTask
 
-				for (int i = 0; i < appsingleton.delteObjectList.size(); i++) {
+				for (int i = 0; i < appsingleton.deleteObjectList.size(); i++) {
 
 					// set the todoObject to the item in list
-					final ParseObject paidItem = appsingleton.delteObjectList
+					final ParseObject paidItem = appsingleton.deleteObjectList
 							.get(i);
 
 					new RemoteDataTask() {

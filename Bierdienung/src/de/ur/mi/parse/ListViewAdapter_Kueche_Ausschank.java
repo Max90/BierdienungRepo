@@ -87,7 +87,7 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 							deleteList.remove(i);
 							positionList.remove(position);
 						}
-						appsingleton.delteObjectList = deleteList;
+						appsingleton.deleteObjectList = deleteList;
 						appsingleton.positionList = positionList;
 					}
 					
@@ -97,7 +97,7 @@ public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 
 					deleteList.add(appsingleton.objectList.get(position));
 					positionList.add(position);
-					appsingleton.delteObjectList = deleteList;
+					appsingleton.deleteObjectList = deleteList;
 					appsingleton.positionList = positionList;
 				}
 
