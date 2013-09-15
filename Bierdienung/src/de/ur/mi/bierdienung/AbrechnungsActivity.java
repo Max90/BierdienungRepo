@@ -32,186 +32,195 @@ import de.ur.mi.login.LoginSignupActivity;
 
 public class AbrechnungsActivity extends ListActivity {
 
-    private static final int DELETE_ID = Menu.FIRST + 1;
+	private static final int DELETE_ID = Menu.FIRST + 1;
 
-    private List<ParseObject> orderedItems;
-    private ProgressDialog mProgressDialog;
-    private double betrag = 0;
-    private TextView Betrag;
-    private Button bAbrechnen;
-    private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
-    final Context context = this;
+	private List<ParseObject> orderedItems;
+	private ProgressDialog mProgressDialog;
+	private double betrag = 0;
+	private TextView Betrag;
+	private Button bAbrechnen;
+	private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
+	final Context context = this;
 
-    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
-        // Override this method to do custom remote calls
-        protected Void doInBackground(Void... params) {
-            // Gets the current list of orderedItems in sorted order
-            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-                    LoginSignupActivity.getParseUser() + "_Bestellung");
-            query.whereEqualTo("Tisch", BedienungTischAuswahlActivity.getTNR());
-            query.orderByDescending("_created_at");
+		// Override this method to do custom remote calls
+		protected Void doInBackground(Void... params) {
+			// Gets the current list of orderedItems in sorted order
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+					LoginSignupActivity.getParseUser() + "_Bestellung");
+			query.whereEqualTo("Tisch", BedienungTischAuswahlActivity.getTNR());
+			query.orderByDescending("Art");
+			query.orderByAscending("Name");
 
-            try {
-                orderedItems = query.find();
-            } catch (ParseException e) {
+			try {
+				orderedItems = query.find();
+			} catch (ParseException e) {
 
-            }
-            return null;
-        }
+			}
+			return null;
+		}
 
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(AbrechnungsActivity.this);
-            mProgressDialog.setTitle("Lade Tischliste");
-            mProgressDialog.setMessage("Loading...");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.show();
-            super.onPreExecute();
-        }
+		@Override
+		protected void onPreExecute() {
+			mProgressDialog = new ProgressDialog(AbrechnungsActivity.this);
+			mProgressDialog.setTitle("Lade Tischliste");
+			mProgressDialog.setMessage("Loading...");
+			mProgressDialog.setIndeterminate(false);
+			mProgressDialog.show();
+			super.onPreExecute();
+		}
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
+		@Override
+		protected void onProgressUpdate(Void... values) {
 
-            super.onProgressUpdate(values);
-        }
+			super.onProgressUpdate(values);
+		}
 
-        @Override
-        protected void onPostExecute(Void result) {
-            // Put the list of orderedItems into the list view
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    AbrechnungsActivity.this, R.layout.activity_todo_only_textview);
-            for (ParseObject todo : orderedItems) {
-                adapter.add((String) todo.get("Name"));
-            }
-            setListAdapter(adapter);
-            AbrechnungsActivity.this.mProgressDialog.dismiss();
-        }
-    }
+		@Override
+		protected void onPostExecute(Void result) {
+			// Put the list of orderedItems into the list view
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					AbrechnungsActivity.this,
+					R.layout.activity_todo_only_textview);
+			for (ParseObject todo : orderedItems) {
+				adapter.add((String) todo.get("Name"));
+			}
+			setListAdapter(adapter);
+			AbrechnungsActivity.this.mProgressDialog.dismiss();
+		}
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abrechnung);
-        Betrag = (TextView) findViewById(R.id.textview);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_abrechnung);
+		Betrag = (TextView) findViewById(R.id.textview);
 
-        setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
+		setTitle("Tisch " + BedienungTischAuswahlActivity.getTNR());
 
-        new RemoteDataTask().execute();
-        registerForContextMenu(getListView());
+		new RemoteDataTask().execute();
+		registerForContextMenu(getListView());
 
-        bAbrechnen = (Button) findViewById(R.id.bTischAbrechnen);
+		bAbrechnen = (Button) findViewById(R.id.bTischAbrechnen);
 
-        bAbrechnen.setOnClickListener(new View.OnClickListener() {
+		bAbrechnen.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-            	String text = "Alles auf der Rechnung? Betrag: " + String.valueOf(betrag) + " Euro!";
+			public void onClick(View v) {
+				String text = "Alles auf der Rechnung? Betrag: "
+						+ String.format("%.2f", betrag) + " Euro!";
 
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+				// set title
+				alertDialogBuilder.setTitle("Tisch abrechnen?");
 
-                // set title
-                alertDialogBuilder.setTitle("Tisch abrechnen?");
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(text)
+						.setCancelable(false)
+						.setPositiveButton("Ja",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// Delete the remote object
+										for (int i = 0; i < list.size(); i++) {
 
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage(text)
-                        .setCancelable(false)
-                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // Delete the remote object
-                                for (int i = 0; i < list.size(); i++) {
+											// set the todoObject to the item in
+											// list
+											final ParseObject paidItem = list
+													.get(i);
 
-                                    //set the todoObject to the item in list
-                                    final ParseObject paidItem = list.get(i);
+											new RemoteDataTask() {
+												protected Void doInBackground(
+														Void... params) {
+													try {
+														paidItem.delete();
+													} catch (ParseException e) {
+													}
+													super.doInBackground();
+													return null;
+												}
+											}.execute();
+											mProgressDialog.dismiss();
+										}
 
-                                    new RemoteDataTask() {
-                                        protected Void doInBackground(Void... params) {
-                                            try {
-                                                paidItem.delete();
-                                            } catch (ParseException e) {
-                                            }
-                                            super.doInBackground();
-                                            return null;
-                                        }
-                                    }.execute();
-                                    mProgressDialog.dismiss();
-                                }
+										Betrag.setText("Betrag insgesamt: ");
+									}
+								})
+						.setNegativeButton("Nein",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
+									}
+								});
 
-                                Betrag.setText("Betrag insgesamt: ");
-                            }
-                        })
-                        .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+			}
+		});
+	}
 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.add(0, DELETE_ID, 0, R.string.menu_delete);
+	}
 
-            }
-        });
-    }
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case DELETE_ID:
+			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+					.getMenuInfo();
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(0, DELETE_ID, 0, R.string.menu_delete);
-    }
+			// Delete the remote object
+			final ParseObject todo = orderedItems.get(info.position);
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case DELETE_ID:
-                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-                        .getMenuInfo();
+			new RemoteDataTask() {
+				protected Void doInBackground(Void... params) {
+					try {
+						todo.delete();
+					} catch (ParseException e) {
+					}
+					super.doInBackground();
+					return null;
+				}
+			}.execute();
+			return true;
+		}
+		return super.onContextItemSelected(item);
+	}
 
-                // Delete the remote object
-                final ParseObject todo = orderedItems.get(info.position);
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
 
-                new RemoteDataTask() {
-                    protected Void doInBackground(Void... params) {
-                        try {
-                            todo.delete();
-                        } catch (ParseException e) {
-                        }
-                        super.doInBackground();
-                        return null;
-                    }
-                }.execute();
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }
+		double preis = Double.parseDouble(orderedItems.get(position)
+				.get("Preis").toString());
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        
-       double preis = Double.parseDouble(orderedItems.get(position).get("Preis").toString());
+		if (v.getTag() == "red") {
+			betrag = betrag - preis;
+			v.setBackgroundColor(Color.TRANSPARENT);
+			v.setTag("white");
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i) == orderedItems.get(position)) {
+					list.remove(i);
+				}
+			} 
+		} else {
+			v.setBackgroundColor(Color.RED);
+			v.setTag("red");
+			betrag = betrag + preis;
+			list.add(orderedItems.get(position));
+		}
 
-        if (v.getTag() == "red") {
-            betrag = betrag - preis;
-            v.setBackgroundColor(Color.TRANSPARENT);
-            v.setTag("white");
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == orderedItems.get(position)) {
-                    list.remove(i);
-                }
-            }
-        } else {
-            v.setBackgroundColor(Color.RED);
-            v.setTag("red");
-            betrag = betrag + preis;
-            list.add(orderedItems.get(position));
-        }
+		Betrag.setText("Betrag insgesamt: " + String.format("%.2f", betrag));
 
-        Betrag.setText("Betrag insgesamt: " + betrag);
-
-    }
+	}
 
 }
