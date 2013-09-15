@@ -72,19 +72,8 @@ public class ListViewAdapter extends BaseAdapter {
 		holder.listviewName.setText(parselistdownloadList.get(position)
 				.getName());
 
-		double preise = parselistdownloadList.get(position).getPreis();
-		String preis = String.valueOf(preise);
-		boolean check = true;
-		for (int i = 0; i < preis.length(); i++) {
-			if (preis.charAt(i) == '.') {
-				check = false;
-			}
-		}
-		if (check) {
-			preis = preis + ".0";
-		}
-
-		holder.listviewPreis.setText(preis);
+		holder.listviewPreis.setText(parselistdownloadList.get(position)
+				.getPreis());
 
 		// Listen for ListView Item Click
 		view.setOnClickListener(new OnClickListener() {
@@ -108,6 +97,7 @@ public class ListViewAdapter extends BaseAdapter {
 				objectToSave.put("Kategorie",
 						parselistdownloadList.get(position).getKategorie());
 				objectToSave.put("Kellner", LoginSignupActivity.getKellner());
+				objectToSave.put("Used", "unused");
 				objectToSave.saveInBackground();
 				Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
 

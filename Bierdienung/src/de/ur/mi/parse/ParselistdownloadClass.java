@@ -2,42 +2,37 @@ package de.ur.mi.parse;
 
 public class ParselistdownloadClass {
 	private String name;
-	private double preis;
+	private String preis;
 	private String art;
 	private String tisch;
 	private String kategorie;
 	private String user;
-	private String used;
 	private String id;
-    private String kellner;
+	private String kellner;
 
-    public String getKellner() {
-        return kellner;
-    }
+	public String getKellner() {
+		return kellner;
+	}
 
-    public void setKellner(String kellner) {
-        this.kellner = kellner;
-    }
+	public void setKellner(String kellner) {
+		this.kellner = kellner;
+	}
 
-    public String getName() {
+	public String getName() {
 
-        return name;
+		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public double getPreis() {
+	public String getPreis() {
 		return preis;
 	}
 
-    public void setPreis(double preis) {
-        this.preis = preis;
-    }
-
-    public void setPreis(Double double1) {
-        this.preis = double1;
+	public void setPreis(String preis) {
+		this.preis = preis;
 	}
 
 	public String getArt() {
@@ -70,14 +65,6 @@ public class ParselistdownloadClass {
 
 	public void setUser(String user) {
 		this.user = user;
-	}
-
-	public String getUsed() {
-		return used;
-	}
-
-	public void setUsed(String used) {
-		this.used = used;
 	}
 
 	public String getId() {

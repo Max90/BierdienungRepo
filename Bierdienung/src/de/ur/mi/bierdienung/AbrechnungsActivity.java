@@ -39,7 +39,6 @@ public class AbrechnungsActivity extends ListActivity {
     private double betrag = 0;
     private TextView Betrag;
     private Button bAbrechnen;
-    private List<ParseObject> parselist;
     private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
     final Context context = this;
 
@@ -109,6 +108,7 @@ public class AbrechnungsActivity extends ListActivity {
         bAbrechnen.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+            	String text = "Alles auf der Rechnung? Betrag: " + String.valueOf(betrag) + " Euro!";
 
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -119,7 +119,7 @@ public class AbrechnungsActivity extends ListActivity {
 
                 // set dialog message
                 alertDialogBuilder
-                        .setMessage("Alles auf der Rechnung?")
+                        .setMessage(text)
                         .setCancelable(false)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -194,9 +194,11 @@ public class AbrechnungsActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        
+       double preis = Double.parseDouble(orderedItems.get(position).get("Preis").toString());
 
         if (v.getTag() == "red") {
-            betrag = betrag - orderedItems.get(position).getDouble("Preis");
+            betrag = betrag - preis;
             v.setBackgroundColor(Color.TRANSPARENT);
             v.setTag("white");
             for (int i = 0; i < list.size(); i++) {
@@ -207,7 +209,7 @@ public class AbrechnungsActivity extends ListActivity {
         } else {
             v.setBackgroundColor(Color.RED);
             v.setTag("red");
-            betrag = betrag + orderedItems.get(position).getDouble("Preis");
+            betrag = betrag + preis;
             list.add(orderedItems.get(position));
         }
 

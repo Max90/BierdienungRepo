@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import de.ur.bierdienung.R;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ListViewAdapter_Kueche_Ausschank extends BaseAdapter {
 	// Declare Variables

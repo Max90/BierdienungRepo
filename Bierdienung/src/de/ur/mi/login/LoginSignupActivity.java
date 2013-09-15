@@ -248,9 +248,7 @@ public class LoginSignupActivity extends Activity {
 	}
 
 	public static String getKellner() {
-
         return kellnername;
-
     }
 
 }

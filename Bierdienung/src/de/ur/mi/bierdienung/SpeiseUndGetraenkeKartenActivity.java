@@ -136,7 +136,7 @@ public class SpeiseUndGetraenkeKartenActivity extends Activity {
                 for (ParseObject Name : ob) {
                     ParselistdownloadClass map = new ParselistdownloadClass();
                     map.setName((String) Name.get("Name"));
-                    map.setPreis((Double) Name.get("Preis"));
+                    map.setPreis((String) Name.get("Preis"));
                     map.setArt((String) Name.get("Art"));
                     map.setKategorie((String) Name.get("Kategorie"));
                     parselistdownloadList.add(map);

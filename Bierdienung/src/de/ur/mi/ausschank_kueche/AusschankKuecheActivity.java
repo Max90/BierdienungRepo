@@ -53,10 +53,12 @@ public class AusschankKuecheActivity extends Activity {
 
 					new RemoteDataTask() {
 						protected Void doInBackground(Void... params) {
+							paidItem.put("Used", "used");
 							try {
-								paidItem.delete();
-
+								paidItem.save();
 							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
 							super.doInBackground();
 							return null;
@@ -116,6 +118,7 @@ public class AusschankKuecheActivity extends Activity {
 				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 						LoginSignupActivity.getParseUser() + "_Bestellung");
 				query.whereEqualTo("Art", karte);
+				query.whereEqualTo("Used", "unused");
 				query.orderByAscending("Name");
 				ob = query.find();
 				appsingleton.objectList = (ArrayList<ParseObject>) ob;
