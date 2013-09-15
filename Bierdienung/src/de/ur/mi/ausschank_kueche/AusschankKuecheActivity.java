@@ -76,7 +76,7 @@ public class AusschankKuecheActivity extends Activity {
 
 						String key = parselistdownloadList.get(
 								appsingleton.positionList.get(i)).getName()
-								+ " Bestellung fertig";
+								+ " fertig!" + " Tisch " + parselistdownloadList.get(appsingleton.positionList.get(i)).getTisch();
 						String kellnerName = parselistdownloadList.get(
 								appsingleton.positionList.get(i)).getKellner();
 						ParsePush push = new ParsePush();

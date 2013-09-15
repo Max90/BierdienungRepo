@@ -113,43 +113,50 @@ public class ListViewAdapter extends BaseAdapter {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										for (int i = 1; i<np.getValue(); i++){
+										for (int i = 1; i < np.getValue(); i++) {
 
-										String key = parselistdownloadList.get(
-												position).getName()
-												+ " bestellt";
+											String key = String.valueOf(np
+													.getValue()-1)
+													+ "x "
+													+ parselistdownloadList
+															.get(position)
+															.getName()
+													+ " bestellt";
 
-										ParseObject objectToSave = new ParseObject(
-												LoginSignupActivity
-														.getParseUser()
-														+ "_Bestellung");
-										objectToSave.put(
-												"Name",
-												parselistdownloadList.get(
-														position).getName());
-										objectToSave.put(
-												"Preis",
-												parselistdownloadList.get(
-														position).getPreis());
-										objectToSave.put("Tisch",
-												BedienungTischAuswahlActivity
-														.getTNR());
-										objectToSave.put(
-												"Art",
-												parselistdownloadList.get(
-														position).getArt());
-										objectToSave.put(
-												"Kategorie",
-												parselistdownloadList.get(
-														position)
-														.getKategorie());
-										objectToSave.put("Kellner",
-												LoginSignupActivity
-														.getKellner());
-										objectToSave.put("Used", "unused");
-										objectToSave.saveInBackground();
-										Toast.makeText(v.getContext(), key,
-												Toast.LENGTH_SHORT).show();}
+											ParseObject objectToSave = new ParseObject(
+													LoginSignupActivity
+															.getParseUser()
+															+ "_Bestellung");
+											objectToSave
+													.put("Name",
+															parselistdownloadList
+																	.get(position)
+																	.getName());
+											objectToSave.put(
+													"Preis",
+													parselistdownloadList.get(
+															position)
+															.getPreis());
+											objectToSave.put("Tisch",
+													BedienungTischAuswahlActivity
+															.getTNR());
+											objectToSave.put(
+													"Art",
+													parselistdownloadList.get(
+															position).getArt());
+											objectToSave.put(
+													"Kategorie",
+													parselistdownloadList.get(
+															position)
+															.getKategorie());
+											objectToSave.put("Kellner",
+													LoginSignupActivity
+															.getKellner());
+											objectToSave.put("Used", "unused");
+											objectToSave.saveInBackground();
+											Toast.makeText(v.getContext(), key,
+													Toast.LENGTH_SHORT).show();
+										}
 
 									}
 								})
