@@ -139,6 +139,7 @@ public class SpeiseUndGetraenkeKartenActivity extends Activity {
                     map.setPreis((String) Name.get("Preis"));
                     map.setArt((String) Name.get("Art"));
                     map.setKategorie((String) Name.get("Kategorie"));
+                   
                     parselistdownloadList.add(map);
                 }
             } catch (ParseException e) {

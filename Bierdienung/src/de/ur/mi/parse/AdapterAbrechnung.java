@@ -1,0 +1,50 @@
+package de.ur.mi.parse;
+
+import java.util.ArrayList;
+
+import de.ur.bierdienung.R;
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+public class AdapterAbrechnung extends ArrayAdapter<String> {
+	private final Context context;
+	private final ArrayList<String> values;
+	private final ArrayList<String> adapterListBackground;
+
+	public AdapterAbrechnung(Context context, ArrayList<String> values,
+			ArrayList<String> adapterListBackground) {
+		super(context, R.layout.listview_item, values);
+		this.context = context;
+		this.values = values;
+		this.adapterListBackground = adapterListBackground;
+	}
+
+	@Override
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		final View rowView = inflater.inflate(R.layout.listview_item, parent,
+				false);
+		TextView textView = (TextView) rowView.findViewById(R.id.listviewName);
+
+		textView.setText(values.get(position));
+		// Change the icon for Windows and iPhone
+		String s = values.get(position);
+
+	
+
+		if (adapterListBackground.get(position).equals("unmarked")) {
+			rowView.setBackgroundColor(Color.TRANSPARENT);
+		} else {
+			rowView.setBackgroundColor(Color.RED);
+		}
+
+		return rowView;
+	}
+}

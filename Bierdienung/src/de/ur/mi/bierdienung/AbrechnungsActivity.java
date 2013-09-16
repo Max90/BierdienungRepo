@@ -29,6 +29,7 @@ import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
+import de.ur.mi.parse.AdapterAbrechnung;
 
 public class AbrechnungsActivity extends ListActivity {
 
@@ -41,6 +42,10 @@ public class AbrechnungsActivity extends ListActivity {
 	private Button bAbrechnen;
 	private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
 	final Context context = this;
+	private AdapterAbrechnung adapterAbrechnung;
+
+	private ArrayList<String> adapterList = new ArrayList<String>();
+	private ArrayList<String> adapterListBackground = new ArrayList<String>();
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
@@ -80,13 +85,16 @@ public class AbrechnungsActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of orderedItems into the list view
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					AbrechnungsActivity.this,
-					R.layout.activity_todo_only_textview);
+
 			for (ParseObject todo : orderedItems) {
-				adapter.add((String) todo.get("Name"));
+				adapterList.add((String) todo.get("Name"));
+				adapterListBackground.add((String) todo.get("Background"));
 			}
-			setListAdapter(adapter);
+			adapterAbrechnung = new AdapterAbrechnung(context, adapterList,
+					adapterListBackground);
+
+			setListAdapter(adapterAbrechnung);
+			adapterAbrechnung.notifyDataSetChanged();
 			AbrechnungsActivity.this.mProgressDialog.dismiss();
 		}
 	}
@@ -203,18 +211,38 @@ public class AbrechnungsActivity extends ListActivity {
 		double preis = Double.parseDouble(orderedItems.get(position)
 				.get("Preis").toString());
 
-		if (v.getTag() == "red") {
+		if (orderedItems.get(position).get("Background").toString()
+				.equals("marked")) {
 			betrag = betrag - preis;
-			v.setBackgroundColor(Color.TRANSPARENT);
-			v.setTag("white");
+
+			orderedItems.get(position).put("Background", "unmarked");
+			try {
+				orderedItems.get(position).save();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			adapterListBackground.set(position,orderedItems.get(position).getString("Background"));
+			adapterAbrechnung.notifyDataSetChanged();
+
 			for (int i = 0; i < list.size(); i++) {
 				if (list.get(i) == orderedItems.get(position)) {
 					list.remove(i);
 				}
-			} 
+			}
 		} else {
-			v.setBackgroundColor(Color.RED);
-			v.setTag("red");
+
+			orderedItems.get(position).put("Background", "marked");
+			try {
+				orderedItems.get(position).save();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			adapterListBackground.set(position,orderedItems.get(position).getString("Background"));
+			adapterAbrechnung.notifyDataSetChanged();
+
 			betrag = betrag + preis;
 			list.add(orderedItems.get(position));
 		}
@@ -222,5 +250,4 @@ public class AbrechnungsActivity extends ListActivity {
 		Betrag.setText("Betrag insgesamt: " + String.format("%.2f", betrag));
 
 	}
-
 }

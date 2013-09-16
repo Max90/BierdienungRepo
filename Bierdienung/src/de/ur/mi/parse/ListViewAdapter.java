@@ -72,6 +72,7 @@ public class ListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder) view.getTag();
 		}
 		// Set the results into TextViews
+
 		holder.listviewName.setText(parselistdownloadList.get(position)
 				.getName());
 
@@ -116,7 +117,7 @@ public class ListViewAdapter extends BaseAdapter {
 										for (int i = 1; i < np.getValue(); i++) {
 
 											String key = String.valueOf(np
-													.getValue()-1)
+													.getValue() - 1)
 													+ "x "
 													+ parselistdownloadList
 															.get(position)
@@ -132,6 +133,9 @@ public class ListViewAdapter extends BaseAdapter {
 															parselistdownloadList
 																	.get(position)
 																	.getName());
+
+											objectToSave.put("Background",
+													"unmarked");
 											objectToSave.put(
 													"Preis",
 													parselistdownloadList.get(

@@ -9,9 +9,18 @@ public class ParselistdownloadClass {
 	private String user;
 	private String id;
 	private String kellner;
+	public String background;
 
 	public String getKellner() {
 		return kellner;
+	}
+	
+	public String getBackground() {
+		return background;
+	}
+	
+	public void setBackground(String background) {
+		this.background = background;
 	}
 
 	public void setKellner(String kellner) {
