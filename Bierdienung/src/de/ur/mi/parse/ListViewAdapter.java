@@ -116,14 +116,6 @@ public class ListViewAdapter extends BaseAdapter {
 											int id) {
 										for (int i = 1; i < np.getValue(); i++) {
 
-											String key = String.valueOf(np
-													.getValue() - 1)
-													+ "x "
-													+ parselistdownloadList
-															.get(position)
-															.getName()
-													+ " bestellt";
-
 											ParseObject objectToSave = new ParseObject(
 													LoginSignupActivity
 															.getParseUser()
@@ -158,10 +150,16 @@ public class ListViewAdapter extends BaseAdapter {
 															.getKellner());
 											objectToSave.put("Used", "unused");
 											objectToSave.saveInBackground();
-											Toast.makeText(v.getContext(), key,
-													Toast.LENGTH_SHORT).show();
-										}
 
+										}
+										String key = String.valueOf(np
+												.getValue() - 1)
+												+ "x "
+												+ parselistdownloadList.get(
+														position).getName()
+												+ " bestellt";
+										Toast.makeText(v.getContext(), key,
+												Toast.LENGTH_SHORT).show();
 									}
 								})
 						.setNegativeButton("Nein",
