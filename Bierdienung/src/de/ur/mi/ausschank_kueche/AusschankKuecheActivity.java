@@ -2,7 +2,7 @@ package de.ur.mi.ausschank_kueche;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import de.ur.mi.parse.AppSingleton;
 import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
 
-public class AusschankKuecheActivity extends Activity {
+public class AusschankKuecheActivity extends ListActivity {
 	// Declare Variables
 	ListView listview;
 	List<ParseObject> ob;
@@ -31,6 +31,11 @@ public class AusschankKuecheActivity extends Activity {
 	private Button refresh;
 	private String karte;
 	AppSingleton appsingleton;
+	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
+	private ArrayList<Integer> positionList = new ArrayList<Integer>();
+	private ArrayList<String> adapterListBestellung = new ArrayList<String>();
+	private ArrayList<String> adapterListTisch = new ArrayList<String>();
+	private ArrayList<String> adapterListBackground = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,13 @@ public class AusschankKuecheActivity extends Activity {
 		refresh = (Button) findViewById(R.id.refresh);
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
+		refreshButton();
+
+		// Execute RemoteDataTask AsyncTask
+		new RemoteDataTask().execute();
+	}
+
+	private void refreshButton() {
 		refresh.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -51,46 +63,46 @@ public class AusschankKuecheActivity extends Activity {
 					final ParseObject paidItem = appsingleton.deleteObjectList
 							.get(i);
 
-					new RemoteDataTask() {
-						protected Void doInBackground(Void... params) {
-							paidItem.put("Used", "used");
-							try {
-								paidItem.save();
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							super.doInBackground();
-							return null;
-						}
-					}.execute();
-					mProgressDialog.dismiss();
-				}
+					paidItem.put("Used", "used");
 
-				// PushNotification for Waiter who accepted order when meal is
-				// cooked
-				for (int i = 0; i < appsingleton.positionList.size(); i++) {
-					if (parselistdownloadList
-							.get(appsingleton.positionList.get(i)).getArt()
-							.equals("Essen")) {
-
-						String key = parselistdownloadList.get(
-								appsingleton.positionList.get(i)).getName()
-								+ " fertig!" + " Tisch " + parselistdownloadList.get(appsingleton.positionList.get(i)).getTisch();
-						String kellnerName = parselistdownloadList.get(
-								appsingleton.positionList.get(i)).getKellner();
-						ParsePush push = new ParsePush();
-						push.setChannel(kellnerName);
-						push.setMessage(key);
-						push.sendInBackground();
+					try {
+						paidItem.save();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 
 				}
 
+				// PushNotification for Waiter who accepted order when meal is
+				// cooked
+				for (int i = 0; i < appsingleton.positionList.size()-1; i++) {
+
+					String key = parselistdownloadList.get(
+							appsingleton.positionList.get(i)).getName()
+							+ " fertig!"
+							+ " Tisch "
+							+ parselistdownloadList.get(
+									appsingleton.positionList.get(i))
+									.getTisch();
+					String kellnerName = parselistdownloadList.get(
+							appsingleton.positionList.get(i)).getKellner();
+					ParsePush push = new ParsePush();
+					push.setChannel(kellnerName);
+					push.setMessage(key);
+					push.sendInBackground();
+
+				}
+
+				adapterListBackground.clear();
+				adapterListBestellung.clear();
+				adapterListTisch.clear();
+
+				// Execute RemoteDataTask AsyncTask
+				new RemoteDataTask().execute();
+
 			}
 		});
-		// Execute RemoteDataTask AsyncTask
-		new RemoteDataTask().execute();
 	}
 
 	// RemoteDataTask AsyncTask
@@ -113,44 +125,107 @@ public class AusschankKuecheActivity extends Activity {
 		protected Void doInBackground(Void... params) {
 			// Create the array
 			parselistdownloadList = new ArrayList<ParselistdownloadClass>();
+			// Locate the class table named "Country" in Parse.com
+			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+					LoginSignupActivity.getParseUser() + "_Bestellung");
+			query.whereEqualTo("Used", "unused");
+			query.whereEqualTo("Art", karte);
+			query.orderByAscending("Name");
 			try {
-				// Locate the class table named "Country" in Parse.com
-				ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-						LoginSignupActivity.getParseUser() + "_Bestellung");
-				query.whereEqualTo("Art", karte);
-				query.whereEqualTo("Used", "unused");
-				query.orderByAscending("Name");
 				ob = query.find();
-				appsingleton.objectList = (ArrayList<ParseObject>) ob;
-				for (ParseObject Name : ob) {
-					ParselistdownloadClass map = new ParselistdownloadClass();
-					map.setName((String) Name.get("Name"));
-					map.setTisch((String) Name.get("Tisch"));
-					map.setArt((String) Name.get("Art"));
-					map.setId((String) Name.get("objectId"));
-					map.setKellner((String) Name.get("Kellner"));
-					map.setBackground((String) Name.get("Background"));
-					parselistdownloadList.add(map);
-				}
-				
+
 			} catch (ParseException e) {
 				Log.e("Error", e.getMessage());
 				e.printStackTrace();
 			}
+
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
+			int i = 0;
+			appsingleton.objectList = (ArrayList<ParseObject>) ob;
+			for (ParseObject Name : ob) {
+				ParselistdownloadClass map = new ParselistdownloadClass();
+				map.setName((String) Name.get("Name"));
+				map.setTisch((String) Name.get("Tisch"));
+				map.setArt((String) Name.get("Art"));
+				map.setKellner((String) Name.get("Kellner"));
+				map.setBackground((String) Name.get("Background"));
+
+				parselistdownloadList.add(map);
+
+				ob.get(i).put("Background", "unmarked");
+				ob.get(i).saveInBackground();
+				adapterListBestellung.add((String) Name.get("Name"));
+				adapterListTisch.add((String) Name.get("Tisch"));
+				adapterListBackground.add((String) Name.get("Background"));
+				i++;
+
+			}
+
 			// Locate the listview in listview_main.xml
 			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
 			adapter = new ListViewAdapter_Kueche_Ausschank(
-					AusschankKuecheActivity.this, parselistdownloadList);
-			// Binds the Adapter to the ListView
-			listview.setAdapter(adapter);
+					AusschankKuecheActivity.this, adapterListBestellung,
+					adapterListTisch, adapterListBackground);
+
+			setListAdapter(adapter);
+			adapter.notifyDataSetChanged();
+
 			// Close the progressdialog
 			mProgressDialog.dismiss();
 		}
+
 	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+
+		if (ob.get(position).get("Background").toString().equals("marked")) {
+
+			ob.get(position).put("Background", "unmarked");
+			ob.get(position).saveInBackground();
+
+			adapterListBackground.set(position,
+					ob.get(position).getString("Background"));
+			adapter.notifyDataSetChanged();
+
+			for (int i = 0; i < deleteList.size(); i++) {
+				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
+					deleteList.remove(i);
+					if (parselistdownloadList.get(position).getArt()
+							.equals("Essen")) {
+						positionList.remove(i);
+					}
+				}
+				appsingleton.deleteObjectList = deleteList;
+				appsingleton.positionList = positionList;
+			}
+
+		} else {
+
+			ob.get(position).put("Background", "marked");
+			ob.get(position).saveInBackground();
+
+			adapterListBackground.set(position,
+					ob.get(position).getString("Background"));
+			adapter.notifyDataSetChanged();
+
+			deleteList.add(appsingleton.objectList.get(position));
+			appsingleton.deleteObjectList = deleteList;
+
+			if (parselistdownloadList.get(position).getArt().equals("Essen")) {
+				positionList.add(position);
+			}
+
+			appsingleton.positionList = positionList;
+
+		}
+
+	}
+
 }
