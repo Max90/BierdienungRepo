@@ -34,10 +34,6 @@ public class AdapterAbrechnung extends ArrayAdapter<String> {
 		TextView textView = (TextView) rowView.findViewById(R.id.listviewName);
 
 		textView.setText(values.get(position));
-		// Change the icon for Windows and iPhone
-		String s = values.get(position);
-
-	
 
 		if (adapterListBackground.get(position).equals("unmarked")) {
 			rowView.setBackgroundColor(Color.TRANSPARENT);
