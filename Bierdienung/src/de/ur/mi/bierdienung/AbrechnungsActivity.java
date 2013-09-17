@@ -1,15 +1,12 @@
 package de.ur.mi.bierdienung;
 
 import java.util.ArrayList;
-
 import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -56,7 +53,7 @@ public class AbrechnungsActivity extends ListActivity {
 			query.whereEqualTo("Tisch", BedienungTischAuswahlActivity.getTNR());
 			query.orderByDescending("Art");
 			query.orderByAscending("Name");
-
+			query.whereEqualTo("Used", "used");
 			try {
 				orderedItems = query.find();
 			} catch (ParseException e) {
@@ -117,6 +114,10 @@ public class AbrechnungsActivity extends ListActivity {
 
 		bAbrechnen = (Button) findViewById(R.id.bTischAbrechnen);
 
+		abrechnen();
+	}
+
+	private void abrechnen() {
 		bAbrechnen.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -145,12 +146,18 @@ public class AbrechnungsActivity extends ListActivity {
 											final ParseObject paidItem = list
 													.get(i);
 
-											paidItem.deleteInBackground();
+											try {
+												paidItem.delete();
+											} catch (ParseException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
 
 										}
 										adapterList.clear();
 										adapterListBackground.clear();
 										Betrag.setText("Betrag insgesamt: ");
+										betrag = 0;
 										// Execute RemoteDataTask AsyncTask
 										new RemoteDataTask().execute();
 									}
