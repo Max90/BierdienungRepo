@@ -95,9 +95,9 @@ public class ListViewAdapter extends BaseAdapter {
 						+ " bestellen";
 
 				final NumberPicker np = new NumberPicker(v.getContext());
-				String[] nums = new String[100];
+				String[] nums = new String[20];
 				for (int i = 0; i < nums.length; i++)
-					nums[i] = Integer.toString(i);
+					nums[i] = Integer.toString(i + 1);
 
 				np.setMinValue(1);
 				np.setMaxValue(nums.length - 1);
@@ -114,7 +114,7 @@ public class ListViewAdapter extends BaseAdapter {
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
 											int id) {
-										for (int i = 1; i < np.getValue(); i++) {
+										for (int i = 1; i < np.getValue() + 1; i++) {
 
 											ParseObject objectToSave = new ParseObject(
 													LoginSignupActivity
@@ -153,8 +153,8 @@ public class ListViewAdapter extends BaseAdapter {
 
 										}
 										String key = String.valueOf(np
-												.getValue() - 1)
-												+ "x "
+												.getValue())
+												+ " x "
 												+ parselistdownloadList.get(
 														position).getName()
 												+ " bestellt";
