@@ -113,6 +113,7 @@ public final class R {
         public static final int bedienung=0x7f050003;
         public static final int betrag=0x7f050020;
         public static final int change=0x7f05001e;
+        public static final int change_product=0x7f050027;
         public static final int compute_table_string=0x7f050023;
         public static final int connect=0x7f050022;
         public static final int drink_menu_string=0x7f050025;

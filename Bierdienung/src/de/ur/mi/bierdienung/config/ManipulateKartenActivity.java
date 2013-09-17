@@ -84,7 +84,11 @@ public class ManipulateKartenActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tisch);
 
-		setTitle(EinstellungenActivity.getKarte());
+		if (EinstellungenActivity.getKarte().equals("Getraenke")) {
+			setTitle(R.string.drink_menu_string);
+		} else {
+			setTitle(R.string.meal_menu_string);
+		}
 
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());

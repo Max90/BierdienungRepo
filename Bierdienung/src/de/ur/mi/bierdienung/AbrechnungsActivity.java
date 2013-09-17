@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -85,10 +84,16 @@ public class AbrechnungsActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			// Put the list of orderedItems into the list view
+			int i = 0;
 
+			
 			for (ParseObject todo : orderedItems) {
+
+				orderedItems.get(i).put("Background", "unmarked");
+				orderedItems.get(i).saveInBackground();
 				adapterList.add((String) todo.get("Name"));
 				adapterListBackground.add((String) todo.get("Background"));
+				i++;
 			}
 			adapterAbrechnung = new AdapterAbrechnung(context, adapterList,
 					adapterListBackground);
@@ -140,21 +145,14 @@ public class AbrechnungsActivity extends ListActivity {
 											final ParseObject paidItem = list
 													.get(i);
 
-											new RemoteDataTask() {
-												protected Void doInBackground(
-														Void... params) {
-													try {
-														paidItem.delete();
-													} catch (ParseException e) {
-													}
-													super.doInBackground();
-													return null;
-												}
-											}.execute();
-											mProgressDialog.dismiss();
-										}
+											paidItem.deleteInBackground();
 
+										}
+										adapterList.clear();
+										adapterListBackground.clear();
 										Betrag.setText("Betrag insgesamt: ");
+										// Execute RemoteDataTask AsyncTask
+										new RemoteDataTask().execute();
 									}
 								})
 						.setNegativeButton("Nein",
@@ -216,14 +214,11 @@ public class AbrechnungsActivity extends ListActivity {
 			betrag = betrag - preis;
 
 			orderedItems.get(position).put("Background", "unmarked");
-			try {
-				orderedItems.get(position).save();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			orderedItems.get(position).saveInBackground();
+			
 
-			adapterListBackground.set(position,orderedItems.get(position).getString("Background"));
+			adapterListBackground.set(position, orderedItems.get(position)
+					.getString("Background"));
 			adapterAbrechnung.notifyDataSetChanged();
 
 			for (int i = 0; i < list.size(); i++) {
@@ -234,13 +229,10 @@ public class AbrechnungsActivity extends ListActivity {
 		} else {
 
 			orderedItems.get(position).put("Background", "marked");
-			try {
-				orderedItems.get(position).save();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			adapterListBackground.set(position,orderedItems.get(position).getString("Background"));
+			orderedItems.get(position).saveInBackground();
+			
+			adapterListBackground.set(position, orderedItems.get(position)
+					.getString("Background"));
 			adapterAbrechnung.notifyDataSetChanged();
 
 			betrag = betrag + preis;
