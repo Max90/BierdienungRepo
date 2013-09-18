@@ -32,11 +32,10 @@ public class AusschankKuecheActivity extends ListActivity {
 	private String karte;
 	AppSingleton appsingleton;
 	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
-	private ArrayList<Integer> positionList = new ArrayList<Integer>();
 	private ArrayList<String> adapterListBestellung = new ArrayList<String>();
 	private ArrayList<String> adapterListTisch = new ArrayList<String>();
 	private ArrayList<String> adapterListBackground = new ArrayList<String>();
-
+	private ArrayList<String> listArt = new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,27 +75,26 @@ public class AusschankKuecheActivity extends ListActivity {
 
 				// PushNotification for Waiter who accepted order when meal is
 				// cooked
-				for (int i = 0; i < appsingleton.positionList.size()-1; i++) {
+				for (int i = 0; i < adapterListBackground.size(); i++) {
 
-					String key = parselistdownloadList.get(
-							appsingleton.positionList.get(i)).getName()
-							+ " fertig!"
-							+ " Tisch "
-							+ parselistdownloadList.get(
-									appsingleton.positionList.get(i))
-									.getTisch();
-					String kellnerName = parselistdownloadList.get(
-							appsingleton.positionList.get(i)).getKellner();
-					ParsePush push = new ParsePush();
-					push.setChannel(kellnerName);
-					push.setMessage(key);
-					push.sendInBackground();
+					if (adapterListBackground.get(i).equals("marked")
+							&& listArt.get(i).equals("Essen")) {
+						String key = adapterListBestellung.get(i) + " fertig!"
+								+ " Tisch " + adapterListTisch.get(i);
+						String kellnerName = parselistdownloadList.get(i)
+								.getKellner();
+						ParsePush push = new ParsePush();
+						push.setChannel(kellnerName);
+						push.setMessage(key);
+						push.sendInBackground();
+					}
 
 				}
 
 				adapterListBackground.clear();
 				adapterListBestellung.clear();
 				adapterListTisch.clear();
+				listArt.clear();
 
 				// Execute RemoteDataTask AsyncTask
 				new RemoteDataTask().execute();
@@ -161,6 +159,8 @@ public class AusschankKuecheActivity extends ListActivity {
 				adapterListBestellung.add((String) Name.get("Name"));
 				adapterListTisch.add((String) Name.get("Tisch"));
 				adapterListBackground.add((String) Name.get("Background"));
+				listArt.add((String) Name.get("Art"));
+
 				i++;
 
 			}
@@ -197,13 +197,10 @@ public class AusschankKuecheActivity extends ListActivity {
 			for (int i = 0; i < deleteList.size(); i++) {
 				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
 					deleteList.remove(i);
-					if (parselistdownloadList.get(position).getArt()
-							.equals("Essen")) {
-						positionList.remove(i);
-					}
+
 				}
 				appsingleton.deleteObjectList = deleteList;
-				appsingleton.positionList = positionList;
+
 			}
 
 		} else {
@@ -217,12 +214,6 @@ public class AusschankKuecheActivity extends ListActivity {
 
 			deleteList.add(appsingleton.objectList.get(position));
 			appsingleton.deleteObjectList = deleteList;
-
-			if (parselistdownloadList.get(position).getArt().equals("Essen")) {
-				positionList.add(position);
-			}
-
-			appsingleton.positionList = positionList;
 
 		}
 
