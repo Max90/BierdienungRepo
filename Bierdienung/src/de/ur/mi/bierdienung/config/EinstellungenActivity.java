@@ -63,6 +63,7 @@ public class EinstellungenActivity extends Activity {
 	private void setupUI() {
 		speiseKarten = (Button) findViewById(R.id.speisekarteeingeben);
 		getraenkeKarten = (Button) findViewById(R.id.getraenkekarteeingeben);
-	}
+        tableManagementButton = (Button) findViewById(R.id.button_table_management);
+    }
 
 }
