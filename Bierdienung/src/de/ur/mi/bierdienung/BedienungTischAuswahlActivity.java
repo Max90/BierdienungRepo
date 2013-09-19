@@ -64,7 +64,8 @@ public class BedienungTischAuswahlActivity extends Activity {
 
 	public static String getTNR() {
 		return tNr;
-	}
+        //dummyComment
+    }
 
 	@Override
 	protected void onResume() {
