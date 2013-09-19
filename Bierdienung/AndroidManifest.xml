@@ -73,6 +73,9 @@
             android:name="de.ur.mi.bierdienung.config.CreateProdukt"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="de.ur.mi.bierdienung.config.TableManagementActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
