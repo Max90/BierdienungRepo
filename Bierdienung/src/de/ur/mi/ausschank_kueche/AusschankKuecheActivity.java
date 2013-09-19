@@ -62,9 +62,9 @@ public class AusschankKuecheActivity extends ListActivity {
 					final ParseObject paidItem = appsingleton.deleteObjectList
 							.get(i);
 
-					paidItem.put("Used", "used");
+                    paidItem.put("Status", "fertig");
 
-					try {
+                    try {
 						paidItem.save();
 					} catch (ParseException e) {
 						// TODO Auto-generated catch block
@@ -126,8 +126,8 @@ public class AusschankKuecheActivity extends ListActivity {
 			// Locate the class table named "Country" in Parse.com
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_Bestellung");
-			query.whereEqualTo("Used", "unused");
-			query.whereEqualTo("Art", karte);
+            query.whereEqualTo("Status", "in Bearbeitung");
+            query.whereEqualTo("Art", karte);
 			query.orderByAscending("Name");
 			try {
 				ob = query.find();
@@ -190,11 +190,10 @@ public class AusschankKuecheActivity extends ListActivity {
 			ob.get(position).put("Background", "unmarked");
 			ob.get(position).saveInBackground();
 
-			adapterListBackground.set(position,
-					ob.get(position).getString("Background"));
-			adapter.notifyDataSetChanged();
+            adapterListBackground.set(position, ob.get(position).getString("Background"));
+            adapter.notifyDataSetChanged();
 
-			for (int i = 0; i < deleteList.size(); i++) {
+            for (int i = 0; i < deleteList.size(); i++) {
 				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
 					deleteList.remove(i);
 

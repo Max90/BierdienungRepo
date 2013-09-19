@@ -44,5 +44,6 @@
     <string name="table_management_button_string">Tische verwalten</string>
     <string name="table_number_edit_text_hint_string">Tischanzahl eingeben!</string>
     <string name="set_table_number_button_string">fertig</string>
+    <string name="send_or_change_order_button_string">Bestellung bearbeiten/abschicken</string>
 
 </resources>

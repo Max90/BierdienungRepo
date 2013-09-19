@@ -59,7 +59,7 @@ public class SpeiseUndGetraenkeKartenActivity extends Activity {
 
             case R.id.tisch:
                 Intent iTisch = new Intent(SpeiseUndGetraenkeKartenActivity.this,
-                        TischActivity.class);
+                        WaiterTableOverviewActivity.class);
                 startActivity(iTisch);
                 finish();
                 return true;

@@ -53,8 +53,8 @@ public class AbrechnungsActivity extends ListActivity {
 			query.whereEqualTo("Tisch", BedienungTischAuswahlActivity.getTNR());
 			query.orderByDescending("Art");
 			query.orderByAscending("Name");
-			query.whereEqualTo("Used", "used");
-			try {
+            query.whereEqualTo("Status", "fertig");
+            try {
 				orderedItems = query.find();
 			} catch (ParseException e) {
 

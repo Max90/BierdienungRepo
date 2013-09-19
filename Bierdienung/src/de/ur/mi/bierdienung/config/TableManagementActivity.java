@@ -7,19 +7,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.parse.ParseObject;
+
 import de.ur.bierdienung.R;
+import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.AppSingleton;
 
 // gets input of max table number in restaurant and saves that number in appSingleton
 public class TableManagementActivity extends Activity {
     Button tableNumberFinishButton;
     EditText tableNumberEditText;
-    AppSingleton appSingleton;
+    private String tableNumber = "";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        appSingleton = AppSingleton.getInstance();
+        setContentView(R.layout.activity_table_management);
         setupUI();
     }
 
@@ -31,10 +33,17 @@ public class TableManagementActivity extends Activity {
             public void onClick(View view) {
                 //saves number of tables
                 //links back to PrefereancesActivity
-                appSingleton.tableNumber = tableNumberEditText.getText().toString();
+                tableNumber = tableNumberEditText.getText().toString();
+                ParseObject objectToSave = new ParseObject(
+                        LoginSignupActivity
+                                .getParseUser()
+                                + "_Table");
+                objectToSave.put("TableNumber", tableNumber);
+                objectToSave.saveInBackground();
 
                 Intent preferencesIntent = new Intent(TableManagementActivity.this, EinstellungenActivity.class);
                 startActivity(preferencesIntent);
+                finish();
             }
         });
     }

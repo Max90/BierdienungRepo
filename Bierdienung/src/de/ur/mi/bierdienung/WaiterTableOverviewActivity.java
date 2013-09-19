@@ -23,7 +23,7 @@ import com.parse.ParseQuery;
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 
-public class TischActivity extends ListActivity {
+public class WaiterTableOverviewActivity extends ListActivity {
 
     public static final int INSERT_ID = Menu.FIRST;
     public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
@@ -53,7 +53,7 @@ public class TischActivity extends ListActivity {
         @Override
         protected void onPreExecute() {
             // Create a progressdialog
-            mProgressDialog = new ProgressDialog(TischActivity.this);
+            mProgressDialog = new ProgressDialog(WaiterTableOverviewActivity.this);
             // Set progressdialog title
             mProgressDialog.setTitle("Lade Tischliste");
             // Set progressdialog message
@@ -74,12 +74,12 @@ public class TischActivity extends ListActivity {
         protected void onPostExecute(Void result) {
             // Put the list of todos into the list view
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    TischActivity.this, R.layout.activity_todo_only_textview);
+                    WaiterTableOverviewActivity.this, R.layout.activity_todo_only_textview);
             for (ParseObject todo : todos) {
                 adapter.add((String) todo.get("Name"));
             }
             setListAdapter(adapter);
-            TischActivity.this.mProgressDialog.dismiss();
+            WaiterTableOverviewActivity.this.mProgressDialog.dismiss();
         }
     }
 
@@ -143,7 +143,7 @@ public class TischActivity extends ListActivity {
         switch (item.getItemId()) {
 
             case R.id.speisekarte:
-                Intent iEssen = new Intent(TischActivity.this,
+                Intent iEssen = new Intent(WaiterTableOverviewActivity.this,
                         SpeiseUndGetraenkeKartenActivity.class);
                 iEssen.putExtra("name", "Essen");
                 startActivity(iEssen);
@@ -151,7 +151,7 @@ public class TischActivity extends ListActivity {
                 return true;
 
             case R.id.getraenkekarte:
-                Intent iGetraenke = new Intent(TischActivity.this,
+                Intent iGetraenke = new Intent(WaiterTableOverviewActivity.this,
                         SpeiseUndGetraenkeKartenActivity.class);
                 iGetraenke.putExtra("name", "Getraenke");
                 startActivity(iGetraenke);
@@ -163,7 +163,7 @@ public class TischActivity extends ListActivity {
                 return true;
 
             case R.id.compute_table:
-                Intent computeTableIntent = new Intent(TischActivity.this, AbrechnungsActivity.class);
+                Intent computeTableIntent = new Intent(WaiterTableOverviewActivity.this, AbrechnungsActivity.class);
                 startActivity(computeTableIntent);
         }
 

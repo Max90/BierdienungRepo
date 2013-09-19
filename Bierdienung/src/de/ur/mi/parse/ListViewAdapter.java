@@ -148,19 +148,14 @@ public class ListViewAdapter extends BaseAdapter {
 											objectToSave.put("Kellner",
 													LoginSignupActivity
 															.getKellner());
-											objectToSave.put("Used", "unused");
-											objectToSave.saveInBackground();
+                                            objectToSave.put("Status", "in Bearbeitung");
+                                            objectToSave.saveInBackground();
 
 										}
-										String key = String.valueOf(np
-												.getValue())
-												+ " x "
-												+ parselistdownloadList.get(
-														position).getName()
-												+ " bestellt";
-										Toast.makeText(v.getContext(), key,
-												Toast.LENGTH_SHORT).show();
-									}
+                                        String key = String.valueOf(np.getValue()) + " x " + parselistdownloadList.get(position).getName()
+                                                + " bestellt";
+                                        Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
+                                    }
 								})
 						.setNegativeButton("Nein",
 								new DialogInterface.OnClickListener() {
