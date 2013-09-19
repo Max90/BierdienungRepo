@@ -190,11 +190,10 @@ public class AusschankKuecheActivity extends ListActivity {
 			ob.get(position).put("Background", "unmarked");
 			ob.get(position).saveInBackground();
 
-			adapterListBackground.set(position,
-					ob.get(position).getString("Background"));
-			adapter.notifyDataSetChanged();
+            adapterListBackground.set(position, ob.get(position).getString("Background"));
+            adapter.notifyDataSetChanged();
 
-			for (int i = 0; i < deleteList.size(); i++) {
+            for (int i = 0; i < deleteList.size(); i++) {
 				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
 					deleteList.remove(i);
 
