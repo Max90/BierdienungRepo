@@ -52,7 +52,6 @@ public class LoginSignupActivity extends Activity {
 	private RadioButton radioAusschank;
 	private RadioButton radioVerwalten;
 	private RadioGroup radioCheck;
-	private static String status = "";
 	public Context context = this;
 
 	/**
@@ -286,7 +285,6 @@ public class LoginSignupActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Void result) {
-
 			mProgressDialog.dismiss();
 		}
 	}
@@ -299,7 +297,4 @@ public class LoginSignupActivity extends Activity {
 		return kellnername;
 	}
 
-	public static String getUserStatus() {
-		return status;
-	}
 }
