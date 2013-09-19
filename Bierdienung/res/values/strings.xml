@@ -4,10 +4,8 @@
     <string name="app_name">Bierdienung</string>
     <string name="action_change_table">Tisch wechseln</string>
     <string name="action_add">Produkt hinzufügen</string>
-    <string name="bedienung">Bedienung</string>
-    <string name="ausschank">Ausschank</string>
-    <string name="kueche">Küche</string>
-    <string name="einstellungen">Einstellungen</string>
+
+
     <string name="speisekarte">Speisekarte manipulieren</string>
     <string name="getraenkekarte">Getränkekarte manipulieren</string>
     <string name="refresh">Neu laden</string>
@@ -20,10 +18,9 @@
     <string name="menu_delete">Löschen</string>
     <string name="Username">Username:</string>
     <string name="Password">Password:</string>
-    <string name="kellnername">Kellnername/-nummer:</string>
+    <string name="kellnername">Kellnername:</string>
     <string name="LoginBtn">Einloggen</string>
     <string name="SignupBtn">Registrieren</string>
-    <string name="appicon">AppIcon</string>
     <string name="test">test</string>
     <string name="produkt">Produkt:</string>
     <string name="produktmitmenge">Produkt (mit Größenangabe):</string>
@@ -34,8 +31,8 @@
     <string name="change">Produkt ändern</string>
     <string name="abrechnen">Tisch abrechnen</string>
     <string name="betrag">Betrag insgesamt:</string>
-    <string name="no_connection_string">Keine Internetverbindung vorhanden</string>
-    <string name="connect">verbinden</string>
+    <string name="no_connection_string">Keine Internetverbindung vorhanden!</string>
+    <string name="connect">Verbinden</string>
     <string name="compute_table_string">Tisch Abrechnen</string>
     <string name="meal_menu_string">Speisekarte</string>
     <string name="drink_menu_string">Getränkekarte</string>
