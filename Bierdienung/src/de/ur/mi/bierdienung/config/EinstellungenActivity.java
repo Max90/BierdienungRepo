@@ -12,9 +12,11 @@ public class EinstellungenActivity extends Activity {
 
 	private Button speiseKarten;
 	private Button getraenkeKarten;
-	private static String karte;
+    private Button tableManagementButton;
+    private static String karte;
 
-	@Override
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_einstellungen);
@@ -44,7 +46,15 @@ public class EinstellungenActivity extends Activity {
 			}
 		});
 
-	}
+        tableManagementButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tableManagementActivity = new Intent(EinstellungenActivity.this, TableManagementActivity.class);
+                startActivity(tableManagementActivity);
+            }
+        });
+
+    }
 
 	public static String getKarte() {
 		return karte;
