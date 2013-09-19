@@ -2,15 +2,14 @@ package de.ur.mi.parse;
 
 import java.util.ArrayList;
 
-import de.ur.bierdienung.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import de.ur.bierdienung.R;
 
 public class AdapterAbrechnung extends ArrayAdapter<String> {
 	private final Context context;

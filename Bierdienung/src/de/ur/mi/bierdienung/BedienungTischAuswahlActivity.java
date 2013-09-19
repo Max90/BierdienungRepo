@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import de.ur.bierdienung.R;
+import de.ur.mi.parse.AppSingleton;
 
 public class BedienungTischAuswahlActivity extends Activity {
 
@@ -16,13 +17,16 @@ public class BedienungTischAuswahlActivity extends Activity {
 	private Button bEnterBedienung;
 	private Button bAbrechnung;
 	private static String tNr;
+    AppSingleton appSingleton;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bedienung);
 
-		bEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
+        appSingleton = AppSingleton.getInstance();
+
+        bEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
 		bAbrechnung = (Button) findViewById(R.id.bAbrechnung);
 		tischNummer = (EditText) findViewById(R.id.nr);
 
@@ -51,8 +55,9 @@ public class BedienungTischAuswahlActivity extends Activity {
 				if (tNr.equals("")) {
                     Toast.makeText(v.getContext(), "Bitte Tisch eingeben", Toast.LENGTH_SHORT).show();
                     return;
-				}
-				startActivity(i);
+                } else if (Integer.parseInt(tischNummer.getText().toString()) > Integer.parseInt(appSingleton.tableNumber))
+                    Toast.makeText(v.getContext(), "Tischnummer zu hoch. Wir haben nur " + appSingleton.tableNumber + " Tische", Toast.LENGTH_LONG).show();
+                startActivity(i);
 			}
 		});
 	}

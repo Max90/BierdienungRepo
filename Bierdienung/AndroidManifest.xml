@@ -27,14 +27,18 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="de.ur.mi.login.MainActivity"></activity>
-        <activity android:name="de.ur.mi.login.LoginSignupActivity">
+        <activity
+            android:name="de.ur.mi.login.LoginSignupActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="de.ur.mi.login.MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name="de.ur.mi.bierdienung.BedienungTischAuswahlActivity"
             android:windowSoftInputMode="stateAlwaysVisible"></activity>

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <Button
         android:id="@+id/speisekarteeingeben"
@@ -19,5 +19,13 @@
         android:layout_marginTop="20dp"
         android:text="@string/getraenkekarte" />
 
-    
+    <Button
+        android:id="@+id/button_table_management"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getraenkekarteeingeben"
+        android:layout_marginTop="20dp"
+        android:text="@string/table_management_button_string" />
+
+
 </RelativeLayout>

@@ -41,5 +41,8 @@
     <string name="drink_menu_string">Getränkekarte</string>
     <string name="table_string">tisch</string>
     <string name="change_product">Produkt ändern</string>
+    <string name="table_management_button_string">Tische verwalten</string>
+    <string name="table_number_edit_text_hint_string">Tischanzahl eingeben!</string>
+    <string name="set_table_number_button_string">fertig</string>
 
 </resources>
