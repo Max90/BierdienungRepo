@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="10dip" >
+    <TextView
+        android:id="@+id/txtUsername"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Username" />
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtUsername"
+        android:hint="@string/Username"
+        android:inputType="textNoSuggestions"
+        android:text="@string/test" >
+        <requestFocus />
+    </EditText>
+    <TextView
+        android:id="@+id/txtPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:text="@string/Password" />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtPassword"
+        android:hint="@string/Password"
+        android:inputType="textPassword"
+        android:text="@string/test" />
+
+    <RadioGroup
+        android:id="@+id/radioCheck"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password">
+
+        <RadioButton
+            android:id="@+id/radioKellner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/waiter_radio_button_string" />
+
+        <EditText
+            android:id="@+id/kellnernamen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/kellnername" />
+
+        <RadioButton
+            android:id="@+id/radioKueche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kitchen_radio_button_string" />
+
+        <RadioButton
+            android:id="@+id/radioAusschank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/drinks_radio_button_string" />
+
+        <RadioButton
+            android:id="@+id/radioVerwalten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manage_radio_button_string" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioCheck"
+        android:text="@string/LoginBtn" />
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:text="@string/SignupBtn" />
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="invisible" />
+</RelativeLayout>

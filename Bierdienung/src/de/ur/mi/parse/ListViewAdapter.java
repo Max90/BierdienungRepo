@@ -140,14 +140,8 @@ public class ListViewAdapter extends BaseAdapter {
 													"Art",
 													parselistdownloadList.get(
 															position).getArt());
-											objectToSave.put(
-													"Kategorie",
-													parselistdownloadList.get(
-															position)
-															.getKategorie());
-											objectToSave.put("Kellner",
-													LoginSignupActivity
-															.getKellner());
+                                            objectToSave.put("Kategorie", parselistdownloadList.get(position).getKategorie());
+                                            objectToSave.put("Kellner", LoginSignupActivity.getKellner());
                                             objectToSave.put("Status", "in Bearbeitung");
                                             objectToSave.saveInBackground();
 
