@@ -83,6 +83,7 @@ public final class R {
         public static final int tisch_nr=0x7f080029;
         public static final int txtPassword=0x7f080014;
         public static final int txtUsername=0x7f080012;
+        public static final int user_logout=0x7f080038;
         public static final int username=0x7f080013;
     }
     public static final class layout {
@@ -106,6 +107,7 @@ public final class R {
     public static final class menu {
         public static final int create_bestellung=0x7f070000;
         public static final int main=0x7f070001;
+        public static final int waiterlogoutmenu=0x7f070002;
     }
     public static final class string {
         public static final int LoginBtn=0x7f050010;
@@ -152,6 +154,7 @@ public final class R {
         public static final int tisch=0x7f050017;
         public static final int tisch_nr=0x7f050009;
         public static final int uebernehmen=0x7f050018;
+        public static final int waiter_logout=0x7f05002d;
         public static final int waiter_radio_button_string=0x7f050029;
     }
     public static final class style {

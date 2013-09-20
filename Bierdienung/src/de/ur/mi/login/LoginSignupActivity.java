@@ -46,7 +46,7 @@ public class LoginSignupActivity extends Activity {
 	private EditText password;
 	private EditText username;
 	private ProgressDialog mProgressDialog;
-	private Context ctx;
+	private static Context ctx;
 	private RadioButton radioKellner;
 	private RadioButton radioKueche;
 	private RadioButton radioAusschank;
@@ -57,6 +57,10 @@ public class LoginSignupActivity extends Activity {
 	/**
 	 * Called when the activity is first created.
 	 */
+	
+	public static Context getContext(){
+		return ctx;
+	}
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Get the view from main.xml
@@ -165,7 +169,7 @@ public class LoginSignupActivity extends Activity {
 			public void onClick(View arg0) {
 				kellnername = kellner.getText().toString();
 				if (radioKellner.isChecked()) {
-					if (kellnername.length() < 1) {
+					if (kellnername.equals("")) {
 						Toast.makeText(getApplicationContext(),
 								"Please type in Waiter", Toast.LENGTH_SHORT)
 								.show();

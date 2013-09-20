@@ -4,8 +4,6 @@
     <string name="app_name">Bierdienung</string>
     <string name="action_change_table">Tisch wechseln</string>
     <string name="action_add">Produkt hinzufügen</string>
-
-
     <string name="speisekarte">Speisekarte manipulieren</string>
     <string name="getraenkekarte">Getränkekarte manipulieren</string>
     <string name="refresh">Neu laden</string>
@@ -48,5 +46,6 @@
     <string name="kitchen_radio_button_string">Küche</string>
     <string name="drinks_radio_button_string">Ausschank</string>
     <string name="manage_radio_button_string">Verwalten</string>
+    <string name="waiter_logout">Kellner ausloggen</string>
 
 </resources>
