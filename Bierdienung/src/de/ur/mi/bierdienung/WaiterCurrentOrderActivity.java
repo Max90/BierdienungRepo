@@ -84,7 +84,7 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 					final ParseObject paidItem = appsingleton.deleteObjectList
 							.get(i);
 
-					paidItem.put("Status", "in Bearbeitung");
+					paidItem.put("Status", "aufgegeben");
 					paidItem.saveInBackground();
 
 				}
