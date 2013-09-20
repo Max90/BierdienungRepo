@@ -8,8 +8,7 @@ import com.parse.ParseObject;
 public class AppSingleton {
     private static AppSingleton ourInstance = new AppSingleton();
 
-    public ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
-    public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
+
     public String tableNumber = "";
 
 

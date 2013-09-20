@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,15 +29,17 @@ import de.ur.mi.parse.WaiterCurrentOrderListViewAdapter;
 public class WaiterCurrentOrderActivity extends ListActivity {
 	// Declare Variables
 	private ListView listview;
-	private List<ParseObject> ob;
-	private ProgressDialog mProgressDialog;
+    private List<ParseObject> orders;
+    private ProgressDialog mProgressDialog;
 	private WaiterCurrentOrderListViewAdapter adapter;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private Button buttonDeleteMarked;
 	private Button buttonSendCurrentOrder;
 
-	AppSingleton appsingleton;
-	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
+    public ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
+    public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
+
+    private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
 	private ArrayList<String> adapterListBestellung = new ArrayList<String>();
 	private ArrayList<String> adapterListTisch = new ArrayList<String>();
 	private ArrayList<String> adapterListBackground = new ArrayList<String>();
@@ -47,7 +50,6 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_waiter_current_order);
 
-		appsingleton = AppSingleton.getInstance();
 		buttonDeleteMarked = (Button) findViewById(R.id.delete_marked_button);
 		buttonSendCurrentOrder = (Button) findViewById(R.id.send_current_order_button);
 
@@ -78,15 +80,12 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 			@Override
 			public void onClick(View v) {
-				for (int i = 0; i < appsingleton.deleteObjectList.size(); i++) {
+                for (int i = 0; i < orders.size(); i++) {
 
-					// set the todoObject to the item in list
-					final ParseObject paidItem = appsingleton.deleteObjectList
-							.get(i);
-
-					paidItem.put("Status", "in Bearbeitung");
+                    // set the todoObject to the item in list
+                    final ParseObject paidItem = orders.get(i);
+                    paidItem.put("Status", "aufgegeben");
 					paidItem.saveInBackground();
-
 				}
 
 				adapterListBackground.clear();
@@ -94,10 +93,10 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 				adapterListTisch.clear();
 				listArt.clear();
 
-				// Execute RemoteDataTask AsyncTask
-				new RemoteDataTask().execute();
-
-			}
+                // Link to WaiterTableSelectActivity
+                Intent waiterTableSelectActivity = new Intent(WaiterCurrentOrderActivity.this, WaiterTableSelectActivity.class);
+                startActivity(waiterTableSelectActivity);
+            }
 		});
 	}
 
@@ -107,11 +106,11 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			public void onClick(View v) {
 				// Execute RemoteDataTask AsyncTask
 
-				for (int i = 0; i < appsingleton.deleteObjectList.size(); i++) {
+                for (int i = 0; i < deleteObjectList.size(); i++) {
 
-					// set the todoObject to the item in list
-					final ParseObject paidItem = appsingleton.deleteObjectList
-							.get(i);
+                    // set the todoObject to the item in list
+                    final ParseObject paidItem = deleteObjectList
+                            .get(i);
 
 					paidItem.deleteInBackground();
 
@@ -157,9 +156,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 			query.orderByAscending("Name");
 			try {
-				ob = query.find();
+                orders = query.find();
 
-			} catch (ParseException e) {
+            } catch (ParseException e) {
 				Log.e("Error", e.getMessage());
 				e.printStackTrace();
 			}
@@ -170,9 +169,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			int i = 0;
-			appsingleton.objectList = (ArrayList<ParseObject>) ob;
-			for (ParseObject Name : ob) {
-				ParselistdownloadClass map = new ParselistdownloadClass();
+            objectList = (ArrayList<ParseObject>) orders;
+            for (ParseObject Name : orders) {
+                ParselistdownloadClass map = new ParselistdownloadClass();
 				map.setName((String) Name.get("Name"));
 				map.setTisch((String) Name.get("Tisch"));
 				map.setArt((String) Name.get("Art"));
@@ -181,9 +180,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 				parselistdownloadList.add(map);
 
-				ob.get(i).put("Background", "unmarked");
-				ob.get(i).saveInBackground();
-				adapterListBestellung.add((String) Name.get("Name"));
+                orders.get(i).put("Background", "unmarked");
+                orders.get(i).saveInBackground();
+                adapterListBestellung.add((String) Name.get("Name"));
 				adapterListTisch.add((String) Name.get("Tisch"));
 				adapterListBackground.add((String) Name.get("Background"));
 				listArt.add((String) Name.get("Art"));
@@ -212,37 +211,36 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		if (ob.get(position).get("Background").toString().equals("marked")) {
+        if (orders.get(position).get("Background").toString().equals("marked")) {
 
-			ob.get(position).put("Background", "unmarked");
-			ob.get(position).saveInBackground();
+            orders.get(position).put("Background", "unmarked");
+            orders.get(position).saveInBackground();
 
-			adapterListBackground.set(position,
-					ob.get(position).getString("Background"));
-			adapter.notifyDataSetChanged();
+            adapterListBackground.set(position,
+                    orders.get(position).getString("Background"));
+            adapter.notifyDataSetChanged();
 
 			for (int i = 0; i < deleteList.size(); i++) {
-				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
-					deleteList.remove(i);
+                if (deleteList.get(i) == objectList.get(position)) {
+                    deleteList.remove(i);
 
 				}
-				appsingleton.deleteObjectList = deleteList;
+                deleteObjectList = deleteList;
 
-			}
+            }
 
 		} else {
 
-			ob.get(position).put("Background", "marked");
-			ob.get(position).saveInBackground();
+            orders.get(position).put("Background", "marked");
+            orders.get(position).saveInBackground();
 
-			adapterListBackground.set(position,
-					ob.get(position).getString("Background"));
-			adapter.notifyDataSetChanged();
+            adapterListBackground.set(position, orders.get(position).getString("Background"));
+            adapter.notifyDataSetChanged();
 
-			deleteList.add(appsingleton.objectList.get(position));
-			appsingleton.deleteObjectList = deleteList;
+            deleteList.add(objectList.get(position));
+            deleteObjectList = deleteList;
 
-		}
+        }
 
 	}
 

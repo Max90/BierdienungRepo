@@ -30,14 +30,16 @@ public class AusschankKuecheActivity extends ListActivity {
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private Button refresh;
 	private String karte;
-	AppSingleton appsingleton;
 	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
 	private ArrayList<String> adapterListBestellung = new ArrayList<String>();
 	private ArrayList<String> adapterListTisch = new ArrayList<String>();
 	private ArrayList<String> adapterListBackground = new ArrayList<String>();
 	private ArrayList<String> listArt = new ArrayList<String>();
 
-	@Override
+    public ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
+    public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_kueche_ausschank);
@@ -45,7 +47,6 @@ public class AusschankKuecheActivity extends ListActivity {
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
 		refreshButton();
-		appsingleton = AppSingleton.getInstance();
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
@@ -56,11 +57,11 @@ public class AusschankKuecheActivity extends ListActivity {
 			public void onClick(View v) {
 				// Execute RemoteDataTask AsyncTask
 
-				for (int i = 0; i < appsingleton.deleteObjectList.size(); i++) {
+                for (int i = 0; i < deleteObjectList.size(); i++) {
 
-					// set the todoObject to the item in list
-					final ParseObject paidItem = appsingleton.deleteObjectList
-							.get(i);
+                    // set the todoObject to the item in list
+                    final ParseObject paidItem = deleteObjectList
+                            .get(i);
 
 					paidItem.put("Status", "fertig");
 					paidItem.saveInBackground();
@@ -136,8 +137,8 @@ public class AusschankKuecheActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			int i = 0;
-			appsingleton.objectList = (ArrayList<ParseObject>) orders;
-			for (ParseObject order : orders) {
+            objectList = (ArrayList<ParseObject>) orders;
+            for (ParseObject order : orders) {
 				ParselistdownloadClass map = new ParselistdownloadClass();
 				map.setBackground((String) order.get("Background"));
 				map.setName((String) order.get("Name"));
@@ -189,16 +190,12 @@ public class AusschankKuecheActivity extends ListActivity {
 			adapter.notifyDataSetChanged();
 
 			for (int i = 0; i < deleteList.size(); i++) {
-				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
-					deleteList.remove(i);
-
+                if (deleteList.get(i) == objectList.get(position)) {
+                    deleteList.remove(i);
 				}
-				appsingleton.deleteObjectList = deleteList;
-
-			}
-
+                deleteObjectList = deleteList;
+            }
 		} else {
-
 			orders.get(position).put("Background", "marked");
 			orders.get(position).saveInBackground();
 
@@ -206,11 +203,8 @@ public class AusschankKuecheActivity extends ListActivity {
 					orders.get(position).getString("Background"));
 			adapter.notifyDataSetChanged();
 
-			deleteList.add(appsingleton.objectList.get(position));
-			appsingleton.deleteObjectList = deleteList;
-
-		}
-
+            deleteList.add(objectList.get(position));
+            deleteObjectList = deleteList;
+        }
 	}
-
 }
