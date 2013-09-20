@@ -1,9 +1,7 @@
 package de.ur.mi.parse;
 
 import java.util.ArrayList;
-
 import de.ur.bierdienung.R;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -12,24 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ListViewAdapter_Kueche_Ausschank extends ArrayAdapter<String> {
+public class WaiterCurrentOrderListViewAdapter extends ArrayAdapter<String> {
 
-	private final ArrayList<String> adapterListBackground;
 	private final ArrayList<String> adapterListBestellung;
 	private final ArrayList<String> adapterListTisch;
-
+	private final ArrayList<String> adapterListBackground;
 	private final Context context;
 
-	public ListViewAdapter_Kueche_Ausschank(Context context,
-			ArrayList<String> adapterListBackground,
+	public WaiterCurrentOrderListViewAdapter(Context context,
 			ArrayList<String> adapterListBestellung,
-			ArrayList<String> adapterListTisch) {
+			ArrayList<String> adapterListTisch,
+			ArrayList<String> adapterListBackground) {
 		super(context, R.layout.listview_item, adapterListBestellung);
 		this.context = context;
-		this.adapterListBackground = adapterListBackground;
 		this.adapterListBestellung = adapterListBestellung;
 		this.adapterListTisch = adapterListTisch;
-
+		this.adapterListBackground = adapterListBackground;
 	}
 
 	@Override

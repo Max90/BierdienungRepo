@@ -32,20 +32,20 @@ import com.parse.SignUpCallback;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.AusschankKuecheActivity;
-import de.ur.mi.bierdienung.BedienungTischAuswahlActivity;
+import de.ur.mi.bierdienung.WaiterTableSelectActivity;
 import de.ur.mi.bierdienung.config.EinstellungenActivity;
 
 public class LoginSignupActivity extends Activity {
 	// Declare Variables
-	Button loginbutton;
-	Button signup;
+	private Button loginbutton;
+	private Button signup;
 	static String usernametxt;
 	static String passwordtxt;
 	static String kellnername;
-	EditText kellner;
-	EditText password;
-	EditText username;
-	ProgressDialog mProgressDialog;
+	private EditText kellner;
+	private EditText password;
+	private EditText username;
+	private ProgressDialog mProgressDialog;
 	private Context ctx;
 	private RadioButton radioKellner;
 	private RadioButton radioKueche;
@@ -196,7 +196,7 @@ public class LoginSignupActivity extends Activity {
 											} else if (radioKellner.isChecked()) {
 												Intent i = new Intent(
 														LoginSignupActivity.this,
-														BedienungTischAuswahlActivity.class);
+														WaiterTableSelectActivity.class);
 												startActivity(i);
 											} else if (radioKueche.isChecked()) {
 												Intent i = new Intent(
@@ -242,7 +242,7 @@ public class LoginSignupActivity extends Activity {
 		ParseACL.setDefaultACL(defaultACL, true);
 		// Push Push Push
 		PushService.setDefaultPushCallback(this,
-				BedienungTischAuswahlActivity.class);
+				WaiterTableSelectActivity.class);
 	}
 
 	// creates the dialog for internet connection

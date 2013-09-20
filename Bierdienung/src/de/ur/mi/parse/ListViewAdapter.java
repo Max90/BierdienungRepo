@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.bierdienung.BedienungTischAuswahlActivity;
+import de.ur.mi.bierdienung.WaiterTableSelectActivity;
 import de.ur.mi.login.LoginSignupActivity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -134,7 +134,7 @@ public class ListViewAdapter extends BaseAdapter {
 															position)
 															.getPreis());
 											objectToSave.put("Tisch",
-													BedienungTischAuswahlActivity
+													WaiterTableSelectActivity
 															.getTNR());
 											objectToSave.put(
 													"Art",
@@ -142,7 +142,7 @@ public class ListViewAdapter extends BaseAdapter {
 															position).getArt());
                                             objectToSave.put("Kategorie", parselistdownloadList.get(position).getKategorie());
                                             objectToSave.put("Kellner", LoginSignupActivity.getKellner());
-                                            objectToSave.put("Status", "in Bearbeitung");
+                                            objectToSave.put("Status", "offen");
                                             objectToSave.saveInBackground();
 
 										}

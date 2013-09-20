@@ -11,12 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import de.ur.bierdienung.R;
 
-public class AdapterAbrechnung extends ArrayAdapter<String> {
+public class CashUpAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private final ArrayList<String> values;
 	private final ArrayList<String> adapterListBackground;
 
-	public AdapterAbrechnung(Context context, ArrayList<String> values,
+	public CashUpAdapter(Context context, ArrayList<String> values,
 			ArrayList<String> adapterListBackground) {
 		super(context, R.layout.listview_item, values);
 		this.context = context;

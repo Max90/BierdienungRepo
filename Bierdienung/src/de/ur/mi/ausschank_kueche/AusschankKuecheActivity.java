@@ -23,10 +23,10 @@ import de.ur.mi.parse.ParselistdownloadClass;
 
 public class AusschankKuecheActivity extends ListActivity {
 	// Declare Variables
-	ListView listview;
-	List<ParseObject> ob;
-	ProgressDialog mProgressDialog;
-	ListViewAdapter_Kueche_Ausschank adapter;
+	private ListView listview;
+	private List<ParseObject> orders;
+	private ProgressDialog mProgressDialog;
+	private ListViewAdapter_Kueche_Ausschank adapter;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private Button refresh;
 	private String karte;
@@ -36,16 +36,16 @@ public class AusschankKuecheActivity extends ListActivity {
 	private ArrayList<String> adapterListTisch = new ArrayList<String>();
 	private ArrayList<String> adapterListBackground = new ArrayList<String>();
 	private ArrayList<String> listArt = new ArrayList<String>();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		appsingleton = AppSingleton.getInstance();
 		setContentView(R.layout.activity_kueche_ausschank);
 		refresh = (Button) findViewById(R.id.refresh);
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
 		refreshButton();
-
+		appsingleton = AppSingleton.getInstance();
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
 	}
@@ -62,15 +62,8 @@ public class AusschankKuecheActivity extends ListActivity {
 					final ParseObject paidItem = appsingleton.deleteObjectList
 							.get(i);
 
-                    paidItem.put("Status", "fertig");
-
-                    try {
-						paidItem.save();
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
+					paidItem.put("Status", "fertig");
+					paidItem.saveInBackground();
 				}
 
 				// PushNotification for Waiter who accepted order when meal is
@@ -126,11 +119,11 @@ public class AusschankKuecheActivity extends ListActivity {
 			// Locate the class table named "Country" in Parse.com
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_Bestellung");
-            query.whereEqualTo("Status", "in Bearbeitung");
-            query.whereEqualTo("Art", karte);
+			query.whereEqualTo("Status", "aufgegeben");
+			query.whereEqualTo("Art", karte);
 			query.orderByAscending("Name");
 			try {
-				ob = query.find();
+				orders = query.find();
 
 			} catch (ParseException e) {
 				Log.e("Error", e.getMessage());
@@ -143,23 +136,25 @@ public class AusschankKuecheActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			int i = 0;
-			appsingleton.objectList = (ArrayList<ParseObject>) ob;
-			for (ParseObject Name : ob) {
+			appsingleton.objectList = (ArrayList<ParseObject>) orders;
+			for (ParseObject order : orders) {
 				ParselistdownloadClass map = new ParselistdownloadClass();
-				map.setName((String) Name.get("Name"));
-				map.setTisch((String) Name.get("Tisch"));
-				map.setArt((String) Name.get("Art"));
-				map.setKellner((String) Name.get("Kellner"));
-				map.setBackground((String) Name.get("Background"));
+				map.setBackground((String) order.get("Background"));
+				map.setName((String) order.get("Name"));
+				map.setTisch((String) order.get("Tisch"));
+				map.setArt((String) order.get("Art"));
+				map.setKellner((String) order.get("Kellner"));
+				
 
 				parselistdownloadList.add(map);
 
-				ob.get(i).put("Background", "unmarked");
-				ob.get(i).saveInBackground();
-				adapterListBestellung.add((String) Name.get("Name"));
-				adapterListTisch.add((String) Name.get("Tisch"));
-				adapterListBackground.add((String) Name.get("Background"));
-				listArt.add((String) Name.get("Art"));
+				orders.get(i).put("Background", "unmarked");
+				orders.get(i).saveInBackground();
+
+				adapterListBackground.add((String) order.get("Background"));
+				adapterListBestellung.add((String) order.get("Name"));
+				adapterListTisch.add((String) order.get("Tisch"));
+				listArt.add((String) order.get("Art"));
 
 				i++;
 
@@ -169,8 +164,8 @@ public class AusschankKuecheActivity extends ListActivity {
 			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
 			adapter = new ListViewAdapter_Kueche_Ausschank(
-					AusschankKuecheActivity.this, adapterListBestellung,
-					adapterListTisch, adapterListBackground);
+					AusschankKuecheActivity.this, adapterListBackground,
+					adapterListBestellung, adapterListTisch);
 
 			setListAdapter(adapter);
 			adapter.notifyDataSetChanged();
@@ -178,22 +173,22 @@ public class AusschankKuecheActivity extends ListActivity {
 			// Close the progressdialog
 			mProgressDialog.dismiss();
 		}
-
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		if (ob.get(position).get("Background").toString().equals("marked")) {
+		if (orders.get(position).get("Background").toString().equals("marked")) {
 
-			ob.get(position).put("Background", "unmarked");
-			ob.get(position).saveInBackground();
+			orders.get(position).put("Background", "unmarked");
+			orders.get(position).saveInBackground();
 
-            adapterListBackground.set(position, ob.get(position).getString("Background"));
-            adapter.notifyDataSetChanged();
+			adapterListBackground.set(position,
+					orders.get(position).getString("Background"));
+			adapter.notifyDataSetChanged();
 
-            for (int i = 0; i < deleteList.size(); i++) {
+			for (int i = 0; i < deleteList.size(); i++) {
 				if (deleteList.get(i) == appsingleton.objectList.get(position)) {
 					deleteList.remove(i);
 
@@ -204,11 +199,11 @@ public class AusschankKuecheActivity extends ListActivity {
 
 		} else {
 
-			ob.get(position).put("Background", "marked");
-			ob.get(position).saveInBackground();
+			orders.get(position).put("Background", "marked");
+			orders.get(position).saveInBackground();
 
 			adapterListBackground.set(position,
-					ob.get(position).getString("Background"));
+					orders.get(position).getString("Background"));
 			adapter.notifyDataSetChanged();
 
 			deleteList.add(appsingleton.objectList.get(position));

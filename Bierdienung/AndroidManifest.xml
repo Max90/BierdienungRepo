@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="de.ur.mi.bierdienung.BedienungTischAuswahlActivity"
+            android:name="de.ur.mi.bierdienung.WaiterTableSelectActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" >
         </activity>
@@ -46,11 +46,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="de.ur.mi.bierdienung.SpeiseUndGetraenkeKartenActivity"
+            android:name="de.ur.mi.bierdienung.MenuActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="de.ur.mi.bierdienung.AbrechnungsActivity"
+            android:name="de.ur.mi.bierdienung.WaiterCashUpActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

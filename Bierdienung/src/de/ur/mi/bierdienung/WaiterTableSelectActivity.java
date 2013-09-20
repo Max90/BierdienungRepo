@@ -19,11 +19,11 @@ import java.util.List;
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 
-public class BedienungTischAuswahlActivity extends Activity {
+public class WaiterTableSelectActivity extends Activity {
 
     private EditText tischNummer;
-    private Button bEnterBedienung;
-    private Button bAbrechnung;
+    private Button buttonEnterBedienung;
+    private Button buttonAbrechnung;
     private static String tNr;
     private List<ParseObject> parseListTableNumber;
     private String maxTables;
@@ -44,15 +44,15 @@ public class BedienungTischAuswahlActivity extends Activity {
         }
 
 
-        bEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
-        bAbrechnung = (Button) findViewById(R.id.bAbrechnung);
+        buttonEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
+        buttonAbrechnung = (Button) findViewById(R.id.bAbrechnung);
         tischNummer = (EditText) findViewById(R.id.nr);
 
-        bEnterBedienung.setOnClickListener(new OnClickListener() {
+        buttonEnterBedienung.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(BedienungTischAuswahlActivity.this,
+                Intent i = new Intent(WaiterTableSelectActivity.this,
                         WaiterTableOverviewActivity.class);
                 tNr = tischNummer.getText().toString();
                 if (checkForInvalidInput(v))
@@ -61,11 +61,11 @@ public class BedienungTischAuswahlActivity extends Activity {
             }
         });
 
-        bAbrechnung.setOnClickListener(new OnClickListener() {
+        buttonAbrechnung.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(BedienungTischAuswahlActivity.this, AbrechnungsActivity.class);
+                Intent i = new Intent(WaiterTableSelectActivity.this, WaiterCashUpActivity.class);
                 tNr = tischNummer.getText().toString();
                 if (checkForInvalidInput(v))
                     return;
