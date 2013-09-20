@@ -7,6 +7,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -88,6 +89,10 @@ public class ManipulateKartenActivity extends ListActivity {
 			setTitle(R.string.drink_menu_string);
 		} else {
 			setTitle(R.string.meal_menu_string);
+		}
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
 		}
 
 		new RemoteDataTask().execute();
@@ -201,6 +206,11 @@ public class ManipulateKartenActivity extends ListActivity {
 		case INSERT_ID:
 			createTodo();
 			return true;
+
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -2,7 +2,9 @@ package de.ur.mi.bierdienung.config;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,6 +83,10 @@ public class CreateProdukt extends Activity {
 		radio2 = (RadioButton) findViewById(R.id.radio2);
 		radio3 = (RadioButton) findViewById(R.id.radio3);
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			String name = extras.getString("name");
@@ -122,5 +128,16 @@ public class CreateProdukt extends Activity {
 			radio3.setVisibility(View.INVISIBLE);
 		}
 
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

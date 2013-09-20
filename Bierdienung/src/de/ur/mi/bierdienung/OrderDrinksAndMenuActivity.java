@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +27,7 @@ import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.ListViewAdapter;
 import de.ur.mi.parse.ParselistdownloadClass;
 
-public class MenuActivity extends Activity {
+public class OrderDrinksAndMenuActivity extends Activity {
 
 	// Declare Variables
 	private ListView listview;
@@ -46,28 +47,31 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// Get the view from listview_main.xml
 		setContentView(R.layout.activity_speisekarte);
+		setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
 
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
 
 		buttonWaiterCurrentOrder = (Button) findViewById(R.id.send_or_change_order_button);
-
-		buttonWaiterCurrentOrder.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(MenuActivity.this,
-						WaiterCurrentOrderActivity.class);
-				startActivity(i);
-
-			}
-		});
-
-		setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
+		setButtonWaiterCurrentOrder();
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
 
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
+	}
 
+	private void setButtonWaiterCurrentOrder() {
+		buttonWaiterCurrentOrder.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(OrderDrinksAndMenuActivity.this,
+						WaiterCurrentOrderActivity.class);
+				startActivity(i);
+			}
+		});
 	}
 
 	@Override
@@ -75,22 +79,23 @@ public class MenuActivity extends Activity {
 		switch (item.getItemId()) {
 
 		case R.id.tisch:
-			Intent iTisch = new Intent(MenuActivity.this,
+			Intent iTisch = new Intent(OrderDrinksAndMenuActivity.this,
 					WaiterTableOverviewActivity.class);
 			startActivity(iTisch);
 			finish();
 			return true;
 
 		case R.id.speisekarte:
-			Intent iEssen = new Intent(MenuActivity.this, MenuActivity.class);
+			Intent iEssen = new Intent(OrderDrinksAndMenuActivity.this,
+					OrderDrinksAndMenuActivity.class);
 			iEssen.putExtra("name", "Essen");
 			startActivity(iEssen);
 			finish();
 			return true;
 
 		case R.id.getraenkekarte:
-			Intent iGetraenke = new Intent(MenuActivity.this,
-					MenuActivity.class);
+			Intent iGetraenke = new Intent(OrderDrinksAndMenuActivity.this,
+					OrderDrinksAndMenuActivity.class);
 			iGetraenke.putExtra("name", "Getraenke");
 			startActivity(iGetraenke);
 			finish();
@@ -101,9 +106,15 @@ public class MenuActivity extends Activity {
 			return true;
 
 		case R.id.compute_table:
-			Intent computeTableIntent = new Intent(MenuActivity.this,
-					WaiterCashUpActivity.class);
+			Intent computeTableIntent = new Intent(
+					OrderDrinksAndMenuActivity.this, WaiterCashUpActivity.class);
 			startActivity(computeTableIntent);
+			return true;
+
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -124,7 +135,8 @@ public class MenuActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();
 			// Create a progressdialog
-			mProgressDialog = new ProgressDialog(MenuActivity.this);
+			mProgressDialog = new ProgressDialog(
+					OrderDrinksAndMenuActivity.this);
 			// Set progressdialog title
 			mProgressDialog.setTitle("Lade " + karte + "liste");
 			// Set progressdialog message
@@ -170,7 +182,7 @@ public class MenuActivity extends Activity {
 			// Locate the listview in listview_main.xml
 			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
-			adapter = new ListViewAdapter(MenuActivity.this,
+			adapter = new ListViewAdapter(OrderDrinksAndMenuActivity.this,
 					parselistdownloadList);
 			// Binds the Adapter to the ListView
 			listview.setAdapter(adapter);

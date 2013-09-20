@@ -1,18 +1,22 @@
 package de.ur.mi.bierdienung;
 
 import java.util.List;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 
@@ -21,12 +25,10 @@ public class WaiterTableOverviewActivity extends ListActivity {
 	public static final int INSERT_ID = Menu.FIRST;
 	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
 
-
 	private List<ParseObject> orders;
 	private ProgressDialog mProgressDialog;
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-
 		// Override this method to do custom remote calls
 		protected Void doInBackground(Void... params) {
 			// Gets the current list of orders
@@ -88,6 +90,10 @@ public class WaiterTableOverviewActivity extends ListActivity {
 
 		setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
+
 		new RemoteDataTask().execute();
 		registerForContextMenu(getListView());
 	}
@@ -97,7 +103,6 @@ public class WaiterTableOverviewActivity extends ListActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
-
 		return result;
 	}
 
@@ -107,7 +112,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
 
 		case R.id.speisekarte:
 			Intent iEssen = new Intent(WaiterTableOverviewActivity.this,
-					MenuActivity.class);
+					OrderDrinksAndMenuActivity.class);
 			iEssen.putExtra("name", "Essen");
 			startActivity(iEssen);
 			finish();
@@ -115,7 +120,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
 
 		case R.id.getraenkekarte:
 			Intent iGetraenke = new Intent(WaiterTableOverviewActivity.this,
-					MenuActivity.class);
+					OrderDrinksAndMenuActivity.class);
 			iGetraenke.putExtra("name", "Getraenke");
 			startActivity(iGetraenke);
 			finish();
@@ -130,6 +135,11 @@ public class WaiterTableOverviewActivity extends ListActivity {
 					WaiterTableOverviewActivity.this,
 					WaiterCashUpActivity.class);
 			startActivity(computeTableIntent);
+
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
 		}
 
 		return super.onOptionsItemSelected(item);

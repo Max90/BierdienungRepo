@@ -46,7 +46,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="de.ur.mi.bierdienung.MenuActivity"
+            android:name="de.ur.mi.bierdienung.OrderDrinksAndMenuActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

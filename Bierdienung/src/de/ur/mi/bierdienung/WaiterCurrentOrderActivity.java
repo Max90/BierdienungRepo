@@ -2,23 +2,28 @@ package de.ur.mi.bierdienung;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.AppSingleton;
-import de.ur.mi.parse.WaiterCurrentOrderListViewAdapter;
 import de.ur.mi.parse.ParselistdownloadClass;
+import de.ur.mi.parse.WaiterCurrentOrderListViewAdapter;
 
 public class WaiterCurrentOrderActivity extends ListActivity {
 	// Declare Variables
@@ -40,10 +45,15 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		appsingleton = AppSingleton.getInstance();
 		setContentView(R.layout.activity_waiter_current_order);
+
+		appsingleton = AppSingleton.getInstance();
 		buttonDeleteMarked = (Button) findViewById(R.id.delete_marked_button);
 		buttonSendCurrentOrder = (Button) findViewById(R.id.send_current_order_button);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
 
 		deleteMarkedOrder();
 		sendCurrentOrder();
@@ -52,9 +62,20 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		new RemoteDataTask().execute();
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
 	private void sendCurrentOrder() {
 		buttonSendCurrentOrder.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				for (int i = 0; i < appsingleton.deleteObjectList.size(); i++) {
@@ -66,7 +87,6 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 					paidItem.put("Status", "in Bearbeitung");
 					paidItem.saveInBackground();
 
-
 				}
 
 				adapterListBackground.clear();
@@ -76,11 +96,10 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 				// Execute RemoteDataTask AsyncTask
 				new RemoteDataTask().execute();
-				
+
 			}
 		});
 	}
-
 
 	private void deleteMarkedOrder() {
 		buttonDeleteMarked.setOnClickListener(new OnClickListener() {

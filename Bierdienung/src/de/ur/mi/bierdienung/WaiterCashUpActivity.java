@@ -1,22 +1,26 @@
 package de.ur.mi.bierdienung;
 
 import java.util.ArrayList;
-
 import java.util.List;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 import de.ur.mi.parse.CashUpAdapter;
@@ -37,8 +41,11 @@ public class WaiterCashUpActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_abrechnung);
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
 
 		buttonCashUp = (Button) findViewById(R.id.bTischAbrechnen);
 		textViewAmount = (TextView) findViewById(R.id.textview);
@@ -50,6 +57,17 @@ public class WaiterCashUpActivity extends ListActivity {
 
 		new RemoteDataTask().execute();
 
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
