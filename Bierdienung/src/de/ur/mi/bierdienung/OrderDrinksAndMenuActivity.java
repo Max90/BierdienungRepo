@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +45,7 @@ public class OrderDrinksAndMenuActivity extends Activity {
 
     private String karte;
     private Button buttonWaiterCurrentOrder;
+    final Context context = this;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,39 @@ public class OrderDrinksAndMenuActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                    context);
+            // set title
+            alertDialogBuilder
+                    .setTitle("Wollen Sie Ihre Bestellung abbrechen?");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(
+                            "Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?")
+                    .setCancelable(false)
+                    .setPositiveButton("Ja",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    finish();
+                                }
+                            })
+                    .setNegativeButton("Nein",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                                    int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+        return true;
     }
 
     @Override
