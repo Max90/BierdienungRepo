@@ -30,7 +30,10 @@ public class FoodMenuActivity extends FragmentActivity implements
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_drinks_menu);
+		setContentView(R.layout.activity_menu_card);
+		
+		Bundle extras = getIntent().getExtras();
+		karte = extras.getString("name");
 
 		// Create the adapter that will return a fragment
 		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
@@ -39,8 +42,7 @@ public class FoodMenuActivity extends FragmentActivity implements
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
 		
-		Bundle extras = getIntent().getExtras();
-		karte = extras.getString("name");
+		
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
@@ -135,11 +137,11 @@ public class FoodMenuActivity extends FragmentActivity implements
 		public CharSequence getPageTitle(int position) {
 			switch (position) {
 			case 0:
-				return "Vorspeise";
+				return "Vorspeisen";
 			case 1:
-				return "Hauptspeise";
+				return "Hauptspeisen";
 			case 2:
-				return "Nachspeise";
+				return "Nachspeisen";
 
 			}
 			return null;
