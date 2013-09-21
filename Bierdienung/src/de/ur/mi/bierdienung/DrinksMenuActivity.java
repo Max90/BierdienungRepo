@@ -35,11 +35,10 @@ import android.view.MenuItem;
 public class DrinksMenuActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
-	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-
-	ViewPager mViewPager;
 	// Declare Variables
-
+	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+	ViewPager mViewPager;
+	
 	public static final int INSERT_ID = Menu.FIRST;
 	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
 
@@ -131,22 +130,15 @@ public class DrinksMenuActivity extends FragmentActivity implements
 		public Fragment getItem(int i) {
 			switch (i) {
 			case 0:
-
 				return new MenuSwipeFragment("Alkoholfrei", karte);
-
 			case 1:
-
 				return new MenuSwipeFragment("Bier", karte);
 			case 2:
-
 				return new MenuSwipeFragment("Wein", karte);
 			case 3:
-
 				return new MenuSwipeFragment("Schnaps", karte);
 			case 4:
-
 				return new MenuSwipeFragment("Sonstiges", karte);
-
 			}
 			return null;
 		}

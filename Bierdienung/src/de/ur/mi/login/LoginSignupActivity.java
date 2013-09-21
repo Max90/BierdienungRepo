@@ -2,7 +2,6 @@ package de.ur.mi.login;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
-
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -29,7 +27,6 @@ import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.parse.PushService;
 import com.parse.SignUpCallback;
-
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.AusschankKuecheActivity;
 import de.ur.mi.bierdienung.WaiterTableSelectActivity;

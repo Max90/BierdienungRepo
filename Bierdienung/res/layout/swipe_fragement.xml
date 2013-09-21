@@ -1,13 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent" >
 
-     <ListView
+    <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/textViewProdukt"
         android:layout_above="@+id/send_or_change_order_button"
+        android:layout_below="@+id/textViewProdukt"
         android:layout_marginBottom="10dp" />
 
     <TextView
@@ -24,16 +24,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Preis" />
+        android:text="@string/preis" />
 
     <Button
         android:id="@+id/send_or_change_order_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Senden/Bearbeiten"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp" />
-
+        android:layout_marginBottom="5dp"
+        android:text="@string/send_or_change_order_button_string" />
 
 </RelativeLayout>

@@ -31,16 +31,13 @@ public class ListViewAdapter extends BaseAdapter {
 	public ListViewAdapter(Context context,
 			List<ParselistdownloadClass> parselistdownloadList) {
 		mContext = context;
-		this.parselistdownloadList = parselistdownloadList;
 		inflater = LayoutInflater.from(mContext);
+		this.parselistdownloadList = parselistdownloadList;
 		this.arraylist = new ArrayList<ParselistdownloadClass>();
 		this.arraylist.addAll(parselistdownloadList);
 	}
 
-	public class ViewHolder {
-		TextView listviewName;
-		TextView listviewPreis;
-	}
+
 
 	@Override
 	public int getCount() {
@@ -58,26 +55,14 @@ public class ListViewAdapter extends BaseAdapter {
 	}
 
 	public View getView(final int position, View view, ViewGroup parent) {
-		final ViewHolder holder;
-		if (view == null) {
-			holder = new ViewHolder();
-			view = inflater.inflate(R.layout.listview_item, null);
-			// Locate the TextViews in listview_item.xml
-			holder.listviewName = (TextView) view
-					.findViewById(R.id.listviewName);
-			holder.listviewPreis = (TextView) view
-					.findViewById(R.id.listviewPreis);
-			view.setTag(holder);
-		} else {
-			holder = (ViewHolder) view.getTag();
-		}
-		// Set the results into TextViews
+		view = inflater.inflate(R.layout.listview_item, null);
+		// Locate the TextViews in listview_item.xml
+		TextView listviewName = (TextView) view.findViewById(R.id.listviewName);
+		TextView listviewPreis = (TextView) view.findViewById(R.id.listviewPreis);
 
-		holder.listviewName.setText(parselistdownloadList.get(position)
-				.getName());
+		listviewName.setText(parselistdownloadList.get(position).getName());
 
-		holder.listviewPreis.setText(parselistdownloadList.get(position)
-				.getPreis());
+		listviewPreis.setText(parselistdownloadList.get(position).getPreis());
 
 		// Listen for ListView Item Click
 
@@ -140,16 +125,27 @@ public class ListViewAdapter extends BaseAdapter {
 													"Art",
 													parselistdownloadList.get(
 															position).getArt());
-                                            objectToSave.put("Kategorie", parselistdownloadList.get(position).getKategorie());
-                                            objectToSave.put("Kellner", LoginSignupActivity.getKellner());
-                                            objectToSave.put("Status", "offen");
-                                            objectToSave.saveInBackground();
+											objectToSave.put(
+													"Kategorie",
+													parselistdownloadList.get(
+															position)
+															.getKategorie());
+											objectToSave.put("Kellner",
+													LoginSignupActivity
+															.getKellner());
+											objectToSave.put("Status", "offen");
+											objectToSave.saveInBackground();
 
 										}
-                                        String key = String.valueOf(np.getValue()) + " x " + parselistdownloadList.get(position).getName()
-                                                + " bestellt";
-                                        Toast.makeText(v.getContext(), key, Toast.LENGTH_SHORT).show();
-                                    }
+										String toastString = String.valueOf(np
+												.getValue())
+												+ " x "
+												+ parselistdownloadList.get(
+														position).getName()
+												+ " zur Bestellung hinzugefügt";
+										Toast.makeText(v.getContext(), toastString,
+												Toast.LENGTH_SHORT).show();
+									}
 								})
 						.setNegativeButton("Nein",
 								new DialogInterface.OnClickListener() {
