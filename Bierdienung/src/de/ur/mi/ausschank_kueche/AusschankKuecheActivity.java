@@ -65,30 +65,56 @@ public class AusschankKuecheActivity extends ListActivity {
 					paidItem.saveInBackground();
 				}
 
-				// PushNotification for Waiter who accepted order when meal is
-				// cooked
-				for (int i = 0; i < adapterListBackground.size(); i++) {
+                // PushNotification for Waiter who accepted order when meal is
+                // cooked
+                ArrayList<String> listTisch = new ArrayList<String>();
+                ArrayList<String> listBestellung = new ArrayList<String>();
+                ArrayList<String> listKellner = new ArrayList<String>();
+                for (int i = 0; i < adapterListBackground.size(); i++) {
+                    if (adapterListBackground.get(i).equals("marked")
+                            && listArt.get(i).equals("Essen")) {
+                        boolean check = true;
+                        if (listTisch.size() > 0) {
+                            for (int p = 0; p < listTisch.size(); p++) {
+                                if (listTisch.get(p).equals(
+                                        adapterListTisch.get(i))) {
+                                    String temp = listBestellung.get(p) + ", "
+                                            + adapterListBestellung.get(i);
+                                    listBestellung.set(p, temp);
+                                    listKellner.set(p, parselistdownloadList
+                                            .get(i).getKellner());
+                                    check = false;
+                                    System.out.println("liste1");
+                                }
+                            }
+                        }
+                        if (check) {
+                            listTisch.add(adapterListTisch.get(i));
+                            listBestellung.add(adapterListBestellung.get(i));
+                            listKellner.add(parselistdownloadList.get(i)
+                                    .getKellner());
+                            System.out.println("liste2");
 
-					if (adapterListBackground.get(i).equals("marked")
-							&& listArt.get(i).equals("Essen")) {
-						String key = adapterListBestellung.get(i) + " fertig!"
-								+ " Tisch " + adapterListTisch.get(i);
-						String kellnerName = parselistdownloadList.get(i)
-								.getKellner();
-						ParsePush push = new ParsePush();
-						push.setChannel(kellnerName);
-						push.setMessage(key);
-						push.sendInBackground();
-					}
+                        }
+                    }
+                }
+                if (listTisch.size() > 0) {
+                    for (int i = 0; i < listTisch.size(); i++) {
+                        String key = listBestellung.get(i) + " fertig!"
+                                + " Tisch " + listTisch.get(i);
+                        String kellnerName = listKellner.get(i);
+                        ParsePush push = new ParsePush();
+                        push.setChannel(kellnerName);
+                        push.setMessage(key);
+                        push.sendInBackground();
+                    }
+                }
+                adapterListBackground.clear();
+                adapterListBestellung.clear();
+                adapterListTisch.clear();
+                listArt.clear();
 
-				}
-
-				adapterListBackground.clear();
-				adapterListBestellung.clear();
-				adapterListTisch.clear();
-				listArt.clear();
-
-				// Execute RemoteDataTask AsyncTask
+                // Execute RemoteDataTask AsyncTask
 				new RemoteDataTask().execute();
 
 			}
