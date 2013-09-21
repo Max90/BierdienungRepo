@@ -17,13 +17,11 @@ import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
-import de.ur.mi.parse.AppSingleton;
 import de.ur.mi.parse.ListViewAdapter_Kueche_Ausschank;
 import de.ur.mi.parse.ParselistdownloadClass;
 
 public class AusschankKuecheActivity extends ListActivity {
 	// Declare Variables
-	private ListView listview;
 	private List<ParseObject> orders;
 	private ProgressDialog mProgressDialog;
 	private ListViewAdapter_Kueche_Ausschank adapter;
@@ -49,7 +47,6 @@ public class AusschankKuecheActivity extends ListActivity {
 		refreshButton();
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
-        //dummyComment
     }
 
 	private void refreshButton() {
@@ -162,12 +159,9 @@ public class AusschankKuecheActivity extends ListActivity {
 
 			}
 
-			// Locate the listview in listview_main.xml
-			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
-			adapter = new ListViewAdapter_Kueche_Ausschank(
-					AusschankKuecheActivity.this, adapterListBackground,
-					adapterListBestellung, adapterListTisch);
+            adapter = new ListViewAdapter_Kueche_Ausschank(AusschankKuecheActivity.this, adapterListBackground,
+                    adapterListBestellung, adapterListTisch);
 
 			setListAdapter(adapter);
 			adapter.notifyDataSetChanged();

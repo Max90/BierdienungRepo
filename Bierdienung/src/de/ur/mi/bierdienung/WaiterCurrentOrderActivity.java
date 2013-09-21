@@ -22,7 +22,6 @@ import com.parse.ParseQuery;
 
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
-import de.ur.mi.parse.AppSingleton;
 import de.ur.mi.parse.ParselistdownloadClass;
 import de.ur.mi.parse.WaiterCurrentOrderListViewAdapter;
 
@@ -116,12 +115,13 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 				}
 
-				adapterListBackground.clear();
+
+                adapterListBackground.clear();
 				adapterListBestellung.clear();
 				adapterListTisch.clear();
 				listArt.clear();
-
-				// Execute RemoteDataTask AsyncTask
+                adapter.notifyDataSetChanged();
+                // Execute RemoteDataTask AsyncTask
 				new RemoteDataTask().execute();
 
 			}
@@ -179,6 +179,7 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 				map.setBackground((String) Name.get("Background"));
 
 				parselistdownloadList.add(map);
+                parselistdownloadList.add(map);
 
                 orders.get(i).put("Background", "unmarked");
                 orders.get(i).saveInBackground();
@@ -194,9 +195,8 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			// Locate the listview in listview_main.xml
 			listview = (ListView) findViewById(R.id.list);
 			// Pass the results into ListViewAdapter.java
-			adapter = new WaiterCurrentOrderListViewAdapter(
-					WaiterCurrentOrderActivity.this, adapterListBestellung,
-					adapterListTisch, adapterListBackground);
+            adapter = new WaiterCurrentOrderListViewAdapter(WaiterCurrentOrderActivity.this, adapterListBestellung,
+                    adapterListTisch, adapterListBackground);
 
 			setListAdapter(adapter);
 			adapter.notifyDataSetChanged();

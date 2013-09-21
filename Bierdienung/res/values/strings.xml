@@ -47,5 +47,8 @@
     <string name="drinks_radio_button_string">Ausschank</string>
     <string name="manage_radio_button_string">Verwalten</string>
     <string name="waiter_logout">Kellner ausloggen</string>
+    <string name="jone_string">J.M.</string>
+    <string name="jan_string">J.G.</string>
+    <string name="max_string">M.F.</string>
 
 </resources>

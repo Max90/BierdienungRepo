@@ -7,17 +7,14 @@
         android:title="@string/action_change_table" />
     <item
         android:id="@+id/tisch"
-        android:icon="@drawable/tisch_icon"
         android:showAsAction="always"
         android:title="@string/table_string" />
     <item
         android:id="@+id/getraenkekarte"
-        android:icon="@drawable/bier_icon"
         android:showAsAction="always"
         android:title="@string/drink_menu_string" />
     <item
         android:id="@+id/speisekarte"
-        android:icon="@drawable/essen_icon"
         android:showAsAction="always"
         android:title="@string/meal_menu_string" />
 
