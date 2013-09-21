@@ -73,10 +73,10 @@ public class LoginSignupActivity extends Activity {
         if (activeNetwork != null) {
             boolean isConnected = activeNetwork.isConnectedOrConnecting();
             if (!isConnected) {
-                showDialog(0);
+                setDialogNoInternet();
             }
         } else
-            showDialog(0);
+            setDialogNoInternet();
 
         // Parse -------------
         setParse();
@@ -250,23 +250,6 @@ public class LoginSignupActivity extends Activity {
                 WaiterTableSelectActivity.class);
     }
 
-    // creates the dialog for internet connection
-    // and links to the internet menu if no connection available
-    @Override
-    public Dialog onCreateDialog(int dialogId) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.no_connection_string).setPositiveButton(
-                R.string.connect, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                Intent intent = new Intent(
-                        Settings.ACTION_WIRELESS_SETTINGS);
-                startActivity(intent);
-            }
-        });
-        // Create the AlertDialog object and return it
-        return builder.create();
-    }
-
     // RemoteDataTask AsyncTask
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -300,6 +283,33 @@ public class LoginSignupActivity extends Activity {
 
     public static String getKellner() {
         return kellnername;
+    }
+
+    //sets a dialog with a link to internetSettings if no internet available
+    public void setDialogNoInternet() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.no_connection_string)
+                .setCancelable(false)
+                .setPositiveButton(R.string.connect, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Link to InternetSettings
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
 }
