@@ -112,7 +112,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
 
 		case R.id.speisekarte:
 			Intent iEssen = new Intent(WaiterTableOverviewActivity.this,
-					OrderDrinksAndMenuActivity.class);
+					FoodMenuActivity.class);
 			iEssen.putExtra("name", "Essen");
 			startActivity(iEssen);
 			finish();
@@ -120,7 +120,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
 
 		case R.id.getraenkekarte:
 			Intent iGetraenke = new Intent(WaiterTableOverviewActivity.this,
-					OrderDrinksAndMenuActivity.class);
+					DrinksMenuActivity.class);
 			iGetraenke.putExtra("name", "Getraenke");
 			startActivity(iGetraenke);
 			finish();
