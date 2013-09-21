@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewProdukt"
@@ -17,7 +17,9 @@
         android:layout_below="@+id/textViewProdukt"
         android:hint="@string/produktmitmenge"
         android:inputType="textAutoCorrect"
-        android:scrollbars="vertical" >
+        android:scrollbars="vertical"
+        android:imeOptions="actionNext"
+        android:singleLine="true">
 
         <requestFocus />
     </EditText>
@@ -36,7 +38,9 @@
         android:layout_below="@+id/textPreis"
         android:hint="@string/preisohnezeichen"
         android:inputType="numberDecimal"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:imeOptions="actionDone"
+        android:singleLine="true" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -44,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editpreis"
-        android:layout_marginLeft="16dp" >
+        android:layout_marginLeft="16dp">
 
         <RadioButton
             android:id="@+id/radio0"
@@ -67,6 +71,12 @@
 
         <RadioButton
             android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test" />
+
+        <RadioButton
+            android:id="@+id/radio4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/test" />

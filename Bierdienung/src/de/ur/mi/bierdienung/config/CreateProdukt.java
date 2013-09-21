@@ -22,7 +22,8 @@ public class CreateProdukt extends Activity {
 	private RadioButton radio1;
 	private RadioButton radio2;
 	private RadioButton radio3;
-	private Button confirmButton;
+    private RadioButton radio4;
+    private Button confirmButton;
 	private String kat;
 
 	@Override
@@ -67,8 +68,10 @@ public class CreateProdukt extends Activity {
 					kat = radio2.getText().toString();
 				} else if (radio3.isChecked()) {
 					kat = radio3.getText().toString();
-				}
-			}
+                } else if (radio4.isChecked()) {
+                    kat = radio4.getText().toString();
+                }
+            }
 		});
 
 	}
@@ -82,8 +85,9 @@ public class CreateProdukt extends Activity {
 		radio1 = (RadioButton) findViewById(R.id.radio1);
 		radio2 = (RadioButton) findViewById(R.id.radio2);
 		radio3 = (RadioButton) findViewById(R.id.radio3);
+        radio4 = (RadioButton) findViewById(R.id.radio4);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
 		}
 
@@ -111,9 +115,10 @@ public class CreateProdukt extends Activity {
 					radio1.setChecked(true);
 				} else if (kat.equals("Nachspeise")) {
 					radio2.setChecked(true);
-				}
-
-			}
+                } else if (kat.equals("Wein")) {
+                    radio4.setChecked(true);
+                }
+            }
 		}
 
 		if (EinstellungenActivity.getKarte().length() > 6) {
@@ -121,12 +126,14 @@ public class CreateProdukt extends Activity {
 			radio1.setText("Bier");
 			radio2.setText("Schnaps");
 			radio3.setText("Sonstiges");
-		} else {
+            radio4.setText("Wein");
+        } else {
 			radio0.setText("Vorspeise");
 			radio1.setText("Hauptspeise");
 			radio2.setText("Nachspeise");
 			radio3.setVisibility(View.INVISIBLE);
-		}
+            radio4.setVisibility(View.INVISIBLE);
+        }
 
 	}
 
