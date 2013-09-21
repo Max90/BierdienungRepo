@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/copyRight"
-        android:text="© Bierdimpfl Inc. 2013"
+        android:text="@string/copyright_string"
         android:textSize="10sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
