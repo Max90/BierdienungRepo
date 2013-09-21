@@ -49,7 +49,8 @@ public class AusschankKuecheActivity extends ListActivity {
 		refreshButton();
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
-	}
+        //dummyComment
+    }
 
 	private void refreshButton() {
 		refresh.setOnClickListener(new OnClickListener() {
