@@ -88,7 +88,6 @@ public class WaiterTableOverviewActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tisch);
 
-		setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
@@ -103,6 +102,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
+		menu.findItem(R.id.tisch).setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
 		return result;
 	}
 
