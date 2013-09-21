@@ -15,7 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtUsername"
         android:hint="@string/Username"
+        android:imeOptions="actionNext"
         android:inputType="textNoSuggestions"
+        android:singleLine="true"
         android:text="@string/test" >
         <requestFocus />
     </EditText>
@@ -31,9 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtPassword"
         android:hint="@string/Password"
+        android:imeOptions="actionDone"
         android:inputType="textPassword"
+        android:singleLine="true"
         android:text="@string/test" />
-
     <RadioGroup
         android:id="@+id/radioCheck"
         android:layout_width="fill_parent"
@@ -46,32 +49,30 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/waiter_radio_button_string" />
-
         <EditText
             android:id="@+id/kellnernamen"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/kellnername" />
+            android:hint="@string/kellnername"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
         <RadioButton
             android:id="@+id/radioKueche"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/kitchen_radio_button_string" />
-
         <RadioButton
             android:id="@+id/radioAusschank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drinks_radio_button_string" />
-
         <RadioButton
             android:id="@+id/radioVerwalten"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage_radio_button_string" />
     </RadioGroup>
-
     <Button
         android:id="@+id/login"
         android:layout_width="fill_parent"

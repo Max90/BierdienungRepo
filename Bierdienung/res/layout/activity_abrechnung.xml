@@ -20,10 +20,19 @@
 
     <Button
         android:id="@+id/bTischAbrechnen"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/abrechnen"
         android:layout_above="@+id/textview" />
+
+    <Button
+        android:id="@+id/sum_up_marked_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textview"
+        android:layout_alignParentRight="true"
+        android:text="@string/sum_up_marked_button_string" />
+
 
     <TextView
         android:id="@+id/textview"

@@ -52,5 +52,6 @@
     <string name="max_string">M.F.</string>
     <string name="copyright_string">© Bierdimpfl Inc. 2013</string>
     <string name="cancel">Abbrechen</string>
+    <string name="sum_up_marked_button_string">Markierte Abrechnen</string>
 
 </resources>

@@ -27,201 +27,261 @@ import de.ur.mi.parse.CashUpAdapter;
 
 public class WaiterCashUpActivity extends ListActivity {
 
-	private List<ParseObject> orders;
-	private ProgressDialog mProgressDialog;
-	private double amount = 0;
-	private TextView textViewAmount;
-	private Button buttonCashUp;
-	private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
-	final Context context = this;
-	private CashUpAdapter adapterAbrechnung;
-	private ArrayList<String> adapterList = new ArrayList<String>();
-	private ArrayList<String> adapterListBackground = new ArrayList<String>();
+    private List<ParseObject> orders;
+    private ProgressDialog mProgressDialog;
+    private double amount = 0;
+    private TextView textViewAmount;
+    private Button buttonCashUp;
+    private Button buttonCashUpMarked;
+    private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
+    final Context context = this;
+    private CashUpAdapter adapterAbrechnung;
+    private ArrayList<String> adapterList = new ArrayList<String>();
+    private ArrayList<String> adapterListBackground = new ArrayList<String>();
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_abrechnung);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_abrechnung);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			getActionBar().setHomeButtonEnabled(true);
-		}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            getActionBar().setHomeButtonEnabled(true);
+        }
 
-		buttonCashUp = (Button) findViewById(R.id.bTischAbrechnen);
-		textViewAmount = (TextView) findViewById(R.id.textview);
+        buttonCashUp = (Button) findViewById(R.id.bTischAbrechnen);
+        buttonCashUpMarked = (Button) findViewById(R.id.sum_up_marked_button);
+        textViewAmount = (TextView) findViewById(R.id.textview);
 
-		setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
-		registerForContextMenu(getListView());
+        setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
+        registerForContextMenu(getListView());
 
-		cashUp();
+        cashUp();
 
-		new RemoteDataTask().execute();
+        new RemoteDataTask().execute();
 
-	}
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
 
-		// Override this method to do custom remote calls
-		protected Void doInBackground(Void... params) {
-			// Gets the current list of orders
-			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					LoginSignupActivity.getParseUser() + "_Bestellung");
-			query.whereEqualTo("Tisch", WaiterTableSelectActivity.getTNR());
-			query.whereEqualTo("Status", "fertig");
-			query.orderByDescending("Art");
-			query.orderByAscending("Name");
+        // Override this method to do custom remote calls
+        protected Void doInBackground(Void... params) {
+            // Gets the current list of orders
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                    LoginSignupActivity.getParseUser() + "_Bestellung");
+            query.whereEqualTo("Tisch", WaiterTableSelectActivity.getTNR());
+            query.whereEqualTo("Status", "fertig");
+            query.orderByDescending("Art");
+            query.orderByAscending("Name");
 
-			try {
-				orders = query.find();
-			} catch (ParseException e) {
+            try {
+                orders = query.find();
+            } catch (ParseException e) {
 
-			}
-			return null;
-		}
+            }
+            return null;
+        }
 
-		@Override
-		protected void onPreExecute() {
-			mProgressDialog = new ProgressDialog(WaiterCashUpActivity.this);
-			mProgressDialog.setTitle("Lade Tischliste");
-			mProgressDialog.setMessage("Loading...");
-			mProgressDialog.setIndeterminate(false);
-			mProgressDialog.show();
-			super.onPreExecute();
-		}
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(WaiterCashUpActivity.this);
+            mProgressDialog.setTitle("Lade Tischliste");
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.show();
+            super.onPreExecute();
+        }
 
-		@Override
-		protected void onProgressUpdate(Void... values) {
+        @Override
+        protected void onProgressUpdate(Void... values) {
 
-			super.onProgressUpdate(values);
-		}
+            super.onProgressUpdate(values);
+        }
 
-		@Override
-		protected void onPostExecute(Void result) {
-			// Put the list of orders into the list view
-			int i = 0;
+        @Override
+        protected void onPostExecute(Void result) {
+            // Put the list of orders into the list view
+            int i = 0;
 
-			for (ParseObject order : orders) {
-				orders.get(i).put("Background", "unmarked");
-				orders.get(i).saveInBackground();
-				adapterList.add((String) order.get("Name"));
-				adapterListBackground.add((String) order.get("Background"));
-				i++;
-			}
-			adapterAbrechnung = new CashUpAdapter(context, adapterList,
-					adapterListBackground);
+            for (ParseObject order : orders) {
+                orders.get(i).put("Background", "unmarked");
+                orders.get(i).saveInBackground();
+                adapterList.add((String) order.get("Name"));
+                adapterListBackground.add((String) order.get("Background"));
+                i++;
+            }
+            adapterAbrechnung = new CashUpAdapter(context, adapterList,
+                    adapterListBackground);
 
-			setListAdapter(adapterAbrechnung);
-			adapterAbrechnung.notifyDataSetChanged();
-			WaiterCashUpActivity.this.mProgressDialog.dismiss();
-		}
-	}
+            setListAdapter(adapterAbrechnung);
+            adapterAbrechnung.notifyDataSetChanged();
+            WaiterCashUpActivity.this.mProgressDialog.dismiss();
+        }
+    }
 
-	private void cashUp() {
-		buttonCashUp.setOnClickListener(new View.OnClickListener() {
+    private void cashUp() {
+        buttonCashUpMarked.setOnClickListener(new View.OnClickListener() {
 
-			public void onClick(View v) {
-				String text = "Alles auf der Rechnung? Betrag: "
-						+ String.format("%.2f", amount) + " Euro!";
+            public void onClick(View v) {
+                String text = "Alles auf der Rechnung? Betrag: "
+                        + String.format("%.2f", amount) + " Euro!";
 
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						context);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
 
-				// set title
-				alertDialogBuilder.setTitle("Tisch abrechnen?");
+                // set title
+                alertDialogBuilder.setTitle("Tisch abrechnen?");
 
-				// set dialog message
-				alertDialogBuilder
-						.setMessage(text)
-						.setCancelable(false)
-						.setPositiveButton("Ja",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										// Delete the remote object
-										for (int i = 0; i < list.size(); i++) {
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage(text)
+                        .setCancelable(false)
+                        .setPositiveButton("Ja",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        // Delete the remote object
+                                        for (int i = 0; i < list.size(); i++) {
 
-											// set the todoObject to the item in
-											// list
-											final ParseObject paidItem = list
-													.get(i);
+                                            // set the todoObject to the item in
+                                            // list
+                                            final ParseObject paidItem = list
+                                                    .get(i);
 
-											paidItem.put("Status",
-													"abgerechnet");
-											paidItem.saveInBackground();
+                                            paidItem.put("Status",
+                                                    "abgerechnet");
+                                            paidItem.saveInBackground();
 
-										}
-										adapterList.clear();
-										adapterListBackground.clear();
-										textViewAmount
-												.setText("Betrag insgesamt: ");
-										amount = 0;
-										// Execute RemoteDataTask AsyncTask
-										new RemoteDataTask().execute();
-									}
-								})
-						.setNegativeButton("Nein",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										dialog.cancel();
-									}
-								});
+                                        }
+                                        adapterList.clear();
+                                        adapterListBackground.clear();
+                                        textViewAmount
+                                                .setText("Betrag insgesamt: ");
+                                        amount = 0;
+                                        // Execute RemoteDataTask AsyncTask
+                                        new RemoteDataTask().execute();
+                                    }
+                                })
+                        .setNegativeButton("Nein",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
 
-				AlertDialog alertDialog = alertDialogBuilder.create();
-				alertDialog.show();
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
 
-			}
-		});
-	}
+            }
+        });
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
+        buttonCashUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < orders.size(); i++) {
+                    double preis = Double.parseDouble(orders.get(i).get("Preis")
+                            .toString());
+                    amount = amount + preis;
+                }
 
-		double preis = Double.parseDouble(orders.get(position).get("Preis")
-				.toString());
+                String text = "Alles auf der Rechnung? Betrag: "
+                        + String.format("%.2f", amount) + " Euro!";
 
-		if (orders.get(position).get("Background").toString().equals("marked")) {
-			amount = amount - preis;
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
 
-			orders.get(position).put("Background", "unmarked");
-			orders.get(position).saveInBackground();
+                // set title
+                alertDialogBuilder.setTitle("Tisch abrechnen?");
 
-			adapterListBackground.set(position,
-					orders.get(position).getString("Background"));
-			adapterAbrechnung.notifyDataSetChanged();
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage(text)
+                        .setCancelable(false)
+                        .setPositiveButton("Ja",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        // Delete the remote object
+                                        for (int i = 0; i < orders.size(); i++) {
 
-			for (int i = 0; i < list.size(); i++) {
-				if (list.get(i) == orders.get(position)) {
-					list.remove(i);
-				}
-			}
-		} else {
+                                            // set the todoObject to the item in
+                                            // list
+                                            final ParseObject paidItem = orders.get(i);
 
-			orders.get(position).put("Background", "marked");
-			orders.get(position).saveInBackground();
+                                            paidItem.put("Status", "abgerechnet");
+                                            paidItem.saveInBackground();
 
-			adapterListBackground.set(position,
-					orders.get(position).getString("Background"));
-			adapterAbrechnung.notifyDataSetChanged();
+                                        }
+                                        adapterList.clear();
+                                        adapterListBackground.clear();
+                                        textViewAmount.setText("Betrag insgesamt: ");
+                                        amount = 0;
+                                        // Execute RemoteDataTask AsyncTask
+                                        new RemoteDataTask().execute();
+                                    }
+                                })
+                        .setNegativeButton("Nein",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                });
 
-			amount = amount + preis;
-			list.add(orders.get(position));
-		}
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+    }
 
-		textViewAmount.setText("Betrag insgesamt: "
-				+ String.format("%.2f", amount));
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
-	}
+        double preis = Double.parseDouble(orders.get(position).get("Preis")
+                .toString());
+
+        if (orders.get(position).get("Background").toString().equals("marked")) {
+            amount = amount - preis;
+
+            orders.get(position).put("Background", "unmarked");
+            orders.get(position).saveInBackground();
+
+            adapterListBackground.set(position,
+                    orders.get(position).getString("Background"));
+            adapterAbrechnung.notifyDataSetChanged();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) == orders.get(position)) {
+                    list.remove(i);
+                }
+            }
+        } else {
+
+            orders.get(position).put("Background", "marked");
+            orders.get(position).saveInBackground();
+
+            adapterListBackground.set(position,
+                    orders.get(position).getString("Background"));
+            adapterAbrechnung.notifyDataSetChanged();
+
+            amount = amount + preis;
+            list.add(orders.get(position));
+        }
+
+        textViewAmount.setText("Betrag insgesamt: "
+                + String.format("%.2f", amount));
+
+    }
 }
