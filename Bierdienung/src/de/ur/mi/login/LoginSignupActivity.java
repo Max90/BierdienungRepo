@@ -243,8 +243,7 @@ public class LoginSignupActivity extends Activity {
         defaultACL.setPublicReadAccess(true);
         ParseACL.setDefaultACL(defaultACL, true);
         // Push Push Push
-        PushService.setDefaultPushCallback(this,
-                WaiterTableSelectActivity.class);
+        PushService.setDefaultPushCallback(this, WaiterTableSelectActivity.class);
     }
 
     // RemoteDataTask AsyncTask

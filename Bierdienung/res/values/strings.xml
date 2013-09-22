@@ -53,5 +53,6 @@
     <string name="copyright_string">© Bierdimpfl Inc. 2013</string>
     <string name="cancel">Abbrechen</string>
     <string name="sum_up_marked_button_string">Markierte Abrechnen</string>
+    <string name="cancel_order_dialog_string">Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 
@@ -29,6 +30,7 @@ public class SplashActivty extends Activity {
                 finish();
             }
         }, SPLASH_TIME_OUT);
-    }
 
+
+    }
 }
