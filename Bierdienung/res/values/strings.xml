@@ -6,7 +6,7 @@
     <string name="action_add">Produkt hinzufügen</string>
     <string name="speisekarte">Speisekarte</string>
     <string name="getraenkekarte">Getränkekarte</string>
-    <string name="refresh">Neu laden</string>
+    <string name="refresh">Kellner benachrichtigen/Neu laden</string>
     <string name="enter_bedienung">Bestellung aufnehmen</string>
     <string name="essen">Essen</string>
     <string name="getraenke">Getränke</string>
@@ -54,5 +54,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="sum_up_marked_button_string">Markierte Abrechnen</string>
     <string name="cancel_order_dialog_string">Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?</string>
+    <string name="mark_finished_string">Fertige markieren!</string>
 
 </resources>

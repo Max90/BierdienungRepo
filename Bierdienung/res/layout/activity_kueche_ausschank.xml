@@ -23,8 +23,16 @@
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/refresh"
+        android:layout_above="@+id/helpText"
         android:layout_below="@+id/textViewTisch" />
+
+    <TextView
+        android:id="@+id/helpText"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_above="@+id/refresh"
+        android:text="@string/mark_finished_string"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/refresh"
