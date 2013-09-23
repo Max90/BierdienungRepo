@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
- 
+    android:layout_height="fill_parent">
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/textViewProdukt" />
+        android:layout_below="@+id/text_view_product" />
 
     <TextView
-        android:id="@+id/textViewProdukt"
+        android:id="@+id/text_view_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,11 +18,11 @@
         android:text="@string/produkt" />
 
     <TextView
-        android:id="@+id/textViewPreis"
+        android:id="@+id/text_view_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/preis" />
- 
+
 </RelativeLayout>

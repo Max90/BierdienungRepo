@@ -3,52 +3,53 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10dip" >
+    android:padding="10dip">
 
     <TextView
-        android:id="@+id/txtUsername"
+        android:id="@+id/text_view_username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/username_string" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/edit_text_username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtUsername"
+        android:layout_below="@+id/text_view_username"
         android:hint="@string/username_hint_string"
         android:imeOptions="actionNext"
         android:inputType="textNoSuggestions"
-        android:singleLine="true" >
+        android:singleLine="true">
 
         <requestFocus />
     </EditText>
 
     <TextView
-        android:id="@+id/txtPassword"
+        android:id="@+id/text_view_password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
+        android:layout_below="@+id/edit_text_username"
+        android:layout_marginTop="20dp"
         android:text="@string/password_string" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/edit_text_password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPassword"
+        android:layout_below="@+id/text_view_password"
         android:hint="@string/password_hint_string"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:singleLine="true" />
 
     <RadioGroup
-        android:id="@+id/radioCheck"
+        android:id="@+id/radio_group"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password" >
+        android:layout_below="@+id/edit_text_password">
 
         <RadioButton
-            android:id="@+id/radioKellner"
+            android:id="@+id/radio_waiter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -69,34 +70,36 @@
             android:text="@string/kitchen_radio_button_string" />
 
         <RadioButton
-            android:id="@+id/radioAusschank"
+            android:id="@+id/radio_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/drinks_radio_button_string" />
 
         <RadioButton
-            android:id="@+id/radioVerwalten"
+            android:id="@+id/radio_management"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/manage_radio_button_string" />
     </RadioGroup>
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/login_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/radioCheck"
+        android:layout_below="@+id/radio_group"
+        android:layout_marginTop="10dp"
         android:text="@string/LoginBtn" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/signup_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login"
+        android:layout_below="@+id/login_button"
+        android:layout_marginTop="5dp"
         android:text="@string/SignupBtn" />
 
     <ProgressBar
-        android:id="@+id/progressBarLogin"
+        android:id="@+id/progress_bar_login"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -2,41 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tisch_nr"
+        android:id="@+id/text_view_table_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:text="@string/tisch_nr" />
 
     <EditText
-        android:id="@+id/nr"
+        android:id="@+id/edit_text_table_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tisch_nr"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/text_view_table_number"
         android:hint="@string/nr"
         android:inputType="number"
-        android:maxLength="3" >
+        android:maxLength="3">
 
         <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/bEnterBedienung"
+        android:id="@+id/accept_order_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nr"
+        android:layout_below="@+id/edit_text_table_number"
         android:layout_marginTop="20dp"
         android:text="@string/enter_bedienung" />
 
     <Button
-        android:id="@+id/bAbrechnung"
+        android:id="@+id/billing_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bEnterBedienung"
+        android:layout_below="@+id/accept_order_button"
+        android:layout_marginTop="5dp"
         android:text="@string/abrechnen" />
 
 </RelativeLayout>

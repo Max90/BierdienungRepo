@@ -11,12 +11,12 @@
         android:id="@+id/android:list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/textViewProduktCurrent"
+        android:layout_below="@+id/text_view_product"
         android:layout_above="@+id/send_current_order_button"
         android:layout_marginBottom="10dp" />
 
     <TextView
-        android:id="@+id/textViewProduktCurrent"
+        android:id="@+id/text_view_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
         android:text="@string/produkt" />
 
     <TextView
-        android:id="@+id/textViewPreisCurrent"
+        android:id="@+id/text_view_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

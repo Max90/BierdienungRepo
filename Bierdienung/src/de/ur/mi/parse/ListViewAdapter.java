@@ -34,7 +34,7 @@ public class ListViewAdapter extends BaseAdapter {
             inflater = LayoutInflater.from(context);
             this.parselistdownloadList = parselistdownloadList;
             this.arraylist = new ArrayList<ParselistdownloadClass>();
-        this.arraylist.addAll(parselistdownloadList);
+            this.arraylist.addAll(parselistdownloadList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,8 +60,8 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(final int position, View view, ViewGroup parent) {
         view = inflater.inflate(R.layout.listview_item, null);
         // Locate the TextViews in listview_item.xml
-        TextView listviewName = (TextView) view.findViewById(R.id.listviewName);
-        TextView listviewPreis = (TextView) view.findViewById(R.id.listviewPreis);
+        TextView listviewName = (TextView) view.findViewById(R.id.text_view_name);
+        TextView listviewPreis = (TextView) view.findViewById(R.id.text_view_price);
 
         listviewName.setText(parselistdownloadList.get(position).getName());
 

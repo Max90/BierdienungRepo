@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewProdukt"
+        android:id="@+id/text_view_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/produktmitmenge" />
@@ -14,7 +14,7 @@
         android:id="@+id/editname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewProdukt"
+        android:layout_below="@+id/text_view_product"
         android:hint="@string/produktmitmenge"
         android:inputType="textAutoCorrect"
         android:scrollbars="vertical"
@@ -54,32 +54,27 @@
             android:id="@+id/radio0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
-           />
+            android:checked="true" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test" />
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test" />
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/radio3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test" />
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/radio4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/test" />
+            android:layout_height="wrap_content" />
     </RadioGroup>
 
     <Button

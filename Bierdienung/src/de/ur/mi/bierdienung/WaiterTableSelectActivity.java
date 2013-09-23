@@ -28,152 +28,152 @@ import de.ur.mi.login.LoginSignupActivity;
 
 public class WaiterTableSelectActivity extends Activity {
 
-	private EditText tischNummer;
-	private Button buttonEnterBedienung;
-	private Button buttonAbrechnung;
-	private static String tNr;
-	private List<ParseObject> parseListTableNumber;
-	private String maxTables = "";
+    private EditText tischNummer;
+    private Button buttonEnterBedienung;
+    private Button buttonAbrechnung;
+    private static String tNr;
+    private List<ParseObject> parseListTableNumber;
+    private String maxTables = "";
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_waiter_tableselection);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_waiter_tableselection);
 
-		ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-				LoginSignupActivity.getParseUser() + "_Table");
-		try {
-			parseListTableNumber = query.find();
-			if (parseListTableNumber.size() > 0) {
-				maxTables = parseListTableNumber.get(
-						parseListTableNumber.size() - 1).getString(
-						"TableNumber");
-			}
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                LoginSignupActivity.getParseUser() + "_Table");
+        try {
+            parseListTableNumber = query.find();
+            if (parseListTableNumber.size() > 0) {
+                maxTables = parseListTableNumber.get(
+                        parseListTableNumber.size() - 1).getString(
+                        "TableNumber");
+            }
 
-		} catch (ParseException e) {
-			Log.e("Error", e.getMessage());
-			e.printStackTrace();
-		}
+        } catch (ParseException e) {
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
+        }
 
-		buttonEnterBedienung = (Button) findViewById(R.id.bEnterBedienung);
-		buttonAbrechnung = (Button) findViewById(R.id.bAbrechnung);
-		tischNummer = (EditText) findViewById(R.id.nr);
+        buttonEnterBedienung = (Button) findViewById(R.id.accept_order_button);
+        buttonAbrechnung = (Button) findViewById(R.id.billing_button);
+        tischNummer = (EditText) findViewById(R.id.edit_text_table_number);
 
-		buttonEnterBedienung.setOnClickListener(new OnClickListener() {
+        buttonEnterBedienung.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(WaiterTableSelectActivity.this,
-						WaiterTableOverviewActivity.class);
-				tNr = tischNummer.getText().toString();
-				if (checkForInvalidInput(v))
-					return;
-				startActivity(i);
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WaiterTableSelectActivity.this,
+                        WaiterTableOverviewActivity.class);
+                tNr = tischNummer.getText().toString();
+                if (checkForInvalidInput(v))
+                    return;
+                startActivity(i);
+            }
+        });
 
-		buttonAbrechnung.setOnClickListener(new OnClickListener() {
+        buttonAbrechnung.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(WaiterTableSelectActivity.this,
-						WaiterCashUpActivity.class);
-				tNr = tischNummer.getText().toString();
-				if (checkForInvalidInput(v))
-					return;
-				startActivity(i);
-			}
-		});
-	}
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WaiterTableSelectActivity.this,
+                        WaiterCashUpActivity.class);
+                tNr = tischNummer.getText().toString();
+                if (checkForInvalidInput(v))
+                    return;
+                startActivity(i);
+            }
+        });
+    }
 
-	private boolean checkForInvalidInput(View v) {
-		if (tNr.equals("")) {
-			Toast.makeText(v.getContext(), "Bitte Tisch eingeben",
-					Toast.LENGTH_SHORT).show();
-			return true;
-		} else if (maxTables.equals("")) {
-			Toast.makeText(
-					v.getContext(),
-					" Es sind leider noch keine Tische angelegt. Bitte wenden Sie sich an Ihren Restaurantleiter",
-					Toast.LENGTH_LONG).show();
-			return true;
-		} else if (Integer.parseInt(tischNummer.getText().toString()) > Integer
-				.parseInt(maxTables)) {
-			Toast.makeText(
-					v.getContext(),
-					"Tischnummer zu hoch. Wir haben nur " + maxTables
-							+ " Tische", Toast.LENGTH_LONG).show();
-			return true;
-		}
-		return false;
-	}
+    private boolean checkForInvalidInput(View v) {
+        if (tNr.equals("")) {
+            Toast.makeText(v.getContext(), "Bitte Tisch eingeben",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (maxTables.equals("")) {
+            Toast.makeText(
+                    v.getContext(),
+                    " Es sind leider noch keine Tische angelegt. Bitte wenden Sie sich an Ihren Restaurantleiter",
+                    Toast.LENGTH_LONG).show();
+            return true;
+        } else if (Integer.parseInt(tischNummer.getText().toString()) > Integer
+                .parseInt(maxTables)) {
+            Toast.makeText(
+                    v.getContext(),
+                    "Tischnummer zu hoch. Wir haben nur " + maxTables
+                            + " Tische", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return false;
+    }
 
-	public static String getTNR() {
-		return tNr;
-		// dummyComment
-	}
+    public static String getTNR() {
+        return tNr;
+        // dummyComment
+    }
 
-	@Override
-	protected void onResume() {
-		tischNummer.setText("");
-		tischNummer.requestFocus();
-		super.onResume();
-	}
+    @Override
+    protected void onResume() {
+        tischNummer.setText("");
+        tischNummer.requestFocus();
+        super.onResume();
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.user_logout:
-			setUserLogout();
-			return true;
-		}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.user_logout:
+                setUserLogout();
+                return true;
+        }
 
-		return super.onOptionsItemSelected(item);
-	}
+        return super.onOptionsItemSelected(item);
+    }
 
-	private void setUserLogout() {
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+    private void setUserLogout() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-		// set title
-		alertDialogBuilder.setTitle("Kellner ausloggen?");
+        // set title
+        alertDialogBuilder.setTitle("Kellner ausloggen?");
 
-		// set dialog message
-		alertDialogBuilder
-				.setMessage("Sind Sie sich sicher?")
-				.setCancelable(false)
-				.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						ParseUser.logOut();
-						PushService.unsubscribe(
-								LoginSignupActivity.getContext(),
-								LoginSignupActivity.getKellner());
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Sind Sie sich sicher?")
+                .setCancelable(false)
+                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        ParseUser.logOut();
+                        PushService.unsubscribe(
+                                LoginSignupActivity.getContext(),
+                                LoginSignupActivity.getKellner());
 
-						Intent loginIntent = new Intent(
-								WaiterTableSelectActivity.this,
-								LoginSignupActivity.class);
-						startActivity(loginIntent);
-						finish();
-					}
-				})
-				.setNegativeButton("Nein",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.cancel();
-							}
-						});
+                        Intent loginIntent = new Intent(
+                                WaiterTableSelectActivity.this,
+                                LoginSignupActivity.class);
+                        startActivity(loginIntent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Nein",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
 
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
 
-	}
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean result = super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.waiterlogoutmenu, menu);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean result = super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.waiterlogoutmenu, menu);
 
-		return result;
-	}
+        return result;
+    }
 
 }

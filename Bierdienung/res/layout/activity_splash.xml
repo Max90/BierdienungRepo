@@ -11,7 +11,7 @@
 
 
     <ImageView
-        android:id="@+id/splashImage"
+        android:id="@+id/image_splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dummyText"
@@ -21,7 +21,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/jone"
+        android:id="@+id/text_view_jone"
         android:text="@string/jone_string"
         android:textSize="15sp"
         android:textStyle="bold" />
@@ -29,7 +29,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/jan"
+        android:id="@+id/text_view_jan"
         android:text="@string/jan_string"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -38,7 +38,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/max"
+        android:id="@+id/text_view_max"
         android:text="@string/max_string"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -47,7 +47,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:id="@+id/copyRight"
+        android:id="@+id/text_view_copyright"
         android:text="@string/copyright_string"
         android:textSize="10sp"
         android:textStyle="bold"

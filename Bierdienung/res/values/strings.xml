@@ -26,9 +26,9 @@
     <string name="SignupBtn">Registrieren</string>
     <string name="test">test</string>
     <string name="produkt">Produkt:</string>
-    <string name="produktmitmenge">Produkt (mit Größenangabe):</string>
+    <string name="produktmitmenge">z.B. 0.5l oder 1 Flasche</string>
     <string name="preis">Preis:</string>
-    <string name="preisohnezeichen">Preis (ohne Eurozeichen):</string>
+    <string name="preisohnezeichen">z.B. 2.30</string>
     <string name="tisch">Tisch:</string>
     <string name="uebernehmen">Übernehmen</string>
     <string name="change">Produkt ändern</string>
@@ -43,7 +43,7 @@
     <string name="change_product">Produkt ändern</string>
     <string name="table_management_button_string">Tische verwalten</string>
     <string name="table_number_edit_text_hint_string">Tischanzahl eingeben!</string>
-    <string name="set_table_number_button_string">fertig</string>
+    <string name="set_table_number_button_string">Fertig</string>
     <string name="send_or_change_order_button_string">Bestellung bearbeiten/abschicken</string>
     <string name="send_current_oder_button_string">abschicken</string>
     <string name="delete_marked_button_string">markierte löschen</string>

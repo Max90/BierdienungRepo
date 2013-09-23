@@ -7,11 +7,11 @@
         android:id="@+id/android:list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textviewProdukt"
+        android:layout_below="@+id/text_view_product"
         android:layout_marginTop="10dp" />
 
     <TextView
-        android:id="@+id/textviewProdukt"
+        android:id="@+id/text_view_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

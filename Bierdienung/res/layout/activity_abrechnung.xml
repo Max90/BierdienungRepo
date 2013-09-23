@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/textviewProdukt"
+        android:id="@+id/text_view_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -15,26 +15,26 @@
         android:id="@+id/android:list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bTischAbrechnen"
-        android:layout_below="@+id/textviewProdukt" />
+        android:layout_above="@+id/cash_up_table_button"
+        android:layout_below="@+id/text_view_product" />
 
     <Button
-        android:id="@+id/bTischAbrechnen"
+        android:id="@+id/cash_up_table_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textview"
+        android:layout_above="@+id/text_view_sum"
         android:text="@string/abrechnen" />
 
     <Button
         android:id="@+id/sum_up_marked_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textview"
+        android:layout_above="@+id/text_view_sum"
         android:layout_alignParentRight="true"
         android:text="@string/sum_up_marked_button_string" />
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/text_view_sum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
