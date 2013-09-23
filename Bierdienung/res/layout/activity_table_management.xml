@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.ur.mi.bierdienung.config.TableManagementActivity">
+    android:orientation="vertical"
+    tools:context="de.ur.mi.bierdienung.config.TableManagementActivity" >
+
+    <TextView
+        android:id="@+id/text_view_table_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Aktuelle Tischanzahl" />
 
     <EditText
         android:id="@+id/table_number_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/table_number_edit_text_hint_string"
+        android:layout_below="@+id/text_view_table_num"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:hint="@string/table_number_edit_text_hint_string"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/set_table_number_button"
