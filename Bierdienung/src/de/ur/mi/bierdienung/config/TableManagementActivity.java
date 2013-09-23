@@ -57,7 +57,7 @@ public class TableManagementActivity extends Activity {
 
 				Intent preferencesIntent = new Intent(
 						TableManagementActivity.this,
-						EinstellungenActivity.class);
+						ManagementActivity.class);
 				startActivity(preferencesIntent);
 				finish();
 			}

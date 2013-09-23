@@ -4,8 +4,8 @@
     <string name="app_name">Bierdienung</string>
     <string name="action_change_table">Tisch wechseln</string>
     <string name="action_add">Produkt hinzufügen</string>
-    <string name="speisekarte">Speisekarte</string>
-    <string name="getraenkekarte">Getränkekarte</string>
+    <string name="food_menu_button_string">Speisekarte</string>
+    <string name="drink_menu_button_string">Getränkekarte</string>
     <string name="refresh">Kellner benachrichtigen/Neu laden</string>
     <string name="enter_bedienung">Bestellung aufnehmen</string>
     <string name="essen">Essen</string>
@@ -14,10 +14,13 @@
     <string name="nr">Nummer eingeben</string>
     <string name="empty">Tisch ist leer</string>
     <string name="menu_delete">Löschen</string>
+    <string name="no_such_user_exist_toast_string">Dieser Nutzer existiert nicht, bitte registrieren Sie sich!</string>
+    <string name="successfully_logged_in_toast_string">Sie haben sich erfolgreich eingeloggt!</string>
     <string name="username_string">Nutzername:</string>
-     <string name="username_hint_string">Nutzername</string>
+    <string name="management_title_string">Verwaltung</string>
+    <string name="username_hint_string">Nutzername</string>
     <string name="password_string">Passwort:</string>
-     <string name="password_hint_string">Passwort</string>
+    <string name="password_hint_string">Passwort</string>
     <string name="waiter_name_hint_string">Kellnername</string>
     <string name="LoginBtn">Einloggen</string>
     <string name="SignupBtn">Registrieren</string>

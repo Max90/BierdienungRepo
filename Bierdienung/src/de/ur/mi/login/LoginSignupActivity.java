@@ -30,7 +30,7 @@ import com.parse.SignUpCallback;
 import de.ur.bierdienung.R;
 import de.ur.mi.ausschank_kueche.AusschankKuecheActivity;
 import de.ur.mi.bierdienung.WaiterTableSelectActivity;
-import de.ur.mi.bierdienung.config.EinstellungenActivity;
+import de.ur.mi.bierdienung.config.ManagementActivity;
 
 public class LoginSignupActivity extends Activity {
 	// Declare Variables
@@ -44,7 +44,7 @@ public class LoginSignupActivity extends Activity {
 	private EditText username;
 	private ProgressDialog mProgressDialog;
 	private static Context ctx;
-	private RadioButton radioKellner;
+	private RadioButton radioWaiter;
 	private RadioButton radioKueche;
 	private RadioButton radioAusschank;
 	private RadioButton radioVerwalten;
@@ -98,7 +98,7 @@ public class LoginSignupActivity extends Activity {
 		signup = (Button) findViewById(R.id.signup);
 		// Locate RadioButton
 		radioCheck = (RadioGroup) findViewById(R.id.radioCheck);
-		radioKellner = (RadioButton) findViewById(R.id.radioKellner);
+		radioWaiter = (RadioButton) findViewById(R.id.radioKellner);
 		radioKueche = (RadioButton) findViewById(R.id.radioKueche);
 		radioAusschank = (RadioButton) findViewById(R.id.radioAusschank);
 		radioVerwalten = (RadioButton) findViewById(R.id.radioVerwalten);
@@ -109,7 +109,7 @@ public class LoginSignupActivity extends Activity {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				radioVerwalten.isChecked();
-				if (radioKellner.isChecked()) {
+				if (radioWaiter.isChecked()) {
 					waiter.setEnabled(true);
 				} else {
 					waiter.setEnabled(false);
@@ -166,7 +166,7 @@ public class LoginSignupActivity extends Activity {
 		loginbutton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				kellnername = waiter.getText().toString();
-				if (radioKellner.isChecked()) {
+				if (radioWaiter.isChecked()) {
 					if (kellnername.equals("")) {
 						Toast.makeText(getApplicationContext(),
 								"Please type in Waiter", Toast.LENGTH_SHORT)
@@ -196,7 +196,7 @@ public class LoginSignupActivity extends Activity {
 												i.putExtra("name", "Getraenke");
 												i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 												startActivity(i);
-											} else if (radioKellner.isChecked()) {
+											} else if (radioWaiter.isChecked()) {
 												Intent i = new Intent(
 														LoginSignupActivity.this,
 														WaiterTableSelectActivity.class);
@@ -212,19 +212,19 @@ public class LoginSignupActivity extends Activity {
 											} else {
 												Intent i = new Intent(
 														LoginSignupActivity.this,
-														EinstellungenActivity.class);
+														ManagementActivity.class);
 												i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 												startActivity(i);
 											}
 											Toast.makeText(
 													getApplicationContext(),
-													"Successfully Logged in",
+													R.string.successfully_logged_in_toast_string,
 													Toast.LENGTH_LONG).show();
 											finish();
 										} else {
 											Toast.makeText(
 													getApplicationContext(),
-													"No such user exist, please signup",
+													R.string.no_such_user_exist_toast_string,
 													Toast.LENGTH_LONG).show();
 										}
 									}

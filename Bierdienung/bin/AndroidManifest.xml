@@ -58,7 +58,7 @@
             android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="de.ur.mi.bierdienung.config.EinstellungenActivity"
+            android:name="de.ur.mi.bierdienung.config.ManagementActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="de.ur.mi.bierdienung.config.ManipulateKartenActivity"

@@ -123,7 +123,7 @@ public class CreateProdukt extends Activity {
             }
 		}
 
-		if (EinstellungenActivity.getKarte().length() > 6) {
+		if (ManagementActivity.getKarte().length() > 6) {
 			radio0.setText("Alkoholfrei");
 			radio1.setText("Bier");
 			radio2.setText("Schnaps");

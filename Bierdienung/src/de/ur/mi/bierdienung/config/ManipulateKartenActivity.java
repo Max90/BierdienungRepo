@@ -42,7 +42,7 @@ public class ManipulateKartenActivity extends ListActivity {
             // Gets the current list of todos in sorted order
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                     LoginSignupActivity.getParseUser() + "_"
-                            + EinstellungenActivity.getKarte());
+                            + ManagementActivity.getKarte());
             query.orderByDescending("_created_at");
 
             try {
@@ -88,7 +88,7 @@ public class ManipulateKartenActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tisch);
 
-        if (EinstellungenActivity.getKarte().equals("Getraenke")) {
+        if (ManagementActivity.getKarte().equals("Getraenke")) {
             setTitle(R.string.drink_menu_string);
         } else {
             setTitle(R.string.meal_menu_string);
@@ -125,11 +125,11 @@ public class ManipulateKartenActivity extends ListActivity {
                         String kategorie = extras.getString("kategorie");
                         ParseObject ob = new ParseObject(
                                 LoginSignupActivity.getParseUser() + "_"
-                                        + EinstellungenActivity.getKarte());
+                                        + ManagementActivity.getKarte());
                         ob.put("Name", name);
                         ob.put("Preis", preis);
                         ob.put("Kategorie", kategorie);
-                        ob.put("Art", EinstellungenActivity.getKarte());
+                        ob.put("Art", ManagementActivity.getKarte());
 
                         try {
                             ob.save();
@@ -148,7 +148,7 @@ public class ManipulateKartenActivity extends ListActivity {
                 ob.put("Name", extras.getString("name"));
                 ob.put("Preis", extras.getString("preis"));
                 ob.put("Kategorie", extras.getString("kategorie"));
-                ob.put("Art", EinstellungenActivity.getKarte());
+                ob.put("Art", ManagementActivity.getKarte());
 
                 new RemoteDataTask() {
                     protected Void doInBackground(Void... params) {
