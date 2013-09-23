@@ -2,23 +2,26 @@ package de.ur.mi.bierdienung;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import de.ur.bierdienung.R;
-import de.ur.mi.login.LoginSignupActivity;
-import de.ur.mi.parse.ListViewAdapter;
-import de.ur.mi.parse.ParselistdownloadClass;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import de.ur.bierdienung.R;
+import de.ur.mi.login.LoginSignupActivity;
+import de.ur.mi.parse.ListViewAdapter;
+import de.ur.mi.parse.ParselistdownloadClass;
 
 public class MenuSwipeFragment extends Fragment {
 

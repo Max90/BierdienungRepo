@@ -102,6 +102,7 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 						WaiterCurrentOrderActivity.this,
 						WaiterTableSelectActivity.class);
 				startActivity(waiterTableSelectActivity);
+				waiterTableSelectActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				finish();
 			}
 		});

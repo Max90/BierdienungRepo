@@ -172,18 +172,44 @@ public class WaiterCashUpActivity extends ListActivity {
 														// catch block
 														e.printStackTrace();
 													}
-												}
-												adapterList.clear();
-												adapterListBackground.clear();
-												textViewAmount
-														.setText("Betrag insgesamt: ");
-												amount = 0;
 
+													// normal doinbackground
+
+													// Gets the current list of
+													// orders
+													ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+															LoginSignupActivity
+																	.getParseUser()
+																	+ "_Bestellung");
+													query.whereEqualTo("Tisch",
+															WaiterTableSelectActivity
+																	.getTNR());
+													query.whereEqualTo(
+															"Status", "fertig");
+													query.orderByDescending("Art");
+													query.orderByAscending("Name");
+
+													try {
+														orders = query.find();
+													} catch (ParseException e) {
+
+													}
+													// end normal
+
+													adapterList.clear();
+													adapterListBackground
+															.clear();
+													amount = 0;
+												}
 												return null;
 											}
 										}.execute();
 										// end asynctask
+
+										textViewAmount
+												.setText("Betrag insgesamt: ");
 									}
+
 								})
 						.setNegativeButton("Nein",
 								new DialogInterface.OnClickListener() {
@@ -251,13 +277,35 @@ public class WaiterCashUpActivity extends ListActivity {
 												}
 												adapterList.clear();
 												adapterListBackground.clear();
-												textViewAmount
-														.setText("Betrag insgesamt: ");
 												amount = 0;
+
+												// Gets the current list of
+												// orders
+												ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+														LoginSignupActivity
+																.getParseUser()
+																+ "_Bestellung");
+												query.whereEqualTo("Tisch",
+														WaiterTableSelectActivity
+																.getTNR());
+												query.whereEqualTo("Status",
+														"fertig");
+												query.orderByDescending("Art");
+												query.orderByAscending("Name");
+
+												try {
+													orders = query.find();
+												} catch (ParseException e) {
+
+												}
+												// end normal
+
 												return null;
 											}
 										}.execute();
 										// end asynctask
+										textViewAmount
+												.setText("Betrag insgesamt: ");
 									}
 								})
 						.setNegativeButton("Nein",

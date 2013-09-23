@@ -35,6 +35,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_Bestellung");
 			query.whereEqualTo("Tisch", WaiterTableSelectActivity.getTNR());
+			query.whereNotEqualTo("Status", "abgerechnet");
 			query.orderByDescending("_created_at");
 
 			try {
