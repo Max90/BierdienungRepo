@@ -14,8 +14,8 @@
     <string name="nr">Nummer eingeben</string>
     <string name="empty">Tisch ist leer</string>
     <string name="menu_delete">Löschen</string>
-    <string name="username_string">Nutzname:</string>
-     <string name="username_hint_string">Nutzname</string>
+    <string name="username_string">Nutzername:</string>
+     <string name="username_hint_string">Nutzername</string>
     <string name="password_string">Passwort:</string>
      <string name="password_hint_string">Passwort</string>
     <string name="waiter_name_hint_string">Kellnername</string>
