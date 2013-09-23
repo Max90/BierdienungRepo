@@ -24,18 +24,21 @@ import com.parse.ParseObject;
 public class ListViewAdapter extends BaseAdapter {
 
     // Declare Variables
-    Context mContext;
     LayoutInflater inflater;
     private List<ParselistdownloadClass> parselistdownloadList = null;
     private ArrayList<ParselistdownloadClass> arraylist;
 
     public ListViewAdapter(Context context,
                            List<ParselistdownloadClass> parselistdownloadList) {
-        mContext = context;
-        inflater = LayoutInflater.from(mContext);
-        this.parselistdownloadList = parselistdownloadList;
-        this.arraylist = new ArrayList<ParselistdownloadClass>();
+        try {
+            inflater = LayoutInflater.from(context);
+            this.parselistdownloadList = parselistdownloadList;
+            this.arraylist = new ArrayList<ParselistdownloadClass>();
         this.arraylist.addAll(parselistdownloadList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 
