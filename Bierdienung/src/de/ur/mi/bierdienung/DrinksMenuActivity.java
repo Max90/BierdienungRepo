@@ -15,14 +15,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-
 public class DrinksMenuActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	// Declare Variables
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 	ViewPager mViewPager;
-	
+
 	public static final int INSERT_ID = Menu.FIRST;
 	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
 
@@ -31,6 +30,7 @@ public class DrinksMenuActivity extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu_card);
+		
 		Bundle extras = getIntent().getExtras();
 		karte = extras.getString("name");
 
@@ -40,8 +40,6 @@ public class DrinksMenuActivity extends FragmentActivity implements
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
-
-		
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
@@ -170,11 +168,6 @@ public class DrinksMenuActivity extends FragmentActivity implements
 			return true;
 
 		case R.id.getraenkekarte:
-			Intent iGetraenke = new Intent(DrinksMenuActivity.this,
-					DrinksMenuActivity.class);
-			iGetraenke.putExtra("name", "Getraenke");
-			startActivity(iGetraenke);
-			finish();
 			return true;
 
 		case R.id.change_table:

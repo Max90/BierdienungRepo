@@ -1,7 +1,5 @@
 package de.ur.mi.bierdienung;
 
-import de.ur.bierdienung.R;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -15,203 +13,189 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
-import com.parse.Parse;
+import de.ur.bierdienung.R;
 
 public class FoodMenuActivity extends FragmentActivity implements
-        ActionBar.TabListener {
+		ActionBar.TabListener {
 
-    AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+	// Declare Variables
+	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+	ViewPager mViewPager;
 
-    ViewPager mViewPager;
-    // Declare Variables
+	public static final int INSERT_ID = Menu.FIRST;
+	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
 
-    public static final int INSERT_ID = Menu.FIRST;
-    public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
+	private static String karte;
 
-    private static String karte;
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_menu_card);
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_card);
+		Bundle extras = getIntent().getExtras();
+		karte = extras.getString("name");
 
-        Bundle extras = getIntent().getExtras();
-        karte = extras.getString("name");
+		// Create the adapter that will return a fragment
+		mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
+				getSupportFragmentManager());
 
-        Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu",
-                "FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW");
+		// Set up the action bar.
+		final ActionBar actionBar = getActionBar();
 
-        // Create the adapter that will return a fragment
-        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(
-                getSupportFragmentManager());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			getActionBar().setHomeButtonEnabled(true);
+		}
 
-        // Set up the action bar.
-        final ActionBar actionBar = getActionBar();
+		// Specify that we will be displaying tabs in the action bar.
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+		// Set up the ViewPager, attaching the adapter and setting up a listener
+		// for when the
+		// user swipes between sections.
+		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mViewPager.setAdapter(mAppSectionsPagerAdapter);
+		mViewPager
+				.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+					@Override
+					public void onPageSelected(int position) {
+						// When swiping between different app sections, select
+						// the corresponding tab.
+						// We can also use ActionBar.Tab#select() to do this if
+						// we have a reference to the
+						// Tab.
+						actionBar.setSelectedNavigationItem(position);
+					}
+				});
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            getActionBar().setHomeButtonEnabled(true);
-        }
+		// For each of the sections in the app, add a tab to the action bar.
+		for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
+			// Create a tab with text corresponding to the page title defined by
+			// the adapter.
+			// Also specify this Activity object, which implements the
+			// TabListener interface, as the
+			// listener for when this tab is selected.
+			actionBar.addTab(actionBar.newTab()
+					.setText(mAppSectionsPagerAdapter.getPageTitle(i))
+					.setTabListener(this));
+		}
 
-        // Specify that we will be displaying tabs in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+	}
 
-        // Set up the ViewPager, attaching the adapter and setting up a listener
-        // for when the
-        // user swipes between sections.
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When swiping between different app sections, select
-                // the corresponding tab.
-                // We can also use ActionBar.Tab#select() to do this if
-                // we have a reference to the
-                // Tab.
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
+	@Override
+	public void onTabUnselected(ActionBar.Tab tab,
+			FragmentTransaction fragmentTransaction) {
+	}
 
-        // For each of the sections in the app, add a tab to the action bar.
-        for (int i = 0; i < mAppSectionsPagerAdapter.getCount(); i++) {
-            // Create a tab with text corresponding to the page title defined by
-            // the adapter.
-            // Also specify this Activity object, which implements the
-            // TabListener interface, as the
-            // listener for when this tab is selected.
-            actionBar.addTab(actionBar.newTab()
-                    .setText(mAppSectionsPagerAdapter.getPageTitle(i))
-                    .setTabListener(this));
-        }
+	@Override
+	public void onTabSelected(ActionBar.Tab tab,
+			FragmentTransaction fragmentTransaction) {
+		// When the given tab is selected, switch to the corresponding page in
+		// the ViewPager.
+		mViewPager.setCurrentItem(tab.getPosition());
+	}
 
-    }
+	@Override
+	public void onTabReselected(ActionBar.Tab tab,
+			FragmentTransaction fragmentTransaction) {
+	}
 
+	/**
+	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+	 * one of the primary sections of the app.
+	 */
+	public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
-    }
+		public AppSectionsPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
 
-    @Override
-    public void onTabSelected(ActionBar.Tab tab,
-                              FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in
-        // the ViewPager.
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
+		@Override
+		public Fragment getItem(int i) {
+			switch (i) {
+			case 0:
+				return new MenuSwipeFragment("Vorspeise", karte);
 
-    @Override
-    public void onTabReselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
-    }
+			case 1:
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the primary sections of the app.
-     */
-    public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+				return new MenuSwipeFragment("Hauptspeise", karte);
+			case 2:
 
-        public AppSectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+				return new MenuSwipeFragment("Nachspeise", karte);
 
-        @Override
-        public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    return new MenuSwipeFragment("Vorspeise", karte);
+			}
+			return null;
+		}
 
-                case 1:
+		@Override
+		public int getCount() {
+			return 3;
+		}
 
-                    return new MenuSwipeFragment("Hauptspeise", karte);
-                case 2:
+		@Override
+		public CharSequence getPageTitle(int position) {
+			switch (position) {
+			case 0:
+				return "Vorspeisen";
+			case 1:
+				return "Hauptspeisen";
+			case 2:
+				return "Nachspeisen";
 
-                    return new MenuSwipeFragment("Nachspeise", karte);
+			}
+			return null;
+		}
+	}
 
-            }
-            return null;
-        }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 
-        @Override
-        public int getCount() {
-            return 3;
-        }
+		switch (item.getItemId()) {
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Vorspeisen";
-                case 1:
-                    return "Hauptspeisen";
-                case 2:
-                    return "Nachspeisen";
+		case R.id.tisch:
+			Intent iTisch = new Intent(FoodMenuActivity.this,
+					WaiterTableOverviewActivity.class);
+			startActivity(iTisch);
+			finish();
+			return true;
 
-            }
-            return null;
-        }
-    }
+		case R.id.speisekarte:
+			return true;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+		case R.id.getraenkekarte:
+			Intent iGetraenke = new Intent(FoodMenuActivity.this,
+					DrinksMenuActivity.class);
+			iGetraenke.putExtra("name", "Getraenke");
+			startActivity(iGetraenke);
+			finish();
+			return true;
 
+		case R.id.change_table:
+			finish();
+			return true;
 
-        switch (item.getItemId()) {
+		case R.id.compute_table:
+			Intent computeTableIntent = new Intent(FoodMenuActivity.this,
+					WaiterCashUpActivity.class);
+			startActivity(computeTableIntent);
+			return true;
 
-            case R.id.tisch:
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+		}
 
-                Intent iTisch = new Intent(FoodMenuActivity.this,
-                        WaiterTableOverviewActivity.class);
-                startActivity(iTisch);
-                finish();
-                return true;
+		return super.onOptionsItemSelected(item);
+	}
 
-            case R.id.speisekarte:
-                Intent iEssen = new Intent(FoodMenuActivity.this,
-                        FoodMenuActivity.class);
-                iEssen.putExtra("name", "Essen");
-                startActivity(iEssen);
-                finish();
-                return true;
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
 
-            case R.id.getraenkekarte:
-                Intent iGetraenke = new Intent(FoodMenuActivity.this,
-                        DrinksMenuActivity.class);
-                iGetraenke.putExtra("name", "Getraenke");
-                startActivity(iGetraenke);
-                finish();
-                return true;
-
-            case R.id.change_table:
-                finish();
-                return true;
-
-            case R.id.compute_table:
-                Intent computeTableIntent = new Intent(FoodMenuActivity.this,
-                        WaiterCashUpActivity.class);
-                startActivity(computeTableIntent);
-                return true;
-
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-
-        boolean result = super.onCreateOptionsMenu(menu);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-
-        menu.findItem(R.id.tisch).setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
-        return result;
-    }
+		menu.findItem(R.id.tisch).setTitle(
+				"Tisch " + WaiterTableSelectActivity.getTNR());
+		return result;
+	}
 
 }
