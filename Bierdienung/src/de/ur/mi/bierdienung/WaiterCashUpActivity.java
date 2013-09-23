@@ -130,120 +130,149 @@ public class WaiterCashUpActivity extends ListActivity {
     }
 
     private void cashUp() {
-        buttonCashUpMarked.setOnClickListener(new View.OnClickListener() {
+		buttonCashUpMarked.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
-                String text = "Alles auf der Rechnung? Betrag: "
-                        + String.format("%.2f", amount) + " Euro!";
+			public void onClick(View v) {
+				String text = "Alles auf der Rechnung? Betrag: "
+						+ String.format("%.2f", amount) + " Euro!";
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
 
-                // set title
-                alertDialogBuilder.setTitle("Tisch abrechnen?");
+				// set title
+				alertDialogBuilder.setTitle("Tisch abrechnen?");
 
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage(text)
-                        .setCancelable(false)
-                        .setPositiveButton("Ja",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        // Delete the remote object
-                                        for (int i = 0; i < list.size(); i++) {
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(text)
+						.setCancelable(false)
+						.setPositiveButton("Ja",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// Execute RemoteDataTask AsyncTask
+										new RemoteDataTask() {
+											protected Void doInBackground(
+													Void... params) {
+												// Delete the remote object
+												for (int i = 0; i < list.size(); i++) {
 
-                                            // set the todoObject to the item in
-                                            // list
-                                            final ParseObject paidItem = list
-                                                    .get(i);
+													// set the todoObject to the
+													// item in
+													// list
+													final ParseObject paidItem = list
+															.get(i);
 
-                                            paidItem.put("Status",
-                                                    "abgerechnet");
-                                            paidItem.saveInBackground();
+													paidItem.put("Status",
+															"abgerechnet");
+													try {
+														paidItem.save();
+													} catch (ParseException e) {
+														// TODO Auto-generated
+														// catch block
+														e.printStackTrace();
+													}
+												}
+												adapterList.clear();
+												adapterListBackground.clear();
+												textViewAmount
+														.setText("Betrag insgesamt: ");
+												amount = 0;
 
-                                        }
-                                        adapterList.clear();
-                                        adapterListBackground.clear();
-                                        textViewAmount
-                                                .setText("Betrag insgesamt: ");
-                                        amount = 0;
-                                        // Execute RemoteDataTask AsyncTask
-                                        new RemoteDataTask().execute();
-                                    }
-                                })
-                        .setNegativeButton("Nein",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        dialog.cancel();
-                                    }
-                                });
+												return null;
+											}
+										}.execute();
+										// end asynctask
+									}
+								})
+						.setNegativeButton("Nein",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
+									}
+								});
 
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
 
-            }
-        });
+			}
+		});
 
-        buttonCashUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for (int i = 0; i < orders.size(); i++) {
-                    double preis = Double.parseDouble(orders.get(i).get("Preis")
-                            .toString());
-                    amount = amount + preis;
-                }
+		buttonCashUp.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				for (int i = 0; i < orders.size(); i++) {
+					double preis = Double.parseDouble(orders.get(i)
+							.get("Preis").toString());
+					amount = amount + preis;
+				}
 
-                String text = "Alles auf der Rechnung? Betrag: "
-                        + String.format("%.2f", amount) + " Euro!";
+				String text = "Alles auf der Rechnung? Betrag: "
+						+ String.format("%.2f", amount) + " Euro!";
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        context);
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
 
-                // set title
-                alertDialogBuilder.setTitle("Tisch abrechnen?");
+				// set title
+				alertDialogBuilder.setTitle("Tisch abrechnen?");
 
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage(text)
-                        .setCancelable(false)
-                        .setPositiveButton("Ja",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        // Delete the remote object
-                                        for (int i = 0; i < orders.size(); i++) {
+				// set dialog message
+				alertDialogBuilder
+						.setMessage(text)
+						.setCancelable(false)
+						.setPositiveButton("Ja",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										// Execute RemoteDataTask AsyncTask
+										new RemoteDataTask() {
+											protected Void doInBackground(
+													Void... params) {
+												// Delete the remote object
+												for (int i = 0; i < orders
+														.size(); i++) {
 
-                                            // set the todoObject to the item in
-                                            // list
-                                            final ParseObject paidItem = orders.get(i);
+													// set the todoObject to the
+													// item in
+													// list
+													final ParseObject paidItem = orders
+															.get(i);
 
-                                            paidItem.put("Status", "abgerechnet");
-                                            paidItem.saveInBackground();
+													paidItem.put("Status",
+															"abgerechnet");
+													try {
+														paidItem.save();
+													} catch (ParseException e) {
+														// TODO Auto-generated
+														// catch block
+														e.printStackTrace();
+													}
+												}
+												adapterList.clear();
+												adapterListBackground.clear();
+												textViewAmount
+														.setText("Betrag insgesamt: ");
+												amount = 0;
+												return null;
+											}
+										}.execute();
+										// end asynctask
+									}
+								})
+						.setNegativeButton("Nein",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.cancel();
+									}
+								});
 
-                                        }
-                                        adapterList.clear();
-                                        adapterListBackground.clear();
-                                        textViewAmount.setText("Betrag insgesamt: ");
-                                        amount = 0;
-                                        // Execute RemoteDataTask AsyncTask
-                                        new RemoteDataTask().execute();
-                                    }
-                                })
-                        .setNegativeButton("Nein",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
-    }
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				alertDialog.show();
+			}
+		});
+	}
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
