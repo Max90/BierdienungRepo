@@ -14,9 +14,11 @@
     <string name="nr">Nummer eingeben</string>
     <string name="empty">Tisch ist leer</string>
     <string name="menu_delete">Löschen</string>
-    <string name="Username">Username:</string>
-    <string name="Password">Password:</string>
-    <string name="kellnername">Kellnername:</string>
+    <string name="username_string">Nutzname:</string>
+     <string name="username_hint_string">Nutzname</string>
+    <string name="password_string">Passwort:</string>
+     <string name="password_hint_string">Passwort</string>
+    <string name="waiter_name_hint_string">Kellnername</string>
     <string name="LoginBtn">Einloggen</string>
     <string name="SignupBtn">Registrieren</string>
     <string name="test">test</string>
@@ -45,7 +47,7 @@
     <string name="waiter_radio_button_string">Kellner</string>
     <string name="kitchen_radio_button_string">Küche</string>
     <string name="drinks_radio_button_string">Ausschank</string>
-    <string name="manage_radio_button_string">Verwalten</string>
+    <string name="manage_radio_button_string">Verwaltung</string>
     <string name="waiter_logout">Kellner ausloggen</string>
     <string name="jone_string">J.M.</string>
     <string name="jan_string">J.G.</string>

@@ -39,7 +39,7 @@ public class LoginSignupActivity extends Activity {
 	static String usernametxt;
 	static String passwordtxt;
 	static String kellnername;
-	private EditText kellner;
+	private EditText waiter;
 	private EditText password;
 	private EditText username;
 	private ProgressDialog mProgressDialog;
@@ -92,7 +92,7 @@ public class LoginSignupActivity extends Activity {
 		// Locate EditText
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
-		kellner = (EditText) findViewById(R.id.kellnernamen);
+		waiter = (EditText) findViewById(R.id.kellnernamen);
 		// Locate Buttons in main.xml
 		loginbutton = (Button) findViewById(R.id.login);
 		signup = (Button) findViewById(R.id.signup);
@@ -110,9 +110,9 @@ public class LoginSignupActivity extends Activity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				radioVerwalten.isChecked();
 				if (radioKellner.isChecked()) {
-					kellner.setEnabled(true);
+					waiter.setEnabled(true);
 				} else {
-					kellner.setEnabled(false);
+					waiter.setEnabled(false);
 				}
 			}
 		});
@@ -165,7 +165,7 @@ public class LoginSignupActivity extends Activity {
 	private void setClickLoginButton() {
 		loginbutton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				kellnername = kellner.getText().toString();
+				kellnername = waiter.getText().toString();
 				if (radioKellner.isChecked()) {
 					if (kellnername.equals("")) {
 						Toast.makeText(getApplicationContext(),

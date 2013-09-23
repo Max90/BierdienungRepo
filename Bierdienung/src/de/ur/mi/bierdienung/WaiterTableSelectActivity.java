@@ -33,7 +33,7 @@ public class WaiterTableSelectActivity extends Activity {
 	private Button buttonAbrechnung;
 	private static String tNr;
 	private List<ParseObject> parseListTableNumber;
-	private String maxTables;
+	private String maxTables = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,12 @@ public class WaiterTableSelectActivity extends Activity {
 				LoginSignupActivity.getParseUser() + "_Table");
 		try {
 			parseListTableNumber = query.find();
-			maxTables = parseListTableNumber.get(
-					parseListTableNumber.size() - 1).getString("TableNumber");
+			if (parseListTableNumber.size() > 0) {
+				maxTables = parseListTableNumber.get(
+						parseListTableNumber.size() - 1).getString(
+						"TableNumber");
+			}
+
 		} catch (ParseException e) {
 			Log.e("Error", e.getMessage());
 			e.printStackTrace();
