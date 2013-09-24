@@ -66,6 +66,7 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 	}
 
     private void setUpUi() {
+    	setTitle("Offene Bestellung");
         buttonDeleteMarked = (Button) findViewById(R.id.delete_marked_button);
         buttonSendCurrentOrder = (Button) findViewById(R.id.send_current_order_button);
     }

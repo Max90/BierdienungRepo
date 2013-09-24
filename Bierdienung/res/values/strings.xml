@@ -8,7 +8,7 @@
     <string name="food_menu_button_string">Speisekarte</string>
     <string name="drink_menu_button_string">Getränkekarte</string>
     <string name="refresh">Fertige löschen / Neue laden</string>
-    <string name="enter_bedienung">Bestellung aufnehmen</string>
+    <string name="enter_bedienung">Tisch bedienen</string>
     <string name="essen">Essen</string>
     <string name="getraenke">Getränke</string>
     <string name="tisch_nr">Tisch-Nummer:</string>
@@ -17,7 +17,6 @@
     <string name="menu_delete">Löschen</string>
     <string name="no_such_user_exist_toast_string">Dieser Nutzer existiert nicht, bitte registrieren Sie sich!</string>
     <string name="no_tables_toast_string">Es sind leider noch keine Tische angelegt. Bitte wenden Sie sich an Ihren Restaurantleiter!</string>
-     
     <string name="not_back_current_order_dialog_string">Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?</string>
     <string name="add_to_order_toast_string"> zur Bestellung hinzugefügt</string>
     <string name="complete_input_toast_string">Bitte Eingaben vervollständigen!</string>
@@ -51,8 +50,8 @@
     <string name="table_management_button_string">Tische verwalten</string>
     <string name="table_number_edit_text_hint_string">Tischanzahl eingeben!</string>
     <string name="set_table_number_button_string">Fertig</string>
-    <string name="send_or_change_order_button_string">Bestellung bearbeiten/abschicken</string>
-    <string name="send_current_oder_button_string">Abschicken</string>
+    <string name="send_or_change_order_button_string">Bestellung bearbeiten/aufgeben</string>
+    <string name="send_current_oder_button_string">Aufgeben</string>
     <string name="delete_marked_button_string">Markierte löschen</string>
     <string name="waiter_radio_button_string">Kellner</string>
     <string name="kitchen_radio_button_string">Küche</string>

@@ -29,7 +29,7 @@ public class WaiterCashUpActivity extends ListActivity {
 
     private List<ParseObject> orders;
     private ProgressDialog mProgressDialog;
-    private double amount = 0;
+    private double amount = 0.0;
     private TextView textViewAmount;
     private Button buttonCashUp;
     private Button buttonCashUpMarked;
@@ -50,7 +50,7 @@ public class WaiterCashUpActivity extends ListActivity {
 
         setUpUi();
 
-        setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
+        setTitle("Tisch " + WaiterTableSelectActivity.getTNR() + " abrechnen");
         registerForContextMenu(getListView());
 
         cashUp();
@@ -133,9 +133,11 @@ public class WaiterCashUpActivity extends ListActivity {
     }
 
     private void cashUp() {
+    	
         buttonCashUpMarked.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
+            	amount = 0.0;
                 String text = "Alles auf der Rechnung? Betrag: "
                         + String.format("%.2f", amount) + " Euro!";
 
@@ -228,6 +230,7 @@ public class WaiterCashUpActivity extends ListActivity {
         buttonCashUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            	amount = 0.0;
                 for (int i = 0; i < orders.size(); i++) {
                     double preis = Double.parseDouble(orders.get(i)
                             .get("Preis").toString());
