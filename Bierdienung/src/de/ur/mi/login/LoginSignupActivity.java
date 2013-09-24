@@ -261,7 +261,7 @@ public class LoginSignupActivity extends Activity {
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(LoginSignupActivity.this);
             // Set progressdialog title
-            mProgressDialog.setTitle("Ueberpruefe Logindaten");
+            mProgressDialog.setTitle("Überprüfe Logindaten");
             // Set progressdialog message
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
