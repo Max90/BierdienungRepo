@@ -8,13 +8,16 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -27,6 +30,9 @@ import de.ur.mi.parse.ListViewAdapterKitchenBar;
 import de.ur.mi.parse.ParselistdownloadClass;
 
 public class BarKitchenActivity extends ListActivity {
+	
+
+    private static final int DELETE_ID = Menu.FIRST + 1;
 	// Declare Variables
 	private List<ParseObject> ordersList;
 	private ProgressDialog mProgressDialog;
@@ -60,6 +66,7 @@ public class BarKitchenActivity extends ListActivity {
 		refreshButton();
 		// Execute RemoteDataTask AsyncTask
 		new RemoteDataTask().execute();
+		registerForContextMenu(getListView());
 	}
 
 	private void refreshButton() {
@@ -83,6 +90,10 @@ public class BarKitchenActivity extends ListActivity {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
+							adapterListBackground.clear();
+			    			adapterListOrder.clear();
+			    			adapterListTable.clear();
+			    			listKind.clear();
 						}
 
 						// PushNotification for Waiter who accepted order when
@@ -137,7 +148,7 @@ public class BarKitchenActivity extends ListActivity {
 						// create new list
 
 						parselistdownloadList = new ArrayList<ParselistdownloadClass>();
-						// Locate the class table named "Country" in Parse.com
+						
 						ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 								LoginSignupActivity.getParseUser()
 										+ "_Bestellung");
@@ -290,4 +301,47 @@ public class BarKitchenActivity extends ListActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(0, DELETE_ID, 0, R.string.menu_cancel);
+    }
+	
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case DELETE_ID:
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+                        .getMenuInfo();
+
+                // Delete the remote object
+                final ParseObject order = ordersList.get(info.position);
+                
+
+                new RemoteDataTask() {
+                    protected Void doInBackground(Void... params) {
+                        try {
+                            order.delete();
+                        } catch (ParseException e) {
+                        }
+                        super.doInBackground();
+                        return null;
+                    }
+                }.execute();
+                adapterListBackground.clear();
+    			adapterListOrder.clear();
+    			adapterListTable.clear();
+    			listKind.clear();
+    			
+                return true;
+                
+                
+        }
+       
+		// Execute RemoteDataTask AsyncTask
+		new RemoteDataTask().execute();
+        return super.onContextItemSelected(item);
+    }
 }

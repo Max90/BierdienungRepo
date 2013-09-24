@@ -32,19 +32,19 @@ public class PopulateMenuActivity extends ListActivity {
 
     private static final int DELETE_ID = Menu.FIRST + 1;
 
-    private List<ParseObject> todos;
+    private List<ParseObject> orders;
     private Dialog progressDialog;
 
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... params) {
-            // Gets the current list of todos in sorted order
+            // Gets the current list of orders in sorted order
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                     LoginSignupActivity.getParseUser() + "_"
                             + ManagementActivity.getMenu());
             query.orderByDescending("_created_at");
 
             try {
-                todos = query.find();
+                orders = query.find();
             } catch (ParseException e) {
 
             }
@@ -65,11 +65,11 @@ public class PopulateMenuActivity extends ListActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            // Put the list of todos into the list view
+            // Put the list of orders into the list view
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     PopulateMenuActivity.this,
                     R.layout.menu_list_item);
-            for (ParseObject todo : todos) {
+            for (ParseObject todo : orders) {
                 adapter.add((String) todo.get("Name"));
             }
             setListAdapter(adapter);
@@ -142,7 +142,7 @@ public class PopulateMenuActivity extends ListActivity {
             case ACTIVITY_EDIT:
                 // Edit the remote object
                 final ParseObject ob;
-                ob = todos.get(extras.getInt("position"));
+                ob = orders.get(extras.getInt("position"));
                 ob.put("Name", extras.getString("name"));
                 ob.put("Preis", extras.getString("preis"));
                 ob.put("Kategorie", extras.getString("kategorie"));
@@ -185,12 +185,12 @@ public class PopulateMenuActivity extends ListActivity {
                         .getMenuInfo();
 
                 // Delete the remote object
-                final ParseObject todo = todos.get(info.position);
+                final ParseObject order = orders.get(info.position);
 
                 new RemoteDataTask() {
                     protected Void doInBackground(Void... params) {
                         try {
-                            todo.delete();
+                            order.delete();
                         } catch (ParseException e) {
                         }
                         super.doInBackground();
@@ -221,9 +221,9 @@ public class PopulateMenuActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, CreateProdukt.class);
-        i.putExtra("name", todos.get(position).getString("Name").toString());
-        i.putExtra("preis", todos.get(position).getString("Preis").toString());
-        i.putExtra("kategorie", todos.get(position).getString("Kategorie")
+        i.putExtra("name", orders.get(position).getString("Name").toString());
+        i.putExtra("preis", orders.get(position).getString("Preis").toString());
+        i.putExtra("kategorie", orders.get(position).getString("Kategorie")
                 .toString());
         i.putExtra("position", position);
         startActivityForResult(i, ACTIVITY_EDIT);

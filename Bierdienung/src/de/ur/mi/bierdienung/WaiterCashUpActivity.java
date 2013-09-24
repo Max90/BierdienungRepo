@@ -137,7 +137,7 @@ public class WaiterCashUpActivity extends ListActivity {
         buttonCashUpMarked.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-            	amount = 0.0;
+            	
                 String text = "Alles auf der Rechnung? Betrag: "
                         + String.format("%.2f", amount) + " Euro!";
 
