@@ -15,43 +15,42 @@ import de.ur.bierdienung.R;
 
 public class CreateProdukt extends Activity {
 
-    private EditText nameTextEdit;
-    private EditText priceTextEdit;
-    private int position;
+	private EditText nameTextEdit;
+	private EditText priceTextEdit;
+	private int position;
 
 	private RadioButton radio0;
 	private RadioButton radio1;
 	private RadioButton radio2;
 	private RadioButton radio3;
-    private RadioButton radio4;
-    private Button confirmButton;
+	private RadioButton radio4;
+	private Button confirmButton;
 	private String kat;
-    public static final int INSERT_ID = Menu.FIRST;
+	public static final int INSERT_ID = Menu.FIRST;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_createprodukt);
-		setTitle(R.string.change_product);
 
 		setUI();
 
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 
-                if (nameTextEdit.getText().length() < 1
-                        || priceTextEdit.getText().length() < 1) {
-                    Toast.makeText(view.getContext(),
-							"Bitte Eingaben vervollständigen",
+				if (nameTextEdit.getText().length() < 1
+						|| priceTextEdit.getText().length() < 1) {
+					Toast.makeText(view.getContext(),
+							R.string.complete_input_toast_string,
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
 
 				Bundle bundle = new Bundle();
-                bundle.putString("name", nameTextEdit.getText().toString());
-                bundle.putString("preis", priceTextEdit.getText().toString());
-                getkat();
+				bundle.putString("name", nameTextEdit.getText().toString());
+				bundle.putString("preis", priceTextEdit.getText().toString());
+				getkat();
 				bundle.putString("kategorie", kat);
 				bundle.putInt("position", position);
 
@@ -70,10 +69,10 @@ public class CreateProdukt extends Activity {
 					kat = radio2.getText().toString();
 				} else if (radio3.isChecked()) {
 					kat = radio3.getText().toString();
-                } else if (radio4.isChecked()) {
-                    kat = radio4.getText().toString();
-                }
-            }
+				} else if (radio4.isChecked()) {
+					kat = radio4.getText().toString();
+				}
+			}
 		});
 
 	}
@@ -81,29 +80,37 @@ public class CreateProdukt extends Activity {
 	private void setUI() {
 
 		confirmButton = (Button) findViewById(R.id.buttonuebernehmen);
-        priceTextEdit = (EditText) findViewById(R.id.editpreis);
-        nameTextEdit = (EditText) findViewById(R.id.editname);
-        radio0 = (RadioButton) findViewById(R.id.radio0);
+		priceTextEdit = (EditText) findViewById(R.id.editpreis);
+		nameTextEdit = (EditText) findViewById(R.id.editname);
+		radio0 = (RadioButton) findViewById(R.id.radio0);
 		radio1 = (RadioButton) findViewById(R.id.radio1);
 		radio2 = (RadioButton) findViewById(R.id.radio2);
 		radio3 = (RadioButton) findViewById(R.id.radio3);
-        radio4 = (RadioButton) findViewById(R.id.radio4);
+		radio4 = (RadioButton) findViewById(R.id.radio4);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
 		}
 
 		Bundle extras = getIntent().getExtras();
+		if (extras == null) {
+			setTitle(R.string.add_product);
+		} else {
+
+			setTitle(R.string.change_product);
+		}
+
 		if (extras != null) {
+
 			String name = extras.getString("name");
 			position = extras.getInt("position");
 			String preis = extras.getString("preis");
 			kat = extras.getString("kategorie");
 			if (name != null) {
-                nameTextEdit.setText(name);
-                priceTextEdit.setText(preis);
+				nameTextEdit.setText(name);
+				priceTextEdit.setText(preis);
 
-                if (kat.equals("Alkoholfrei")) {
+				if (kat.equals("Alkoholfrei")) {
 					radio0.setChecked(true);
 				} else if (kat.equals("Bier")) {
 					radio1.setChecked(true);
@@ -117,37 +124,37 @@ public class CreateProdukt extends Activity {
 					radio1.setChecked(true);
 				} else if (kat.equals("Nachspeise")) {
 					radio2.setChecked(true);
-                } else if (kat.equals("Wein")) {
-                    radio4.setChecked(true);
-                }
-            }
+				} else if (kat.equals("Wein")) {
+					radio4.setChecked(true);
+				}
+			}
 		}
 
-        if (ManagementActivity.getMenu().length() > 6) {
-            radio0.setText("Alkoholfrei");
+		if (ManagementActivity.getMenu().length() > 6) {
+			radio0.setText("Alkoholfrei");
 			radio1.setText("Bier");
 			radio2.setText("Schnaps");
 			radio3.setText("Sonstiges");
-            radio4.setText("Wein");
-        } else {
+			radio4.setText("Wein");
+		} else {
 			radio0.setText("Vorspeise");
 			radio1.setText("Hauptspeise");
 			radio2.setText("Nachspeise");
 			radio3.setVisibility(View.INVISIBLE);
-            radio4.setVisibility(View.INVISIBLE);
-        }
+			radio4.setVisibility(View.INVISIBLE);
+		}
 
 	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean result = super.onCreateOptionsMenu(menu);
-        menu.add(0, INSERT_ID, 0, R.string.action_add);
-        return result;
-    }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean result = super.onCreateOptionsMenu(menu);
+		menu.add(0, INSERT_ID, 0, R.string.action_add);
+		return result;
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();

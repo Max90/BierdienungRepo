@@ -28,9 +28,9 @@ import de.ur.mi.login.LoginSignupActivity;
 
 public class WaiterTableSelectActivity extends Activity {
 
-    private EditText tischNummer;
+    private EditText editTextTableNum;
     private Button buttonEnterBedienung;
-    private Button buttonAbrechnung;
+    private Button buttonCashUp;
     private static String tNr;
     private List<ParseObject> parseListTableNumber;
     private String maxTables = "";
@@ -56,8 +56,8 @@ public class WaiterTableSelectActivity extends Activity {
         }
 
         buttonEnterBedienung = (Button) findViewById(R.id.accept_order_button);
-        buttonAbrechnung = (Button) findViewById(R.id.billing_button);
-        tischNummer = (EditText) findViewById(R.id.edit_text_table_number);
+        buttonCashUp = (Button) findViewById(R.id.billing_button);
+        editTextTableNum = (EditText) findViewById(R.id.edit_text_table_number);
 
         buttonEnterBedienung.setOnClickListener(new OnClickListener() {
 
@@ -65,20 +65,20 @@ public class WaiterTableSelectActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(WaiterTableSelectActivity.this,
                         WaiterTableOverviewActivity.class);
-                tNr = tischNummer.getText().toString();
+                tNr = editTextTableNum.getText().toString();
                 if (checkForInvalidInput(v))
                     return;
                 startActivity(i);
             }
         });
 
-        buttonAbrechnung.setOnClickListener(new OnClickListener() {
+        buttonCashUp.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WaiterTableSelectActivity.this,
                         WaiterCashUpActivity.class);
-                tNr = tischNummer.getText().toString();
+                tNr = editTextTableNum.getText().toString();
                 if (checkForInvalidInput(v))
                     return;
                 startActivity(i);
@@ -94,10 +94,10 @@ public class WaiterTableSelectActivity extends Activity {
         } else if (maxTables.equals("")) {
             Toast.makeText(
                     v.getContext(),
-                    " Es sind leider noch keine Tische angelegt. Bitte wenden Sie sich an Ihren Restaurantleiter",
+                    R.string.no_tables_toast_string,
                     Toast.LENGTH_LONG).show();
             return true;
-        } else if (Integer.parseInt(tischNummer.getText().toString()) > Integer
+        } else if (Integer.parseInt(editTextTableNum.getText().toString()) > Integer
                 .parseInt(maxTables)) {
             Toast.makeText(
                     v.getContext(),
@@ -115,8 +115,8 @@ public class WaiterTableSelectActivity extends Activity {
 
     @Override
     protected void onResume() {
-        tischNummer.setText("");
-        tischNummer.requestFocus();
+        editTextTableNum.setText("");
+        editTextTableNum.requestFocus();
         super.onResume();
     }
 
