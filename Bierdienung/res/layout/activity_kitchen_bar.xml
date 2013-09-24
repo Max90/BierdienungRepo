@@ -30,6 +30,7 @@
         android:id="@+id/text_view_help_text"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:textColor="#FF0000"
         android:layout_above="@+id/refresh_and_notify_waiter_button"
         android:text="@string/mark_finished_string"
         android:layout_centerHorizontal="true" />

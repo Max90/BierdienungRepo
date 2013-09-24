@@ -4,9 +4,10 @@
     <string name="app_name">Bierdienung</string>
     <string name="action_change_table">Tisch wechseln</string>
     <string name="action_add">Produkt hinzufügen</string>
+    <string name="action_refresh">Refresh</string>
     <string name="food_menu_button_string">Speisekarte</string>
     <string name="drink_menu_button_string">Getränkekarte</string>
-    <string name="refresh">Kellner benachrichtigen/Neu laden</string>
+    <string name="refresh">Fertige löschen / Neue laden</string>
     <string name="enter_bedienung">Bestellung aufnehmen</string>
     <string name="essen">Essen</string>
     <string name="getraenke">Getränke</string>
@@ -45,8 +46,8 @@
     <string name="table_number_edit_text_hint_string">Tischanzahl eingeben!</string>
     <string name="set_table_number_button_string">Fertig</string>
     <string name="send_or_change_order_button_string">Bestellung bearbeiten/abschicken</string>
-    <string name="send_current_oder_button_string">abschicken</string>
-    <string name="delete_marked_button_string">markierte löschen</string>
+    <string name="send_current_oder_button_string">Abschicken</string>
+    <string name="delete_marked_button_string">Markierte löschen</string>
     <string name="waiter_radio_button_string">Kellner</string>
     <string name="kitchen_radio_button_string">Küche</string>
     <string name="drinks_radio_button_string">Ausschank</string>
@@ -59,6 +60,6 @@
     <string name="cancel">Abbrechen</string>
     <string name="sum_up_marked_button_string">Markierte Abrechnen</string>
     <string name="cancel_order_dialog_string">Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?</string>
-    <string name="mark_finished_string">Fertige markieren!</string>
+    <string name="mark_finished_string">Fertige Bestellungen markieren!</string>
 
 </resources>
