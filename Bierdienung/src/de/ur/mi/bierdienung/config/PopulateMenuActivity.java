@@ -26,7 +26,7 @@ import com.parse.ParseQuery;
 import de.ur.bierdienung.R;
 import de.ur.mi.login.LoginSignupActivity;
 
-public class ManipulateKartenActivity extends ListActivity {
+public class PopulateMenuActivity extends ListActivity {
     private static final int ACTIVITY_CREATE = 0;
     private static final int ACTIVITY_EDIT = 1;
 
@@ -55,8 +55,8 @@ public class ManipulateKartenActivity extends ListActivity {
 
         @Override
         protected void onPreExecute() {
-            ManipulateKartenActivity.this.progressDialog = ProgressDialog.show(
-                    ManipulateKartenActivity.this, "", "Loading...", true);
+            PopulateMenuActivity.this.progressDialog = ProgressDialog.show(
+                    PopulateMenuActivity.this, "", "Loading...", true);
             super.onPreExecute();
         }
 
@@ -69,13 +69,13 @@ public class ManipulateKartenActivity extends ListActivity {
         protected void onPostExecute(Void result) {
             // Put the list of todos into the list view
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                    ManipulateKartenActivity.this,
-                    R.layout.activity_todo_only_textview);
+                    PopulateMenuActivity.this,
+                    R.layout.menu_list_item);
             for (ParseObject todo : todos) {
                 adapter.add((String) todo.get("Name"));
             }
             setListAdapter(adapter);
-            ManipulateKartenActivity.this.progressDialog.dismiss();
+            PopulateMenuActivity.this.progressDialog.dismiss();
 
         }
     }
@@ -86,7 +86,7 @@ public class ManipulateKartenActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tisch);
+        setContentView(R.layout.activity_table);
 
         if (ManagementActivity.getKarte().equals("Getraenke")) {
             setTitle(R.string.drink_menu_string);
@@ -168,7 +168,7 @@ public class ManipulateKartenActivity extends ListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.create_bestellung, menu);
+        inflater.inflate(R.menu.create_order, menu);
         return result;
     }
 

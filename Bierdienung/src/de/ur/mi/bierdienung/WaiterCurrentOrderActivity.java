@@ -146,8 +146,8 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			// set dialog message
 			alertDialogBuilder
 					.setMessage(
-							"Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?")
-					.setCancelable(false)
+                            "Ihre Bestellung wird nicht an die KÃ¼che/Ausschank gesendet. Trotzdem zurÃ¼ck gehen?")
+                    .setCancelable(false)
 					.setPositiveButton("Ja",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,

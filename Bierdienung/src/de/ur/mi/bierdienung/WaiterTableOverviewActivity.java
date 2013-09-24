@@ -72,8 +72,8 @@ public class WaiterTableOverviewActivity extends ListActivity {
 			// Put the list of orders into the list view
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 					WaiterTableOverviewActivity.this,
-					R.layout.activity_todo_only_textview);
-			for (ParseObject order : orders) {
+                    R.layout.menu_list_item);
+            for (ParseObject order : orders) {
 				adapter.add((String) order.get("Name"));
 			}
 			setListAdapter(adapter);
@@ -87,9 +87,9 @@ public class WaiterTableOverviewActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_tisch);
+        setContentView(R.layout.activity_table);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
 		}
 

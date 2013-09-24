@@ -1,7 +1,9 @@
 package de.ur.mi;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -17,6 +19,8 @@ public class SplashActivty extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.pouring_beer_sound);
+        mp.start();
         new Handler().postDelayed(new Runnable() {
 
             @Override

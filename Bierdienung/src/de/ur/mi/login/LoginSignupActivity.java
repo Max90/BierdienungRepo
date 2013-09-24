@@ -30,7 +30,7 @@ import com.parse.PushService;
 import com.parse.SignUpCallback;
 
 import de.ur.bierdienung.R;
-import de.ur.mi.ausschank_kueche.AusschankKuecheActivity;
+import de.ur.mi.ausschank_kueche.BarKitchenActivity;
 import de.ur.mi.bierdienung.WaiterTableSelectActivity;
 import de.ur.mi.bierdienung.config.ManagementActivity;
 
@@ -194,7 +194,7 @@ public class LoginSignupActivity extends Activity {
                                             if (radioAusschank.isChecked()) {
                                                 Intent i = new Intent(
                                                         LoginSignupActivity.this,
-                                                        AusschankKuecheActivity.class);
+                                                        BarKitchenActivity.class);
                                                 i.putExtra("name", "Getraenke");
                                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(i);
@@ -207,7 +207,7 @@ public class LoginSignupActivity extends Activity {
                                             } else if (radioKueche.isChecked()) {
                                                 Intent i = new Intent(
                                                         LoginSignupActivity.this,
-                                                        AusschankKuecheActivity.class);
+                                                        BarKitchenActivity.class);
                                                 i.putExtra("name", "Essen");
                                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(i);

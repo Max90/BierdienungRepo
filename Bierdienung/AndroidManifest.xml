@@ -33,7 +33,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="portrait">
 
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -48,20 +48,20 @@
         <activity
             android:name="de.ur.mi.bierdienung.DrinksMenuActivity"
             android:screenOrientation="portrait" />
-         <activity
+        <activity
             android:name="de.ur.mi.bierdienung.FoodMenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="de.ur.mi.bierdienung.WaiterCashUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="de.ur.mi.ausschank_kueche.AusschankKuecheActivity"
+            android:name="de.ur.mi.ausschank_kueche.BarKitchenActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="de.ur.mi.bierdienung.config.ManagementActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="de.ur.mi.bierdienung.config.ManipulateKartenActivity"
+            android:name="de.ur.mi.bierdienung.config.PopulateMenuActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="de.ur.mi.bierdienung.config.CreateProdukt"

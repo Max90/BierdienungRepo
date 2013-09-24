@@ -42,7 +42,7 @@ public class WaiterCashUpActivity extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abrechnung);
+        setContentView(R.layout.activity_cash_up);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             getActionBar().setHomeButtonEnabled(true);
