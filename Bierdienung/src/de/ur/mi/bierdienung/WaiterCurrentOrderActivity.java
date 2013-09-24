@@ -87,7 +87,7 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
                 for (int i = 0; i < ordersList.size(); i++) {
-                    // set the todoObject to the item in list
+                    // set the parseObject to the item in list
                     final ParseObject paidItem = ordersList.get(i);
                     paidItem.put("Status", "aufgegeben");
 					paidItem.saveInBackground();
@@ -149,7 +149,7 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			// set dialog message
 			alertDialogBuilder
 					.setMessage(
-                            "Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?")
+                            R.string.not_back_current_order_dialog_string)
                     .setCancelable(false)
 					.setPositiveButton("Ja",
 							new DialogInterface.OnClickListener() {

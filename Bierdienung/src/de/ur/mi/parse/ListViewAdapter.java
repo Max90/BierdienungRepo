@@ -145,7 +145,7 @@ public class ListViewAdapter extends BaseAdapter {
                                                 + " x "
                                                 + parselistdownloadList.get(
                                                 position).getName()
-                                                + " zur Bestellung hinzugefügt";
+                                                + R.string.add_to_order_toast_string;
                                         Toast.makeText(v.getContext(), toastString,
                                                 Toast.LENGTH_SHORT).show();
                                     }
