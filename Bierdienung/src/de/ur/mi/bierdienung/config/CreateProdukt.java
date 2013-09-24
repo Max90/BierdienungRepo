@@ -15,9 +15,9 @@ import de.ur.bierdienung.R;
 
 public class CreateProdukt extends Activity {
 
-	private EditText nameText;
-	private EditText preisText;
-	private int position;
+    private EditText nameTextEdit;
+    private EditText priceTextEdit;
+    private int position;
 
 	private RadioButton radio0;
 	private RadioButton radio1;
@@ -40,18 +40,18 @@ public class CreateProdukt extends Activity {
 		confirmButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 
-				if (nameText.getText().length() < 1
-						|| preisText.getText().length() < 1) {
-					Toast.makeText(view.getContext(),
+                if (nameTextEdit.getText().length() < 1
+                        || priceTextEdit.getText().length() < 1) {
+                    Toast.makeText(view.getContext(),
 							"Bitte Eingaben vervollständigen",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
 
 				Bundle bundle = new Bundle();
-				bundle.putString("name", nameText.getText().toString());
-				bundle.putString("preis", preisText.getText().toString());
-				getkat();
+                bundle.putString("name", nameTextEdit.getText().toString());
+                bundle.putString("preis", priceTextEdit.getText().toString());
+                getkat();
 				bundle.putString("kategorie", kat);
 				bundle.putInt("position", position);
 
@@ -81,9 +81,9 @@ public class CreateProdukt extends Activity {
 	private void setUI() {
 
 		confirmButton = (Button) findViewById(R.id.buttonuebernehmen);
-		preisText = (EditText) findViewById(R.id.editpreis);
-		nameText = (EditText) findViewById(R.id.editname);
-		radio0 = (RadioButton) findViewById(R.id.radio0);
+        priceTextEdit = (EditText) findViewById(R.id.editpreis);
+        nameTextEdit = (EditText) findViewById(R.id.editname);
+        radio0 = (RadioButton) findViewById(R.id.radio0);
 		radio1 = (RadioButton) findViewById(R.id.radio1);
 		radio2 = (RadioButton) findViewById(R.id.radio2);
 		radio3 = (RadioButton) findViewById(R.id.radio3);
@@ -100,10 +100,10 @@ public class CreateProdukt extends Activity {
 			String preis = extras.getString("preis");
 			kat = extras.getString("kategorie");
 			if (name != null) {
-				nameText.setText(name);
-				preisText.setText(preis);
+                nameTextEdit.setText(name);
+                priceTextEdit.setText(preis);
 
-				if (kat.equals("Alkoholfrei")) {
+                if (kat.equals("Alkoholfrei")) {
 					radio0.setChecked(true);
 				} else if (kat.equals("Bier")) {
 					radio1.setChecked(true);
@@ -123,8 +123,8 @@ public class CreateProdukt extends Activity {
             }
 		}
 
-		if (ManagementActivity.getKarte().length() > 6) {
-			radio0.setText("Alkoholfrei");
+        if (ManagementActivity.getMenu().length() > 6) {
+            radio0.setText("Alkoholfrei");
 			radio1.setText("Bier");
 			radio2.setText("Schnaps");
 			radio3.setText("Sonstiges");

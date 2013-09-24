@@ -30,19 +30,17 @@ public class PopulateMenuActivity extends ListActivity {
     private static final int ACTIVITY_CREATE = 0;
     private static final int ACTIVITY_EDIT = 1;
 
-    public static final int INSERT_ID = Menu.FIRST;
     private static final int DELETE_ID = Menu.FIRST + 1;
 
     private List<ParseObject> todos;
     private Dialog progressDialog;
 
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-        // Override this method to do custom remote calls
         protected Void doInBackground(Void... params) {
             // Gets the current list of todos in sorted order
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                     LoginSignupActivity.getParseUser() + "_"
-                            + ManagementActivity.getKarte());
+                            + ManagementActivity.getMenu());
             query.orderByDescending("_created_at");
 
             try {
@@ -88,7 +86,7 @@ public class PopulateMenuActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
 
-        if (ManagementActivity.getKarte().equals("Getraenke")) {
+        if (ManagementActivity.getMenu().equals("Getraenke")) {
             setTitle(R.string.drink_menu_string);
         } else {
             setTitle(R.string.meal_menu_string);
@@ -121,15 +119,15 @@ public class PopulateMenuActivity extends ListActivity {
                 new RemoteDataTask() {
                     protected Void doInBackground(Void... params) {
                         String name = extras.getString("name");
-                        String preis = extras.getString("preis");
-                        String kategorie = extras.getString("kategorie");
+                        String price = extras.getString("preis");
+                        String category = extras.getString("kategorie");
                         ParseObject ob = new ParseObject(
                                 LoginSignupActivity.getParseUser() + "_"
-                                        + ManagementActivity.getKarte());
+                                        + ManagementActivity.getMenu());
                         ob.put("Name", name);
-                        ob.put("Preis", preis);
-                        ob.put("Kategorie", kategorie);
-                        ob.put("Art", ManagementActivity.getKarte());
+                        ob.put("Preis", price);
+                        ob.put("Kategorie", category);
+                        ob.put("Art", ManagementActivity.getMenu());
 
                         try {
                             ob.save();
@@ -148,7 +146,7 @@ public class PopulateMenuActivity extends ListActivity {
                 ob.put("Name", extras.getString("name"));
                 ob.put("Preis", extras.getString("preis"));
                 ob.put("Kategorie", extras.getString("kategorie"));
-                ob.put("Art", ManagementActivity.getKarte());
+                ob.put("Art", ManagementActivity.getMenu());
 
                 new RemoteDataTask() {
                     protected Void doInBackground(Void... params) {

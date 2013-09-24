@@ -30,10 +30,8 @@ import de.ur.mi.parse.ParselistdownloadClass;
 import de.ur.mi.parse.WaiterCurrentOrderListViewAdapter;
 
 public class WaiterCurrentOrderActivity extends ListActivity {
-	// Declare Variables
-	private ListView listview;
-	private List<ParseObject> orders;
-	private ProgressDialog mProgressDialog;
+    private List<ParseObject> ordersList;
+    private ProgressDialog mProgressDialog;
 	private WaiterCurrentOrderListViewAdapter adapter;
 	private List<ParselistdownloadClass> parselistdownloadList = null;
 	private Button buttonDeleteMarked;
@@ -43,9 +41,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 	public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
 
 	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
-	private ArrayList<String> adapterListBestellung = new ArrayList<String>();
-	private ArrayList<String> adapterListTisch = new ArrayList<String>();
-	private ArrayList<String> adapterListBackground = new ArrayList<String>();
+    private ArrayList<String> adapterListOrder = new ArrayList<String>();
+    private ArrayList<String> adapterListTable = new ArrayList<String>();
+    private ArrayList<String> adapterListBackground = new ArrayList<String>();
 	private ArrayList<String> listArt = new ArrayList<String>();
 	final Context context = this;
 
@@ -54,10 +52,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_waiter_current_order);
 
-		buttonDeleteMarked = (Button) findViewById(R.id.delete_marked_button);
-		buttonSendCurrentOrder = (Button) findViewById(R.id.send_current_order_button);
+        setUpUi();
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			getActionBar().setHomeButtonEnabled(true);
 		}
 
@@ -68,8 +65,13 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		new RemoteDataTask().execute();
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+    private void setUpUi() {
+        buttonDeleteMarked = (Button) findViewById(R.id.delete_marked_button);
+        buttonSendCurrentOrder = (Button) findViewById(R.id.send_current_order_button);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			finish();
@@ -84,18 +86,17 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 			@Override
 			public void onClick(View v) {
-				for (int i = 0; i < orders.size(); i++) {
-
-					// set the todoObject to the item in list
-					final ParseObject paidItem = orders.get(i);
-					paidItem.put("Status", "aufgegeben");
+                for (int i = 0; i < ordersList.size(); i++) {
+                    // set the todoObject to the item in list
+                    final ParseObject paidItem = ordersList.get(i);
+                    paidItem.put("Status", "aufgegeben");
 					paidItem.saveInBackground();
 				}
 
 				adapterListBackground.clear();
-				adapterListBestellung.clear();
-				adapterListTisch.clear();
-				listArt.clear();
+                adapterListOrder.clear();
+                adapterListTable.clear();
+                listArt.clear();
 
 				// Link to WaiterTableSelectActivity
 				Intent waiterTableSelectActivity = new Intent(
@@ -124,9 +125,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 				}
 
 				adapterListBackground.clear();
-				adapterListBestellung.clear();
-				adapterListTisch.clear();
-				listArt.clear();
+                adapterListOrder.clear();
+                adapterListTable.clear();
+                listArt.clear();
 				adapter.notifyDataSetChanged();
 				// Execute RemoteDataTask AsyncTask
 				new RemoteDataTask().execute();
@@ -135,7 +136,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		});
 	}
 
-	@Override
+    //promts the user if he really wants to quit taking an order
+    //or if pressed the back button in error
+    @Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -196,9 +199,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 			query.orderByAscending("Name");
 			try {
-				orders = query.find();
+                ordersList = query.find();
 
-			} catch (ParseException e) {
+            } catch (ParseException e) {
 				Log.e("Error", e.getMessage());
 				e.printStackTrace();
 			}
@@ -209,9 +212,9 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(Void result) {
 			int i = 0;
-			objectList = (ArrayList<ParseObject>) orders;
-			for (ParseObject Name : orders) {
-				ParselistdownloadClass map = new ParselistdownloadClass();
+            objectList = (ArrayList<ParseObject>) ordersList;
+            for (ParseObject Name : ordersList) {
+                ParselistdownloadClass map = new ParselistdownloadClass();
 				map.setName((String) Name.get("Name"));
 				map.setTisch((String) Name.get("Tisch"));
 				map.setArt((String) Name.get("Art"));
@@ -221,11 +224,11 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 				parselistdownloadList.add(map);
 				parselistdownloadList.add(map);
 
-				orders.get(i).put("Background", "unmarked");
-				orders.get(i).saveInBackground();
-				adapterListBestellung.add((String) Name.get("Name"));
-				adapterListTisch.add((String) Name.get("Tisch"));
-				adapterListBackground.add((String) Name.get("Background"));
+                ordersList.get(i).put("Background", "unmarked");
+                ordersList.get(i).saveInBackground();
+                adapterListOrder.add((String) Name.get("Name"));
+                adapterListTable.add((String) Name.get("Tisch"));
+                adapterListBackground.add((String) Name.get("Background"));
 				listArt.add((String) Name.get("Art"));
 
 				i++;
@@ -233,13 +236,13 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			}
 
 			// Locate the listview in listview_main.xml
-			listview = (ListView) findViewById(R.id.list);
-			// Pass the results into ListViewAdapter.java
+            ListView listview = (ListView) findViewById(R.id.list);
+            // Pass the results into ListViewAdapter.java
 			adapter = new WaiterCurrentOrderListViewAdapter(
-					WaiterCurrentOrderActivity.this, adapterListBestellung,
-					adapterListTisch, adapterListBackground);
+                    WaiterCurrentOrderActivity.this, adapterListOrder,
+                    adapterListTable, adapterListBackground);
 
-			setListAdapter(adapter);
+            setListAdapter(adapter);
 			adapter.notifyDataSetChanged();
 
 			// Close the progressdialog
@@ -252,14 +255,14 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		if (orders.get(position).get("Background").toString().equals("marked")) {
+        if (ordersList.get(position).get("Background").toString().equals("marked")) {
 
-			orders.get(position).put("Background", "unmarked");
-			orders.get(position).saveInBackground();
+            ordersList.get(position).put("Background", "unmarked");
+            ordersList.get(position).saveInBackground();
 
-			adapterListBackground.set(position,
-					orders.get(position).getString("Background"));
-			adapter.notifyDataSetChanged();
+            adapterListBackground.set(position,
+                    ordersList.get(position).getString("Background"));
+            adapter.notifyDataSetChanged();
 
 			for (int i = 0; i < deleteList.size(); i++) {
 				if (deleteList.get(i) == objectList.get(position)) {
@@ -272,12 +275,12 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 		} else {
 
-			orders.get(position).put("Background", "marked");
-			orders.get(position).saveInBackground();
+            ordersList.get(position).put("Background", "marked");
+            ordersList.get(position).saveInBackground();
 
-			adapterListBackground.set(position,
-					orders.get(position).getString("Background"));
-			adapter.notifyDataSetChanged();
+            adapterListBackground.set(position,
+                    ordersList.get(position).getString("Background"));
+            adapter.notifyDataSetChanged();
 
 			deleteList.add(objectList.get(position));
 			deleteObjectList = deleteList;

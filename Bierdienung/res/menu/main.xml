@@ -6,15 +6,15 @@
         android:showAsAction="never"
         android:title="@string/action_change_table" />
     <item
-        android:id="@+id/tisch"
+        android:id="@+id/table"
         android:showAsAction="always"
         android:title="@string/table_string" />
     <item
-        android:id="@+id/getraenkekarte"
+        android:id="@+id/drinks_menu"
         android:showAsAction="always"
         android:title="@string/drink_menu_string" />
     <item
-        android:id="@+id/speisekarte"
+        android:id="@+id/food_menu"
         android:showAsAction="always"
         android:title="@string/meal_menu_string" />
 

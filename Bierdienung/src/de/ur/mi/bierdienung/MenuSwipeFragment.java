@@ -25,17 +25,12 @@ import de.ur.mi.parse.ParselistdownloadClass;
 
 public class MenuSwipeFragment extends Fragment {
 
-	private static Button buttonWaiterCurrentOrder;
-	private String karte;
-	private String category;
-	private ListView listview;
-	private List<ParseObject> orders;
-	private ListViewAdapter adapter;
-	private List<ParselistdownloadClass> parselistdownloadList = null;
+    private String karte;
+    private String category;
 
-	View rootView;
+    View rootView;
 
-	public MenuSwipeFragment(String category, String karte) {
+    public MenuSwipeFragment(String category, String karte) {
 		this.karte = karte;
 		this.category = category;
 	}
@@ -45,16 +40,16 @@ public class MenuSwipeFragment extends Fragment {
 			Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.swipe_fragement, container, false);
 
-		parselistdownloadList = new ArrayList<ParselistdownloadClass>();
-		try {
+        List<ParselistdownloadClass> parselistdownloadList = new ArrayList<ParselistdownloadClass>();
+        try {
 			// Locate the class table named "Country" in Parse.com
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_" + karte);
 			query.whereEqualTo("Kategorie", category);
 			query.orderByAscending("Name");
 
-			orders = query.find();
-			for (ParseObject order : orders) {
+            List<ParseObject> orders = query.find();
+            for (ParseObject order : orders) {
 				ParselistdownloadClass map = new ParselistdownloadClass();
 				map.setName((String) order.get("Name"));
 				map.setPreis((String) order.get("Preis"));
@@ -69,53 +64,25 @@ public class MenuSwipeFragment extends Fragment {
 		}
 
 		// Pass the results into ListViewAdapter.java
-		adapter = new ListViewAdapter(getActivity(), parselistdownloadList);
+        ListViewAdapter adapter = new ListViewAdapter(getActivity(), parselistdownloadList);
 
-		// Locate the listview in listview_main.xml
-		listview = (ListView) rootView.findViewById(R.id.list);
-		// Binds the Adapter to the ListView
+        // Locate the listview in listview_main.xml
+        ListView listview = (ListView) rootView.findViewById(R.id.list);
+        // Binds the Adapter to the ListView
 		listview.setAdapter(adapter);
 
-		buttonWaiterCurrentOrder = (Button) rootView
-				.findViewById(R.id.send_or_change_order_button);
+        Button buttonWaiterCurrentOrder = (Button) rootView
+                .findViewById(R.id.send_or_change_order_button);
 
-		buttonWaiterCurrentOrder.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent(getActivity(),
-						WaiterCurrentOrderActivity.class);
-				startActivity(i);
-			}
-		});
+        buttonWaiterCurrentOrder.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),
+                        WaiterCurrentOrderActivity.class);
+                startActivity(i);
+            }
+        });
 
-		return rootView;
+        return rootView;
 	}
-
-	// RemoteDataTask AsyncTask
-	// private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-	//
-	// private ListView listview;
-	// private List<ParseObject> orders;
-	// private ListViewAdapter adapter;
-	// private List<ParselistdownloadClass> parselistdownloadList = null;
-	//
-	// @Override
-	// protected void onPreExecute() {
-	// super.onPreExecute();
-	//
-	// }
-	//
-	// @Override
-	// protected Void doInBackground(Void... params) {
-	// // Create the array
-	//
-	// return null;
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(Void result) {
-	//
-	// }
-
-	// }
 }

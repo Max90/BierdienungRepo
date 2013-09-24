@@ -23,7 +23,7 @@ import de.ur.mi.login.LoginSignupActivity;
 // gets input of max table number in restaurant and saves that number
 public class TableManagementActivity extends Activity {
     Button tableNumberFinishButton;
-    EditText tableNumberEditText;
+    EditText tableNumberTextEdit;
     TextView currentTableNumTextView;
     private String tableNumber = "";
     private List<ParseObject> parseListTableNumber;
@@ -34,6 +34,7 @@ public class TableManagementActivity extends Activity {
         setContentView(R.layout.activity_table_management);
         setTitle("Tische Verwalten");
 
+        // downloads the items ordered for this table
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                 LoginSignupActivity.getParseUser() + "_Table");
         try {
@@ -67,7 +68,7 @@ public class TableManagementActivity extends Activity {
     }
 
     private void setupUI() {
-        tableNumberEditText = (EditText) findViewById(R.id.table_number_edit_text);
+        tableNumberTextEdit = (EditText) findViewById(R.id.table_number_edit_text);
         currentTableNumTextView = (TextView) findViewById(R.id.text_view_table_num);
         currentTableNumTextView.setText("Aktuelle Tischanzahl: " + maxTables);
         tableNumberFinishButton = (Button) findViewById(R.id.set_table_number_button);
@@ -76,7 +77,7 @@ public class TableManagementActivity extends Activity {
             public void onClick(View view) {
                 // saves number of tables
                 // links back to PrefereancesActivity
-                tableNumber = tableNumberEditText.getText().toString();
+                tableNumber = tableNumberTextEdit.getText().toString();
                 ParseObject objectToSave = new ParseObject(LoginSignupActivity
                         .getParseUser() + "_Table");
                 objectToSave.put("TableNumber", tableNumber);

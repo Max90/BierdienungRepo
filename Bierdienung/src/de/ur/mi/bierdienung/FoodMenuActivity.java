@@ -22,9 +22,6 @@ public class FoodMenuActivity extends FragmentActivity implements
 	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
 	ViewPager mViewPager;
 
-	public static final int INSERT_ID = Menu.FIRST;
-	public static final int TISCH_WECHSELN_ID = Menu.FIRST + 1;
-
 	private static String karte;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -150,18 +147,18 @@ public class FoodMenuActivity extends FragmentActivity implements
 
 		switch (item.getItemId()) {
 
-		case R.id.tisch:
-			Intent iTisch = new Intent(FoodMenuActivity.this,
+            case R.id.table:
+                Intent iTisch = new Intent(FoodMenuActivity.this,
 					WaiterTableOverviewActivity.class);
 			startActivity(iTisch);
 			finish();
 			return true;
 
-		case R.id.speisekarte:
-			return true;
+            case R.id.food_menu:
+                return true;
 
-		case R.id.getraenkekarte:
-			Intent iGetraenke = new Intent(FoodMenuActivity.this,
+            case R.id.drinks_menu:
+                Intent iGetraenke = new Intent(FoodMenuActivity.this,
 					DrinksMenuActivity.class);
 			iGetraenke.putExtra("name", "Getraenke");
 			startActivity(iGetraenke);
@@ -193,8 +190,8 @@ public class FoodMenuActivity extends FragmentActivity implements
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 
-		menu.findItem(R.id.tisch).setTitle(
-				"Tisch " + WaiterTableSelectActivity.getTNR());
+        menu.findItem(R.id.table).setTitle(
+                "Tisch " + WaiterTableSelectActivity.getTNR());
 		return result;
 	}
 

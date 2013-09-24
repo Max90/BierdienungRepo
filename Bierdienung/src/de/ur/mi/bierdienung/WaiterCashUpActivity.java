@@ -35,7 +35,7 @@ public class WaiterCashUpActivity extends ListActivity {
     private Button buttonCashUpMarked;
     private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
     final Context context = this;
-    private CashUpAdapter adapterAbrechnung;
+    private CashUpAdapter adapterCashUp;
     private ArrayList<String> adapterList = new ArrayList<String>();
     private ArrayList<String> adapterListBackground = new ArrayList<String>();
 
@@ -48,9 +48,7 @@ public class WaiterCashUpActivity extends ListActivity {
             getActionBar().setHomeButtonEnabled(true);
         }
 
-        buttonCashUp = (Button) findViewById(R.id.cash_up_table_button);
-        buttonCashUpMarked = (Button) findViewById(R.id.sum_up_marked_button);
-        textViewAmount = (TextView) findViewById(R.id.text_view_sum);
+        setUpUi();
 
         setTitle("Tisch " + WaiterTableSelectActivity.getTNR());
         registerForContextMenu(getListView());
@@ -59,6 +57,12 @@ public class WaiterCashUpActivity extends ListActivity {
 
         new RemoteDataTask().execute();
 
+    }
+
+    private void setUpUi() {
+        buttonCashUp = (Button) findViewById(R.id.cash_up_table_button);
+        buttonCashUpMarked = (Button) findViewById(R.id.sum_up_marked_button);
+        textViewAmount = (TextView) findViewById(R.id.text_view_sum);
     }
 
     @Override
@@ -104,7 +108,6 @@ public class WaiterCashUpActivity extends ListActivity {
 
         @Override
         protected void onProgressUpdate(Void... values) {
-
             super.onProgressUpdate(values);
         }
 
@@ -120,11 +123,11 @@ public class WaiterCashUpActivity extends ListActivity {
                 adapterListBackground.add((String) order.get("Background"));
                 i++;
             }
-            adapterAbrechnung = new CashUpAdapter(context, adapterList,
+            adapterCashUp = new CashUpAdapter(context, adapterList,
                     adapterListBackground);
 
-            setListAdapter(adapterAbrechnung);
-            adapterAbrechnung.notifyDataSetChanged();
+            setListAdapter(adapterCashUp);
+            adapterCashUp.notifyDataSetChanged();
             WaiterCashUpActivity.this.mProgressDialog.dismiss();
         }
     }
@@ -168,8 +171,6 @@ public class WaiterCashUpActivity extends ListActivity {
                                                     try {
                                                         paidItem.save();
                                                     } catch (ParseException e) {
-                                                        // TODO Auto-generated
-                                                        // catch block
                                                         e.printStackTrace();
                                                     }
 
@@ -204,7 +205,6 @@ public class WaiterCashUpActivity extends ListActivity {
                                                 return null;
                                             }
                                         }.execute();
-                                        // end asynctask
 
                                         textViewAmount
                                                 .setText("Betrag insgesamt: ");
@@ -270,8 +270,6 @@ public class WaiterCashUpActivity extends ListActivity {
                                                     try {
                                                         paidItem.save();
                                                     } catch (ParseException e) {
-                                                        // TODO Auto-generated
-                                                        // catch block
                                                         e.printStackTrace();
                                                     }
                                                 }
@@ -303,7 +301,6 @@ public class WaiterCashUpActivity extends ListActivity {
                                                 return null;
                                             }
                                         }.execute();
-                                        // end asynctask
                                         textViewAmount
                                                 .setText("Betrag insgesamt: ");
                                     }
@@ -329,6 +326,8 @@ public class WaiterCashUpActivity extends ListActivity {
         double preis = Double.parseDouble(orders.get(position).get("Preis")
                 .toString());
 
+        // unmarks an item if clicked twice
+        // computes the amount to pay
         if (orders.get(position).get("Background").toString().equals("marked")) {
             amount = amount - preis;
 
@@ -337,7 +336,7 @@ public class WaiterCashUpActivity extends ListActivity {
 
             adapterListBackground.set(position,
                     orders.get(position).getString("Background"));
-            adapterAbrechnung.notifyDataSetChanged();
+            adapterCashUp.notifyDataSetChanged();
 
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i) == orders.get(position)) {
@@ -345,13 +344,14 @@ public class WaiterCashUpActivity extends ListActivity {
                 }
             }
         } else {
-
+            //marks an item if clicked
+            //computes the amount to pay
             orders.get(position).put("Background", "marked");
             orders.get(position).saveInBackground();
 
             adapterListBackground.set(position,
                     orders.get(position).getString("Background"));
-            adapterAbrechnung.notifyDataSetChanged();
+            adapterCashUp.notifyDataSetChanged();
 
             amount = amount + preis;
             list.add(orders.get(position));

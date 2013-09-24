@@ -69,7 +69,7 @@ public class ManagementActivity extends Activity {
 
     }
 
-    public static String getKarte() {
+    public static String getMenu() {
         return whichMenu;
     }
 

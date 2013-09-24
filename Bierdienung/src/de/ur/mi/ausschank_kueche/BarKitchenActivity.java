@@ -25,17 +25,17 @@ import de.ur.mi.parse.ParselistdownloadClass;
 
 public class BarKitchenActivity extends ListActivity {
     // Declare Variables
-    private List<ParseObject> orders;
+    private List<ParseObject> ordersList;
     private ProgressDialog mProgressDialog;
     private ListViewAdapterKitchenBar adapter;
     private List<ParselistdownloadClass> parselistdownloadList = null;
-    private Button refresh;
-    private String karte;
+    private Button refreshButton;
+    private String menuName;
     private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
-    private ArrayList<String> adapterListBestellung = new ArrayList<String>();
-    private ArrayList<String> adapterListTisch = new ArrayList<String>();
+    private ArrayList<String> adapterListOrder = new ArrayList<String>();
+    private ArrayList<String> adapterListTable = new ArrayList<String>();
     private ArrayList<String> adapterListBackground = new ArrayList<String>();
-    private ArrayList<String> listArt = new ArrayList<String>();
+    private ArrayList<String> listKind = new ArrayList<String>();
 
     public ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
     public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
@@ -45,16 +45,16 @@ public class BarKitchenActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen_bar);
 
-        refresh = (Button) findViewById(R.id.refresh_and_notify_waiter_button);
+        refreshButton = (Button) findViewById(R.id.refresh_and_notify_waiter_button);
         Bundle extras = getIntent().getExtras();
-        karte = extras.getString("name");
+        menuName = extras.getString("name");
         refreshButton();
         // Execute RemoteDataTask AsyncTask
         new RemoteDataTask().execute();
     }
 
     private void refreshButton() {
-        refresh.setOnClickListener(new OnClickListener() {
+        refreshButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -77,25 +77,24 @@ public class BarKitchenActivity extends ListActivity {
                         }
 
                         // PushNotification for Waiter who accepted order when
-                        // meal is
-                        // cooked
-                        ArrayList<String> listTisch = new ArrayList<String>();
-                        ArrayList<String> listBestellung = new ArrayList<String>();
-                        ArrayList<String> listKellner = new ArrayList<String>();
+                        // meal is cooked
+                        ArrayList<String> listTable = new ArrayList<String>();
+                        ArrayList<String> listOrder = new ArrayList<String>();
+                        ArrayList<String> listWaiter = new ArrayList<String>();
                         for (int i = 0; i < adapterListBackground.size(); i++) {
                             if (adapterListBackground.get(i).equals("marked")
-                                    && listArt.get(i).equals("Essen")) {
+                                    && listKind.get(i).equals("Essen")) {
                                 boolean check = true;
-                                if (listTisch.size() > 0) {
-                                    for (int p = 0; p < listTisch.size(); p++) {
-                                        if (listTisch.get(p).equals(
-                                                adapterListTisch.get(i))) {
-                                            String temp = listBestellung.get(p)
+                                if (listTable.size() > 0) {
+                                    for (int p = 0; p < listTable.size(); p++) {
+                                        if (listTable.get(p).equals(
+                                                adapterListTable.get(i))) {
+                                            String temp = listOrder.get(p)
                                                     + ", "
-                                                    + adapterListBestellung
+                                                    + adapterListOrder
                                                     .get(i);
-                                            listBestellung.set(p, temp);
-                                            listKellner.set(p,
+                                            listOrder.set(p, temp);
+                                            listWaiter.set(p,
                                                     parselistdownloadList
                                                             .get(i)
                                                             .getKellner());
@@ -104,29 +103,29 @@ public class BarKitchenActivity extends ListActivity {
                                     }
                                 }
                                 if (check) {
-                                    listTisch.add(adapterListTisch.get(i));
-                                    listBestellung.add(adapterListBestellung
+                                    listTable.add(adapterListTable.get(i));
+                                    listOrder.add(adapterListOrder
                                             .get(i));
-                                    listKellner.add(parselistdownloadList
+                                    listWaiter.add(parselistdownloadList
                                             .get(i).getKellner());
                                 }
                             }
                         }
-                        if (listTisch.size() > 0) {
-                            for (int i = 0; i < listTisch.size(); i++) {
-                                String key = listBestellung.get(i) + " fertig!"
-                                        + " Tisch " + listTisch.get(i);
-                                String kellnerName = listKellner.get(i);
+                        if (listTable.size() > 0) {
+                            for (int i = 0; i < listTable.size(); i++) {
+                                String key = listOrder.get(i) + " fertig!"
+                                        + " Tisch " + listTable.get(i);
+                                String waiterName = listWaiter.get(i);
                                 ParsePush push = new ParsePush();
-                                push.setChannel(kellnerName);
+                                push.setChannel(waiterName);
                                 push.setMessage(key);
                                 push.sendInBackground();
                             }
                         }
                         adapterListBackground.clear();
-                        adapterListBestellung.clear();
-                        adapterListTisch.clear();
-                        listArt.clear();
+                        adapterListOrder.clear();
+                        adapterListTable.clear();
+                        listKind.clear();
 
                         // create new list
 
@@ -136,10 +135,10 @@ public class BarKitchenActivity extends ListActivity {
                                 LoginSignupActivity.getParseUser()
                                         + "_Bestellung");
                         query.whereEqualTo("Status", "aufgegeben");
-                        query.whereEqualTo("Art", karte);
+                        query.whereEqualTo("Art", menuName);
                         query.orderByAscending("Name");
                         try {
-                            orders = query.find();
+                            ordersList = query.find();
 
                         } catch (ParseException e) {
                             Log.e("Error", e.getMessage());
@@ -149,7 +148,6 @@ public class BarKitchenActivity extends ListActivity {
                         return null;
                     }
                 }.execute();
-                // end asynctask
             }
         });
     }
@@ -178,10 +176,10 @@ public class BarKitchenActivity extends ListActivity {
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                     LoginSignupActivity.getParseUser() + "_Bestellung");
             query.whereEqualTo("Status", "aufgegeben");
-            query.whereEqualTo("Art", karte);
+            query.whereEqualTo("Art", menuName);
             query.orderByAscending("Name");
             try {
-                orders = query.find();
+                ordersList = query.find();
 
             } catch (ParseException e) {
                 Log.e("Error", e.getMessage());
@@ -194,8 +192,8 @@ public class BarKitchenActivity extends ListActivity {
         @Override
         protected void onPostExecute(Void result) {
             int i = 0;
-            objectList = (ArrayList<ParseObject>) orders;
-            for (ParseObject order : orders) {
+            objectList = (ArrayList<ParseObject>) ordersList;
+            for (ParseObject order : ordersList) {
                 ParselistdownloadClass map = new ParselistdownloadClass();
                 map.setBackground((String) order.get("Background"));
                 map.setName((String) order.get("Name"));
@@ -205,13 +203,13 @@ public class BarKitchenActivity extends ListActivity {
 
                 parselistdownloadList.add(map);
 
-                orders.get(i).put("Background", "unmarked");
-                orders.get(i).saveInBackground();
+                ordersList.get(i).put("Background", "unmarked");
+                ordersList.get(i).saveInBackground();
 
                 adapterListBackground.add((String) order.get("Background"));
-                adapterListBestellung.add((String) order.get("Name"));
-                adapterListTisch.add((String) order.get("Tisch"));
-                listArt.add((String) order.get("Art"));
+                adapterListOrder.add((String) order.get("Name"));
+                adapterListTable.add((String) order.get("Tisch"));
+                listKind.add((String) order.get("Art"));
 
                 i++;
             }
@@ -219,7 +217,7 @@ public class BarKitchenActivity extends ListActivity {
             // Pass the results into ListViewAdapter.java
             adapter = new ListViewAdapterKitchenBar(
                     BarKitchenActivity.this, adapterListBackground,
-                    adapterListBestellung, adapterListTisch);
+                    adapterListOrder, adapterListTable);
 
             setListAdapter(adapter);
             adapter.notifyDataSetChanged();
@@ -233,13 +231,13 @@ public class BarKitchenActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        if (orders.get(position).get("Background").toString().equals("marked")) {
+        if (ordersList.get(position).get("Background").toString().equals("marked")) {
 
-            orders.get(position).put("Background", "unmarked");
-            orders.get(position).saveInBackground();
+            ordersList.get(position).put("Background", "unmarked");
+            ordersList.get(position).saveInBackground();
 
             adapterListBackground.set(position,
-                    orders.get(position).getString("Background"));
+                    ordersList.get(position).getString("Background"));
             adapter.notifyDataSetChanged();
 
             for (int i = 0; i < deleteList.size(); i++) {
@@ -249,11 +247,11 @@ public class BarKitchenActivity extends ListActivity {
                 deleteObjectList = deleteList;
             }
         } else {
-            orders.get(position).put("Background", "marked");
-            orders.get(position).saveInBackground();
+            ordersList.get(position).put("Background", "marked");
+            ordersList.get(position).saveInBackground();
 
             adapterListBackground.set(position,
-                    orders.get(position).getString("Background"));
+                    ordersList.get(position).getString("Background"));
             adapter.notifyDataSetChanged();
 
             deleteList.add(objectList.get(position));
