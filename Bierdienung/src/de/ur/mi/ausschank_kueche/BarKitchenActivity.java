@@ -33,6 +33,7 @@ public class BarKitchenActivity extends ListActivity {
 	
 
     private static final int DELETE_ID = Menu.FIRST + 1;
+    //
 	// Declare Variables
 	private List<ParseObject> ordersList;
 	private ProgressDialog mProgressDialog;
@@ -90,11 +91,12 @@ public class BarKitchenActivity extends ListActivity {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							adapterListBackground.clear();
-			    			adapterListOrder.clear();
-			    			adapterListTable.clear();
-			    			listKind.clear();
+							
 						}
+						adapterListBackground.clear();
+		    			adapterListOrder.clear();
+		    			adapterListTable.clear();
+		    			listKind.clear();
 
 						// PushNotification for Waiter who accepted order when
 						// meal is cooked
