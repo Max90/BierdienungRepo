@@ -230,15 +230,15 @@ public class WaiterCashUpActivity extends ListActivity {
         buttonCashUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            	amount = 0.0;
+            	double sumUpAmount = 0.0;
                 for (int i = 0; i < orders.size(); i++) {
                     double preis = Double.parseDouble(orders.get(i)
                             .get("Preis").toString());
-                    amount = amount + preis;
+                    sumUpAmount = sumUpAmount + preis;
                 }
 
                 String text = "Alles auf der Rechnung? Betrag: "
-                        + String.format("%.2f", amount) + " Euro!";
+                        + String.format("%.2f", sumUpAmount) + " Euro!";
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         context);
@@ -278,7 +278,7 @@ public class WaiterCashUpActivity extends ListActivity {
                                                 }
                                                 adapterList.clear();
                                                 adapterListBackground.clear();
-                                                amount = 0;
+                                               
 
                                                 // Gets the current list of
                                                 // orders
