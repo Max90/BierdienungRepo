@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
@@ -54,6 +55,8 @@ public class BarKitchenActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen_bar);
+        Parse.initialize(this, "8H5vDxr2paOyJbbKm0pnAw1JuriXdI1kmb0EtBTu",
+                "FTLtxlrn9TM2ZIl7KuTcg0FBVFkOjJipBu11o7tW");
 
         refreshButton = (Button) findViewById(R.id.refresh_and_notify_waiter_button);
         Bundle extras = getIntent().getExtras();
@@ -92,10 +95,7 @@ public class BarKitchenActivity extends ListActivity {
                             }
 
                         }
-                        adapterListBackground.clear();
-                        adapterListOrder.clear();
-                        adapterListTable.clear();
-                        listKind.clear();
+
 
                         // PushNotification for Waiter who accepted order when
                         // meal is cooked
@@ -181,7 +181,7 @@ public class BarKitchenActivity extends ListActivity {
             // Set progressdialog title
             mProgressDialog.setTitle("Lade Liste");
             // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setMessage("Laden...");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
             mProgressDialog.show();

@@ -83,10 +83,6 @@ public class TableManagementActivity extends Activity {
                 objectToSave.put("TableNumber", tableNumber);
 
                 objectToSave.saveInBackground();
-
-                Intent preferencesIntent = new Intent(
-                        TableManagementActivity.this, ManagementActivity.class);
-                startActivity(preferencesIntent);
                 finish();
             }
         });

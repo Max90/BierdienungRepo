@@ -28,7 +28,7 @@
     <string name="LoginBtn">Einloggen</string>
     <string name="SignupBtn">Registrieren</string>
     <string name="produkt">Produkt:</string>
-    <string name="produktand">z.B. Spezi 0.5l</string>
+    <string name="produktand">z.B. "Produktname" 0.5l</string>
     <string name="preis">Preis:</string>
     <string name="preisohnezeichen">z.B. 2.30</string>
     <string name="tisch">Tisch:</string>
@@ -62,5 +62,8 @@
     <string name="sum_up_marked_button_string">Markierte Abrechnen</string>
     <string name="mark_finished_string">Fertige Bestellungen markieren!</string>
     <string name="current_num_of_tables_string">Aktuelle Tischanzahl</string>
+    <string name="complete_sign_up_string">Bitte vollständig eingeben!</string>
+    <string name="successfully_signed_in_toast_string">Sie haben sich erfolgreich Registriert. Bitte loggen Sie sich ein</string>
+    <string name="sign_up_error_string">Registrieren fehlgeschlagen!</string>
 
 </resources>

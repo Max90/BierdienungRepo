@@ -99,8 +99,8 @@ public class WaiterCashUpActivity extends ListActivity {
         @Override
         protected void onPreExecute() {
             mProgressDialog = new ProgressDialog(WaiterCashUpActivity.this);
-            mProgressDialog.setTitle("Lade Tischliste");
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setTitle("Lade Liste");
+            mProgressDialog.setMessage("Laden...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
             super.onPreExecute();

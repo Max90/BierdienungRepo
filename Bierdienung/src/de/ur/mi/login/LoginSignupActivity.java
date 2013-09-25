@@ -131,7 +131,7 @@ public class LoginSignupActivity extends Activity {
                         // Force user to fill up the form
                         if (usernametxt.equals("") && passwordtxt.equals("")) {
                             Toast.makeText(getApplicationContext(),
-                                    "Please complete the sign up form",
+                                    R.string.complete_sign_up_string,
                                     Toast.LENGTH_LONG).show();
                         } else {
                             // Save new user data into Parse.com Data Storage
@@ -146,11 +146,11 @@ public class LoginSignupActivity extends Activity {
                                         // registration
                                         Toast.makeText(
                                                 getApplicationContext(),
-                                                "Successfully Signed up, please log in.",
+                                                R.string.successfully_signed_in_toast_string,
                                                 Toast.LENGTH_LONG).show();
                                     } else {
                                         Toast.makeText(getApplicationContext(),
-                                                "Sign up Error",
+                                                R.string.sign_up_error_string,
                                                 Toast.LENGTH_LONG).show();
                                     }
                                 }
@@ -263,7 +263,7 @@ public class LoginSignupActivity extends Activity {
             // Set progressdialog title
             mProgressDialog.setTitle("Überprüfe Logindaten");
             // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setMessage("Laden...");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
             mProgressDialog.show();

@@ -54,7 +54,7 @@ public class PopulateMenuActivity extends ListActivity {
         @Override
         protected void onPreExecute() {
             PopulateMenuActivity.this.progressDialog = ProgressDialog.show(
-                    PopulateMenuActivity.this, "", "Loading...", true);
+                    PopulateMenuActivity.this, "", "Laden...", true);
             super.onPreExecute();
         }
 

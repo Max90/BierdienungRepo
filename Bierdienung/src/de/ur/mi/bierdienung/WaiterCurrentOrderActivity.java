@@ -183,8 +183,8 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			// Set progressdialog title
 			mProgressDialog.setTitle("Lade Liste");
 			// Set progressdialog message
-			mProgressDialog.setMessage("Loading...");
-			mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setMessage("Laden...");
+            mProgressDialog.setIndeterminate(false);
 			// Show progressdialog
 			mProgressDialog.show();
 		}
@@ -197,8 +197,10 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
 					LoginSignupActivity.getParseUser() + "_Bestellung");
 			query.whereEqualTo("Status", "offen");
+            query.whereEqualTo("Kellner", LoginSignupActivity.getKellner());
+            query.whereEqualTo("Tisch", WaiterTableSelectActivity.getTNR());
 
-			query.orderByAscending("Name");
+            query.orderByAscending("Name");
 			try {
 				ordersList = query.find();
 

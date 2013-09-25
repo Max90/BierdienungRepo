@@ -36,6 +36,8 @@ public class WaiterTableOverviewActivity extends ListActivity {
                     LoginSignupActivity.getParseUser() + "_Bestellung");
             query.whereEqualTo("Tisch", WaiterTableSelectActivity.getTNR());
             query.whereNotEqualTo("Status", "abgerechnet");
+            query.whereNotEqualTo("Status", "offen");
+
             query.orderByDescending("_created_at");
 
             try {
@@ -54,7 +56,7 @@ public class WaiterTableOverviewActivity extends ListActivity {
             // Set progressdialog title
             mProgressDialog.setTitle("Lade Tischliste");
             // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setMessage("Laden...");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
             mProgressDialog.show();
