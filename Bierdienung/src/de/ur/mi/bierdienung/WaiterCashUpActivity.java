@@ -34,7 +34,7 @@ public class WaiterCashUpActivity extends ListActivity {
     private Button buttonCashUp;
     private Button buttonCashUpMarked;
     private ArrayList<ParseObject> list = new ArrayList<ParseObject>();
-    final Context context = this;
+    private final Context context = this;
     private CashUpAdapter adapterCashUp;
     private ArrayList<String> adapterList = new ArrayList<String>();
     private ArrayList<String> adapterListBackground = new ArrayList<String>();

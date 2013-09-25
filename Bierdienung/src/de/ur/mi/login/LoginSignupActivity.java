@@ -38,9 +38,9 @@ public class LoginSignupActivity extends Activity {
     // Declare Variables
     private Button loginbutton;
     private Button signup;
-    static String usernametxt;
-    static String passwordtxt;
-    static String kellnername;
+    private static String usernametxt;
+    private static String passwordtxt;
+    private static String kellnername;
     private EditText waiter;
     private EditText password;
     private EditText username;
@@ -51,7 +51,7 @@ public class LoginSignupActivity extends Activity {
     private RadioButton radioAusschank;
     private RadioButton radioVerwalten;
     private RadioGroup radioCheck;
-    public Context context = this;
+    private Context context = this;
 
     /**
      * Called when the activity is first created.
@@ -289,7 +289,7 @@ public class LoginSignupActivity extends Activity {
     }
 
     // sets a dialog with a link to internetSettings if no internet available
-    public void setDialogNoInternet() {
+    private void setDialogNoInternet() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         // set dialog message
         alertDialogBuilder

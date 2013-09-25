@@ -9,9 +9,9 @@ public class ParselistdownloadClass {
 	private String user;
 	private String id;
 	private String kellner;
-	public String background;
+    private String background;
 
-	public String getKellner() {
+    public String getKellner() {
 		return kellner;
 	}
 	

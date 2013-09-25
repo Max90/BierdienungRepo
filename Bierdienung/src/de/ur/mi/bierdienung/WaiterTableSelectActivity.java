@@ -29,10 +29,7 @@ import de.ur.mi.login.LoginSignupActivity;
 public class WaiterTableSelectActivity extends Activity {
 
     private EditText editTextTableNum;
-    private Button buttonEnterBedienung;
-    private Button buttonCashUp;
     private static String tNr;
-    private List<ParseObject> parseListTableNumber;
     private String maxTables = "";
 
     @Override
@@ -43,7 +40,7 @@ public class WaiterTableSelectActivity extends Activity {
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                 LoginSignupActivity.getParseUser() + "_Table");
         try {
-            parseListTableNumber = query.find();
+            List<ParseObject> parseListTableNumber = query.find();
             if (parseListTableNumber.size() > 0) {
                 maxTables = parseListTableNumber.get(
                         parseListTableNumber.size() - 1).getString(
@@ -54,49 +51,49 @@ public class WaiterTableSelectActivity extends Activity {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
         }
-        
+
         setupUI();
-       
+
     }
 
     /*
      * setup UI
      */
     private void setupUI() {
-    	setTitle("Tisch Auswahl");
-    	 buttonEnterBedienung = (Button) findViewById(R.id.accept_order_button);
-         buttonCashUp = (Button) findViewById(R.id.billing_button);
-         editTextTableNum = (EditText) findViewById(R.id.edit_text_table_number);
+        setTitle("Tisch Auswahl");
+        Button buttonEnterBedienung = (Button) findViewById(R.id.accept_order_button);
+        Button buttonCashUp = (Button) findViewById(R.id.billing_button);
+        editTextTableNum = (EditText) findViewById(R.id.edit_text_table_number);
 
-         buttonEnterBedienung.setOnClickListener(new OnClickListener() {
+        buttonEnterBedienung.setOnClickListener(new OnClickListener() {
 
-             @Override
-             public void onClick(View v) {
-                 Intent i = new Intent(WaiterTableSelectActivity.this,
-                         WaiterTableOverviewActivity.class);
-                 tNr = editTextTableNum.getText().toString();
-                 if (checkForInvalidInput(v))
-                     return;
-                 startActivity(i);
-             }
-         });
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WaiterTableSelectActivity.this,
+                        WaiterTableOverviewActivity.class);
+                tNr = editTextTableNum.getText().toString();
+                if (checkForInvalidInput(v))
+                    return;
+                startActivity(i);
+            }
+        });
 
-         buttonCashUp.setOnClickListener(new OnClickListener() {
+        buttonCashUp.setOnClickListener(new OnClickListener() {
 
-             @Override
-             public void onClick(View v) {
-                 Intent i = new Intent(WaiterTableSelectActivity.this,
-                         WaiterCashUpActivity.class);
-                 tNr = editTextTableNum.getText().toString();
-                 if (checkForInvalidInput(v))
-                     return;
-                 startActivity(i);
-             }
-         });
-		
-	}
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WaiterTableSelectActivity.this,
+                        WaiterCashUpActivity.class);
+                tNr = editTextTableNum.getText().toString();
+                if (checkForInvalidInput(v))
+                    return;
+                startActivity(i);
+            }
+        });
 
-	private boolean checkForInvalidInput(View v) {
+    }
+
+    private boolean checkForInvalidInput(View v) {
         if (tNr.equals("")) {
             Toast.makeText(v.getContext(), "Bitte Tisch eingeben",
                     Toast.LENGTH_SHORT).show();

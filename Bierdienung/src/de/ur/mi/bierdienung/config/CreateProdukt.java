@@ -26,9 +26,9 @@ public class CreateProdukt extends Activity {
 	private RadioButton radio4;
 	private Button confirmButton;
 	private String kat;
-	public static final int INSERT_ID = Menu.FIRST;
+    private static final int INSERT_ID = Menu.FIRST;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 

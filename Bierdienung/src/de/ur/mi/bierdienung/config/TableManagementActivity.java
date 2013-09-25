@@ -22,9 +22,9 @@ import de.ur.mi.login.LoginSignupActivity;
 
 // gets input of max table number in restaurant and saves that number
 public class TableManagementActivity extends Activity {
-    Button tableNumberFinishButton;
-    EditText tableNumberTextEdit;
-    TextView currentTableNumTextView;
+    private Button tableNumberFinishButton;
+    private EditText tableNumberTextEdit;
+    private TextView currentTableNumTextView;
     private String tableNumber = "";
     private List<ParseObject> parseListTableNumber;
     private String maxTables = "";

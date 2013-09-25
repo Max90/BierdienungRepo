@@ -19,10 +19,10 @@ public class FoodMenuActivity extends FragmentActivity implements
 		ActionBar.TabListener {
 
 	// Declare Variables
-	AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-	ViewPager mViewPager;
+    private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
-	private static String karte;
+    private static String karte;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

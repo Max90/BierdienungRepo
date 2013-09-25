@@ -14,7 +14,6 @@
         android:id="@+id/image_splash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/dummyText"
         android:layout_centerInParent="true"
         android:src="@drawable/bdlogo" />
 

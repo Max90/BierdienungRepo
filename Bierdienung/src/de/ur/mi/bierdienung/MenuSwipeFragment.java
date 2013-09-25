@@ -28,7 +28,7 @@ public class MenuSwipeFragment extends Fragment {
     private String karte;
     private String category;
 
-    View rootView;
+    private View rootView;
 
     public MenuSwipeFragment(String category, String karte) {
 		this.karte = karte;

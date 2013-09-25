@@ -20,8 +20,8 @@ public class DrinksMenuActivity extends FragmentActivity implements
         ActionBar.TabListener {
 
     // Declare Variables
-    AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-    ViewPager mViewPager;
+    private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     private static String karte;
 

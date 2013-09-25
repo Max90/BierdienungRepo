@@ -37,17 +37,17 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 	private Button buttonDeleteMarked;
 	private Button buttonSendCurrentOrder;
 
-	public ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
-	public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
+    private ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
+    private ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
 
-	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
+    private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
 	private ArrayList<String> adapterListOrder = new ArrayList<String>();
 	private ArrayList<String> adapterListTable = new ArrayList<String>();
 	private ArrayList<String> adapterListBackground = new ArrayList<String>();
 	private ArrayList<String> listArt = new ArrayList<String>();
-	final Context context = this;
+    private final Context context = this;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_waiter_current_order);

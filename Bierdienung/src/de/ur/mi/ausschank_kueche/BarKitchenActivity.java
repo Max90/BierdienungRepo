@@ -30,286 +30,286 @@ import de.ur.mi.parse.ListViewAdapterKitchenBar;
 import de.ur.mi.parse.ParselistdownloadClass;
 
 public class BarKitchenActivity extends ListActivity {
-	
+
 
     private static final int DELETE_ID = Menu.FIRST + 1;
     //
-	// Declare Variables
-	private List<ParseObject> ordersList;
-	private ProgressDialog mProgressDialog;
-	private ListViewAdapterKitchenBar adapter;
-	private List<ParselistdownloadClass> parselistdownloadList = null;
-	private Button refreshButton;
-	private String menuName;
-	private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
-	private ArrayList<String> adapterListOrder = new ArrayList<String>();
-	private ArrayList<String> adapterListTable = new ArrayList<String>();
-	private ArrayList<String> adapterListBackground = new ArrayList<String>();
-	private ArrayList<String> listKind = new ArrayList<String>();
+    // Declare Variables
+    private List<ParseObject> ordersList;
+    private ProgressDialog mProgressDialog;
+    private ListViewAdapterKitchenBar adapter;
+    private List<ParselistdownloadClass> parselistdownloadList = null;
+    private Button refreshButton;
+    private String menuName;
+    private ArrayList<ParseObject> deleteList = new ArrayList<ParseObject>();
+    private ArrayList<String> adapterListOrder = new ArrayList<String>();
+    private ArrayList<String> adapterListTable = new ArrayList<String>();
+    private ArrayList<String> adapterListBackground = new ArrayList<String>();
+    private ArrayList<String> listKind = new ArrayList<String>();
 
-	public ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
-	public ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
+    private ArrayList<ParseObject> objectList = new ArrayList<ParseObject>();
+    private ArrayList<ParseObject> deleteObjectList = new ArrayList<ParseObject>();
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_kitchen_bar);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_kitchen_bar);
 
-		refreshButton = (Button) findViewById(R.id.refresh_and_notify_waiter_button);
-		Bundle extras = getIntent().getExtras();
-		menuName = extras.getString("name");
-		if(menuName.equals("Getraenke")){
-			setTitle("Ausschank");
-		}else{
+        refreshButton = (Button) findViewById(R.id.refresh_and_notify_waiter_button);
+        Bundle extras = getIntent().getExtras();
+        menuName = extras.getString("name");
+        if (menuName.equals("Getraenke")) {
+            setTitle("Ausschank");
+        } else {
             setTitle("Küche");
         }
-		
-		refreshButton();
-		// Execute RemoteDataTask AsyncTask
-		new RemoteDataTask().execute();
-		registerForContextMenu(getListView());
-	}
 
-	private void refreshButton() {
-		refreshButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
+        refreshButton();
+        // Execute RemoteDataTask AsyncTask
+        new RemoteDataTask().execute();
+        registerForContextMenu(getListView());
+    }
 
-				// Execute RemoteDataTask AsyncTask
-				new RemoteDataTask() {
-					protected Void doInBackground(Void... params) {
-						for (int i = 0; i < deleteObjectList.size(); i++) {
+    private void refreshButton() {
+        refreshButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-							// set the parseObject to the item in list
-							final ParseObject paidItem = deleteObjectList
-									.get(i);
+                // Execute RemoteDataTask AsyncTask
+                new RemoteDataTask() {
+                    protected Void doInBackground(Void... params) {
+                        for (int i = 0; i < deleteObjectList.size(); i++) {
 
-							paidItem.put("Status", "fertig");
-							try {
-								paidItem.save();
-							} catch (ParseException e) {
-								e.printStackTrace();
-							}
-							
-						}
-						adapterListBackground.clear();
-		    			adapterListOrder.clear();
-		    			adapterListTable.clear();
-		    			listKind.clear();
+                            // set the parseObject to the item in list
+                            final ParseObject paidItem = deleteObjectList
+                                    .get(i);
 
-						// PushNotification for Waiter who accepted order when
-						// meal is cooked
-						ArrayList<String> listTable = new ArrayList<String>();
-						ArrayList<String> listOrder = new ArrayList<String>();
-						ArrayList<String> listWaiter = new ArrayList<String>();
-						for (int i = 0; i < adapterListBackground.size(); i++) {
-							if (adapterListBackground.get(i).equals("marked")
-									&& listKind.get(i).equals("Essen")) {
-								boolean check = true;
-								if (listTable.size() > 0) {
-									for (int p = 0; p < listTable.size(); p++) {
-										if (listTable.get(p).equals(
-												adapterListTable.get(i))) {
-											String temp = listOrder.get(p)
-													+ ", "
-													+ adapterListOrder.get(i);
-											listOrder.set(p, temp);
-											listWaiter.set(p,
-													parselistdownloadList
-															.get(i)
-															.getKellner());
-											check = false;
-										}
-									}
-								}
-								if (check) {
-									listTable.add(adapterListTable.get(i));
-									listOrder.add(adapterListOrder.get(i));
-									listWaiter.add(parselistdownloadList.get(i)
-											.getKellner());
-								}
-							}
-						}
-						if (listTable.size() > 0) {
-							for (int i = 0; i < listTable.size(); i++) {
-								String key = listOrder.get(i) + " fertig!"
-										+ " Tisch " + listTable.get(i);
-								String waiterName = listWaiter.get(i);
-								ParsePush push = new ParsePush();
-								push.setChannel(waiterName);
-								push.setMessage(key);
-								push.sendInBackground();
-							}
-						}
-						adapterListBackground.clear();
-						adapterListOrder.clear();
-						adapterListTable.clear();
-						listKind.clear();
+                            paidItem.put("Status", "fertig");
+                            try {
+                                paidItem.save();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-						// create new list
+                        }
+                        adapterListBackground.clear();
+                        adapterListOrder.clear();
+                        adapterListTable.clear();
+                        listKind.clear();
 
-						parselistdownloadList = new ArrayList<ParselistdownloadClass>();
-						
-						ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-								LoginSignupActivity.getParseUser()
-										+ "_Bestellung");
-						query.whereEqualTo("Status", "aufgegeben");
-						query.whereEqualTo("Art", menuName);
-						query.orderByAscending("Name");
-						try {
-							ordersList = query.find();
+                        // PushNotification for Waiter who accepted order when
+                        // meal is cooked
+                        ArrayList<String> listTable = new ArrayList<String>();
+                        ArrayList<String> listOrder = new ArrayList<String>();
+                        ArrayList<String> listWaiter = new ArrayList<String>();
+                        for (int i = 0; i < adapterListBackground.size(); i++) {
+                            if (adapterListBackground.get(i).equals("marked")
+                                    && listKind.get(i).equals("Essen")) {
+                                boolean check = true;
+                                if (listTable.size() > 0) {
+                                    for (int p = 0; p < listTable.size(); p++) {
+                                        if (listTable.get(p).equals(
+                                                adapterListTable.get(i))) {
+                                            String temp = listOrder.get(p)
+                                                    + ", "
+                                                    + adapterListOrder.get(i);
+                                            listOrder.set(p, temp);
+                                            listWaiter.set(p,
+                                                    parselistdownloadList
+                                                            .get(i)
+                                                            .getKellner());
+                                            check = false;
+                                        }
+                                    }
+                                }
+                                if (check) {
+                                    listTable.add(adapterListTable.get(i));
+                                    listOrder.add(adapterListOrder.get(i));
+                                    listWaiter.add(parselistdownloadList.get(i)
+                                            .getKellner());
+                                }
+                            }
+                        }
+                        if (listTable.size() > 0) {
+                            for (int i = 0; i < listTable.size(); i++) {
+                                String key = listOrder.get(i) + " fertig!"
+                                        + " Tisch " + listTable.get(i);
+                                String waiterName = listWaiter.get(i);
+                                ParsePush push = new ParsePush();
+                                push.setChannel(waiterName);
+                                push.setMessage(key);
+                                push.sendInBackground();
+                            }
+                        }
+                        adapterListBackground.clear();
+                        adapterListOrder.clear();
+                        adapterListTable.clear();
+                        listKind.clear();
 
-						} catch (ParseException e) {
-							Log.e("Error", e.getMessage());
-							e.printStackTrace();
-						}
+                        // create new list
 
-						return null;
-					}
-				}.execute();
-			}
-		});
-	}
+                        parselistdownloadList = new ArrayList<ParselistdownloadClass>();
 
-	// RemoteDataTask AsyncTask
-	private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			// Create a progressdialog
-			mProgressDialog = new ProgressDialog(BarKitchenActivity.this);
-			// Set progressdialog title
-			mProgressDialog.setTitle("Lade Liste");
-			// Set progressdialog message
-			mProgressDialog.setMessage("Loading...");
-			mProgressDialog.setIndeterminate(false);
-			// Show progressdialog
-			mProgressDialog.show();
-		}
+                        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                                LoginSignupActivity.getParseUser()
+                                        + "_Bestellung");
+                        query.whereEqualTo("Status", "aufgegeben");
+                        query.whereEqualTo("Art", menuName);
+                        query.orderByAscending("Name");
+                        try {
+                            ordersList = query.find();
 
-		@Override
-		protected Void doInBackground(Void... params) {
-			// Create the array
-			parselistdownloadList = new ArrayList<ParselistdownloadClass>();
-			// Locate the class table named "Country" in Parse.com
-			ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
-					LoginSignupActivity.getParseUser() + "_Bestellung");
-			query.whereEqualTo("Status", "aufgegeben");
-			query.whereEqualTo("Art", menuName);
-			query.orderByAscending("Name");
-			try {
-				ordersList = query.find();
+                        } catch (ParseException e) {
+                            Log.e("Error", e.getMessage());
+                            e.printStackTrace();
+                        }
 
-			} catch (ParseException e) {
-				Log.e("Error", e.getMessage());
-				e.printStackTrace();
-			}
+                        return null;
+                    }
+                }.execute();
+            }
+        });
+    }
 
-			return null;
-		}
+    // RemoteDataTask AsyncTask
+    private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            mProgressDialog = new ProgressDialog(BarKitchenActivity.this);
+            // Set progressdialog title
+            mProgressDialog.setTitle("Lade Liste");
+            // Set progressdialog message
+            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            mProgressDialog.show();
+        }
 
-		@Override
-		protected void onPostExecute(Void result) {
-			int i = 0;
-			objectList = (ArrayList<ParseObject>) ordersList;
-			for (ParseObject order : ordersList) {
-				ParselistdownloadClass map = new ParselistdownloadClass();
-				map.setBackground((String) order.get("Background"));
-				map.setName((String) order.get("Name"));
-				map.setTisch((String) order.get("Tisch"));
-				map.setArt((String) order.get("Art"));
-				map.setKellner((String) order.get("Kellner"));
+        @Override
+        protected Void doInBackground(Void... params) {
+            // Create the array
+            parselistdownloadList = new ArrayList<ParselistdownloadClass>();
+            // Locate the class table named "Country" in Parse.com
+            ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
+                    LoginSignupActivity.getParseUser() + "_Bestellung");
+            query.whereEqualTo("Status", "aufgegeben");
+            query.whereEqualTo("Art", menuName);
+            query.orderByAscending("Name");
+            try {
+                ordersList = query.find();
 
-				parselistdownloadList.add(map);
+            } catch (ParseException e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
 
-				ordersList.get(i).put("Background", "unmarked");
-				ordersList.get(i).saveInBackground();
+            return null;
+        }
 
-				adapterListBackground.add((String) order.get("Background"));
-				adapterListOrder.add((String) order.get("Name"));
-				adapterListTable.add((String) order.get("Tisch"));
-				listKind.add((String) order.get("Art"));
+        @Override
+        protected void onPostExecute(Void result) {
+            int i = 0;
+            objectList = (ArrayList<ParseObject>) ordersList;
+            for (ParseObject order : ordersList) {
+                ParselistdownloadClass map = new ParselistdownloadClass();
+                map.setBackground((String) order.get("Background"));
+                map.setName((String) order.get("Name"));
+                map.setTisch((String) order.get("Tisch"));
+                map.setArt((String) order.get("Art"));
+                map.setKellner((String) order.get("Kellner"));
 
-				i++;
-			}
+                parselistdownloadList.add(map);
 
-			// Pass the results into ListViewAdapter.java
-			adapter = new ListViewAdapterKitchenBar(BarKitchenActivity.this,
-					adapterListBackground, adapterListOrder, adapterListTable);
+                ordersList.get(i).put("Background", "unmarked");
+                ordersList.get(i).saveInBackground();
 
-			setListAdapter(adapter);
-			adapter.notifyDataSetChanged();
+                adapterListBackground.add((String) order.get("Background"));
+                adapterListOrder.add((String) order.get("Name"));
+                adapterListTable.add((String) order.get("Tisch"));
+                listKind.add((String) order.get("Art"));
 
-			// Close the progressdialog
-			mProgressDialog.dismiss();
-		}
-	}
+                i++;
+            }
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
+            // Pass the results into ListViewAdapter.java
+            adapter = new ListViewAdapterKitchenBar(BarKitchenActivity.this,
+                    adapterListBackground, adapterListOrder, adapterListTable);
 
-		if (ordersList.get(position).get("Background").toString()
-				.equals("marked")) {
+            setListAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
-			ordersList.get(position).put("Background", "unmarked");
-			ordersList.get(position).saveInBackground();
+            // Close the progressdialog
+            mProgressDialog.dismiss();
+        }
+    }
 
-			adapterListBackground.set(position, ordersList.get(position)
-					.getString("Background"));
-			adapter.notifyDataSetChanged();
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
-			for (int i = 0; i < deleteList.size(); i++) {
-				if (deleteList.get(i) == objectList.get(position)) {
-					deleteList.remove(i);
-				}
-				deleteObjectList = deleteList;
-			}
-		} else {
-			ordersList.get(position).put("Background", "marked");
-			ordersList.get(position).saveInBackground();
+        if (ordersList.get(position).get("Background").toString()
+                .equals("marked")) {
 
-			adapterListBackground.set(position, ordersList.get(position)
-					.getString("Background"));
-			adapter.notifyDataSetChanged();
+            ordersList.get(position).put("Background", "unmarked");
+            ordersList.get(position).saveInBackground();
 
-			deleteList.add(objectList.get(position));
-			deleteObjectList = deleteList;
-		}
-	}
+            adapterListBackground.set(position, ordersList.get(position)
+                    .getString("Background"));
+            adapter.notifyDataSetChanged();
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean result = super.onCreateOptionsMenu(menu);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.bar_kitchen_menu, menu);
-		return result;
-	}
+            for (int i = 0; i < deleteList.size(); i++) {
+                if (deleteList.get(i) == objectList.get(position)) {
+                    deleteList.remove(i);
+                }
+                deleteObjectList = deleteList;
+            }
+        } else {
+            ordersList.get(position).put("Background", "marked");
+            ordersList.get(position).saveInBackground();
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_refreh:
-			adapterListBackground.clear();
-			adapterListOrder.clear();
-			adapterListTable.clear();
-			listKind.clear();
-			// Execute RemoteDataTask AsyncTask
-			new RemoteDataTask().execute();
-			return true;
+            adapterListBackground.set(position, ordersList.get(position)
+                    .getString("Background"));
+            adapter.notifyDataSetChanged();
 
-		default:
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
-	@Override
+            deleteList.add(objectList.get(position));
+            deleteObjectList = deleteList;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean result = super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.bar_kitchen_menu, menu);
+        return result;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_refreh:
+                adapterListBackground.clear();
+                adapterListOrder.clear();
+                adapterListTable.clear();
+                listKind.clear();
+                // Execute RemoteDataTask AsyncTask
+                new RemoteDataTask().execute();
+                return true;
+
+            default:
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(0, DELETE_ID, 0, R.string.menu_cancel);
     }
-	
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -319,7 +319,7 @@ public class BarKitchenActivity extends ListActivity {
 
                 // Delete the remote object
                 final ParseObject order = ordersList.get(info.position);
-                
+
 
                 new RemoteDataTask() {
                     protected Void doInBackground(Void... params) {
@@ -332,17 +332,17 @@ public class BarKitchenActivity extends ListActivity {
                     }
                 }.execute();
                 adapterListBackground.clear();
-    			adapterListOrder.clear();
-    			adapterListTable.clear();
-    			listKind.clear();
-    			
+                adapterListOrder.clear();
+                adapterListTable.clear();
+                listKind.clear();
+
                 return true;
-                
-                
+
+
         }
-       
-		// Execute RemoteDataTask AsyncTask
-		new RemoteDataTask().execute();
+
+        // Execute RemoteDataTask AsyncTask
+        new RemoteDataTask().execute();
         return super.onContextItemSelected(item);
     }
 }

@@ -78,6 +78,7 @@ public class PopulateMenuActivity extends ListActivity {
         }
     }
 
+
     /**
      * Called when the activity is first created.
      */
@@ -221,10 +222,9 @@ public class PopulateMenuActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Intent i = new Intent(this, CreateProdukt.class);
-        i.putExtra("name", orders.get(position).getString("Name").toString());
-        i.putExtra("preis", orders.get(position).getString("Preis").toString());
-        i.putExtra("kategorie", orders.get(position).getString("Kategorie")
-                .toString());
+        i.putExtra("name", orders.get(position).getString("Name"));
+        i.putExtra("preis", orders.get(position).getString("Preis"));
+        i.putExtra("kategorie", orders.get(position).getString("Kategorie"));
         i.putExtra("position", position);
         startActivityForResult(i, ACTIVITY_EDIT);
     }
