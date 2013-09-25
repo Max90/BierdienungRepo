@@ -15,7 +15,7 @@
     <string name="nr">Nummer eingeben</string>
     <string name="empty">Tisch ist leer</string>
     <string name="menu_delete">Löschen</string>
-     <string name="menu_cancel">stornieren</string>
+    <string name="menu_cancel">stornieren</string>
     <string name="no_such_user_exist_toast_string">Dieser Nutzer existiert nicht, bitte registrieren Sie sich!</string>
     <string name="no_tables_toast_string">Es sind leider noch keine Tische angelegt. Bitte wenden Sie sich an Ihren Restaurantleiter!</string>
     <string name="not_back_current_order_dialog_string">Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?</string>
@@ -67,5 +67,6 @@
     <string name="sum_up_marked_button_string">Markierte Abrechnen</string>
     <string name="cancel_order_dialog_string">Ihre Bestellung wird nicht an die Küche/Ausschank gesendet. Trotzdem zurück gehen?</string>
     <string name="mark_finished_string">Fertige Bestellungen markieren!</string>
+    <string name="current_num_of_tables_string">Aktuelle Tischanzahl</string>
 
 </resources>

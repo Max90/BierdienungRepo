@@ -61,8 +61,8 @@ public class BarKitchenActivity extends ListActivity {
 		if(menuName.equals("Getraenke")){
 			setTitle("Ausschank");
 		}else{
-			setTitle("Küche");
-		}
+            setTitle("KÃ¼che");
+        }
 		
 		refreshButton();
 		// Execute RemoteDataTask AsyncTask
@@ -88,7 +88,6 @@ public class BarKitchenActivity extends ListActivity {
 							try {
 								paidItem.save();
 							} catch (ParseException e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 							

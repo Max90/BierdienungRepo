@@ -162,9 +162,7 @@ public class WaiterCashUpActivity extends ListActivity {
                                                 // Delete the remote object
                                                 for (int i = 0; i < list.size(); i++) {
 
-                                                    // set the todoObject to the
-                                                    // item in
-                                                    // list
+                                                    // set the orderObject to the item in list
                                                     final ParseObject paidItem = list
                                                             .get(i);
 
@@ -262,9 +260,8 @@ public class WaiterCashUpActivity extends ListActivity {
                                                 for (int i = 0; i < orders
                                                         .size(); i++) {
 
-                                                    // set the todoObject to the
-                                                    // item in
-                                                    // list
+                                                    // set the orderObject to the
+                                                    // item in list
                                                     final ParseObject paidItem = orders
                                                             .get(i);
 

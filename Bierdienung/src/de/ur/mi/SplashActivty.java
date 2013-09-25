@@ -13,14 +13,13 @@ import de.ur.mi.login.LoginSignupActivity;
 
 public class SplashActivty extends Activity {
 
-    private static int SPLASH_TIME_OUT = 1000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         MediaPlayer mp = MediaPlayer.create(this, R.raw.pouring_beer_sound);
         mp.start();
+        int SPLASH_TIME_OUT = 2000;
         new Handler().postDelayed(new Runnable() {
 
             @Override

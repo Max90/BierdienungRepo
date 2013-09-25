@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/table_number_edit_text"
-        android:text="Aktuelle Tischanzahl" />
+        android:text="@string/current_num_of_tables_string" />
 
     <EditText
         android:id="@+id/table_number_edit_text"

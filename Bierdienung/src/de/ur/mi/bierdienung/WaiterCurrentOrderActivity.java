@@ -119,8 +119,8 @@ public class WaiterCurrentOrderActivity extends ListActivity {
 
 				for (int i = 0; i < deleteObjectList.size(); i++) {
 
-					// set the todoObject to the item in list
-					final ParseObject paidItem = deleteObjectList.get(i);
+                    // set the orderObject to the item in list
+                    final ParseObject paidItem = deleteObjectList.get(i);
 
 					paidItem.deleteInBackground();
 

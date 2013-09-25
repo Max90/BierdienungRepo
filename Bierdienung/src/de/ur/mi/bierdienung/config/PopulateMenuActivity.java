@@ -69,8 +69,8 @@ public class PopulateMenuActivity extends ListActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     PopulateMenuActivity.this,
                     R.layout.menu_list_item);
-            for (ParseObject todo : orders) {
-                adapter.add((String) todo.get("Name"));
+            for (ParseObject order : orders) {
+                adapter.add((String) order.get("Name"));
             }
             setListAdapter(adapter);
             PopulateMenuActivity.this.progressDialog.dismiss();
@@ -100,7 +100,7 @@ public class PopulateMenuActivity extends ListActivity {
         registerForContextMenu(getListView());
     }
 
-    private void createTodo() {
+    private void createProduct() {
         Intent i = new Intent(this, CreateProdukt.class);
         startActivityForResult(i, ACTIVITY_CREATE);
     }
@@ -206,7 +206,7 @@ public class PopulateMenuActivity extends ListActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                createTodo();
+                createProduct();
                 return true;
 
             case android.R.id.home:
